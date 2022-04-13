@@ -2,8 +2,8 @@
 
 Preencha os dados abaixo para identificar a autoria do trabalho.
 
-- Nome: *\<insira seu nome aqui>*
-- Email: *\<insira seu email aqui>*
-- Turma: *\<insira sua turma aqui>*
+- Nome: *\<Bianca Mirtes Araujo Miranda e Poliane Brito>*
+- Email: *\<miranda.bianca41@gmail.com>*
+- Turma: *\<T01-IMD0030>*
 
 Repita os campos Nome e Email caso seja uma dupla
