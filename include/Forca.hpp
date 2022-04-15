@@ -57,7 +57,9 @@ class Forca {
          * @param d a dificuldade desejada
          * @see proxima_palavra
          */
-        void set_dificuldade(Dificuldade d);
+        void set_dificuldade(Dificuldade d){
+            
+        };
  
         /**
          * Retorna a próxima palavra de acordo com a dificuldade atual.
@@ -84,7 +86,9 @@ class Forca {
          * sendo jogada
          * @return o valor do atributo palavra_atual
          **/
-        std::string get_palavra_atual();
+        std::string get_palavra_atual(){
+            return m_palavra_atual;
+        };
  
         /**
          * Testa se uma letra pertence á palavra atual e se já foi jogada pelo jogador.
