@@ -50,19 +50,19 @@ int main(int argc, char *argv[]){
                     auto result = forca.palpite(palpite);
                     /*testa palpite e atualiza a interface dependendo do resultado*/
                 }
-                if(/*acertou a palavra inteira*/){
+                //if(/*acertou a palavra inteira*/){
                     /*imprime interface de continuar / parar*/
-                    if (/*parar*/){
-                        break;
-                    } else{
-                        forca.reset_rodada();
-                    }
-                }
-                else{ /*perdeu*/
+                    //if (/*parar*/){
+                        //break;
+                    //} else{
+                        //forca.reset_rodada();
+                    //}
+                //}
+                //else{ /*perdeu*/
                     /*imprime gameover e a palavra que estava sendo jogada*/
-                    cout << "O jogo acabou, a palavra era "<< Forca::get_palavra_atual << endl; 
-                    break;
-                }
+                    //cout << "O jogo acabou, a palavra era "<< Forca::get_palavra_atual << endl; 
+                    //break;
+                //}
             }
             /*ler informações do jogador para o score e gravar no arquivo*/
         }
@@ -70,7 +70,8 @@ int main(int argc, char *argv[]){
             /*mostrar score*/
         } else{
             break
-        } //qualquer outro número sai do jogo     
+             //qualquer outro número sai do jogo
+        }   
     }
     return 0;
 }

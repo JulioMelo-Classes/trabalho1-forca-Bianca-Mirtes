@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <fstream>
+#include <string>
  
 class Forca {
     public:
@@ -34,7 +36,10 @@ class Forca {
          * @param scores o nome do arquivo que contém os scores
          * @see eh_valido
          */
-        Forca( std::string palavras, std::string scores );
+        Forca( std::string palavras, std::string scores ){
+            palavras = "base_palavras.txt";
+            scores = "base_scores.txt";
+        };
        
  
         /**
@@ -43,13 +48,51 @@ class Forca {
          * razão correspondente de acordo com as especificações.
          * @return {T,""} se os arquivos estiverem válidos, {F,"razão"} caso contrário.
          */
-        std::pair<bool, std::string> eh_valido();
+        std::pair<bool, std::string> eh_valido(){
+            std::fstream m_arquivo_palavras;
+            std::fstream m_arquivo_scores;
+            m_arquivo_palavras.open("base_palavras.txt", std::ios::in);
+            m_arquivo_scores.open("base_scores.txt", std::ios::in);
+            if(!m_arquivo_palavras){
+                return std::pair<bool, std::string> {false, "Arquivos base_palavras.txt inexistente"};
+            }
+            if(!m_arquivo_scores){
+                return std::pair<bool, std::string> {false, "Arquivos base_scores.txt inexistente"};
+            }
+        };
  
         /**
          * Carrega os arquivos de scores e palavras preenchendo **ao menos** a estrutura m_palavras
          */
-        void carregar_arquivos();
- 
+        void carregar_arquivos(){
+            std::string line; 
+            std::fstream m_arquivo_palavras;
+            std::fstream m_arquivo_scores;
+            std::string line, palavra;
+            int freq;
+            int pos;
+            m_arquivo_palavras.open("teste.txt", std::ios::in);
+            m_arquivo_scores.open("base_scores.txt", std::ios::in);
+            while(!m_arquivo_palavras.eof()){
+                getline(m_arquivo_palavras, line);
+                for(int k=0; k < line.size(); k++){
+                    if(isalpha(line[k])){
+                        pos = k-1;
+                        break;
+                    }
+                }
+                freq = std::stoi(line.substr(0, pos));
+                palavra = line.substr(pos+1, line.size()-1);
+                m_palavras.push_back(std::make_pair(palavra, freq));
+            }
+            std::vector<std::pair<std::string, std::string>> dif_nome;
+            std::vector<std::pair<std::vector<std::string>, int>> palavra_pont;
+            std::string palavras;
+            int pont;
+            m_arquivo_palavras.close();
+            m_arquivo_scores.close();
+        }  
+
         /**
          * Modifica a dificuldade do jogo.
          * Este método modifica a dificuldade do jogo gerando um novo vetor palavras_do_jogo
@@ -58,7 +101,13 @@ class Forca {
          * @see proxima_palavra
          */
         void set_dificuldade(Dificuldade d){
-            
+            if (d == 0){
+                m_dificuldade = Dificuldade::FACIL;
+            } else if(d == 1){
+                m_dificuldade = Dificuldade::MEDIO;
+            } else{
+                m_dificuldade = Dificuldade::DIFICIL;
+            }
         };
  
         /**
@@ -86,9 +135,7 @@ class Forca {
          * sendo jogada
          * @return o valor do atributo palavra_atual
          **/
-        std::string get_palavra_atual(){
-            return m_palavra_atual;
-        };
+        std::string get_palavra_atual();
  
         /**
          * Testa se uma letra pertence á palavra atual e se já foi jogada pelo jogador.
