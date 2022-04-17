@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/Forca.hpp
+iostream
+-
+vector
+-
+fstream
+-
+string
+-
+cstring
+-
+sstream
+-
+ctime
+-
+cstdlib
+-
+random
+-
+algorithm
+-
+
+/mnt/c/Users/alice/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/src/main.cpp
+iostream
+-
+Forca.hpp
+/mnt/c/Users/alice/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/src/Forca.hpp
+istream
+-
+

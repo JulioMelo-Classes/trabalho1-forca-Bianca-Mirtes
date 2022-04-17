@@ -10,23 +10,23 @@ int main(int argc, char *argv[]){
     auto valid = forca.eh_valido();
     if(valid.second.first == 0){
         if(!valid.first.first){ //sai do programa ao encontrar um erro
-            cout<<"Erro " << valid.first.second << endl;
+            cout << "Erro " << valid.first.second << endl;
             exit(-1);
         } 
     } else if(valid.second.second == "" && valid.second.first != 0){
         if(!valid.first.first){ //sai do programa ao encontrar um erro
-            cout<<"Erro " << valid.first.second << " na linha: " << valid.second.first << endl;
+            cout << "Erro " << valid.first.second << " na linha: " << valid.second.first << endl;
             exit(-1);
         } 
     } else{
         if(!valid.first.first){ //sai do programa ao encontrar um erro
-            cout<<"Erro " << valid.first.second << ", na linha: " << valid.second.first << ", palavra: " << valid.second.second << endl;
+            cout << "Erro " << valid.first.second << ", na linha: " << valid.second.first << ", palavra: " << valid.second.second << endl;
             exit(-1);
         }
+    }
     cout << "-----------------------------------------------------------" << endl;
     cout << ">>> Arquivos OK" << endl;
     cout << "-----------------------------------------------------------" << endl; 
-    }
     while(true){
         /*imprime o menu principal e a escolha do usuário*/
         cout << "Bem-vindo(a) ao Jogo Forca! Por favor escolha uma das opções:" << endl;
@@ -42,34 +42,46 @@ int main(int argc, char *argv[]){
             cout << "1 - FACIL" << endl;
             cout << "2 - MEDIO" << endl;
             cout << "3 - DIFICIL" << endl;
-            Forca::Dificuldade d;
-            int dificuldade;
+            //Forca::Dificuldade d;
+            int dificuldade, d;
             cout << "Sua escolha: ";
             cin >> dificuldade;
             if (dificuldade == 1){
-                d = Forca::Dificuldade::FACIL;
-                cout << "Iniciando o jogo no nível FÁCIL, será que você conhece essa palavra?" << endl;
+                d = 0; 
+                //Forca::Dificuldade::FACIL
+                //cout << "Iniciando o jogo no nível FÁCIL, será que você conhece essa palavra?" << endl;
             } else if(dificuldade == 2){
-                d = Forca::Dificuldade::MEDIO;
-                cout << "Iniciando o jogo no nível MÉDIO, será que você conhece essa palavra?" << endl;
-            } else{
-                d = Forca::Dificuldade::DIFICIL;
-                cout << "Iniciando o jogo no nível DIFÍCIL, será que você conhece essa palavra?" << endl;
+                d = 1;
+                //Forca::Dificuldade::MEDIO;
+                //cout << "Iniciando o jogo no nível MÉDIO, será que você conhece essa palavra?" << endl;
+            } else if(dificuldade == 3){
+                d = 2;
+                //Forca::Dificuldade::DIFICIL;
+                //cout << "Iniciando o jogo no nível DIFÍCIL, será que você conhece essa palavra?" << endl;
             }
             forca.set_dificuldade(d);
             while(true){ //
                 string p = forca.proxima_palavra();
                 /*exibe interface do jogo*/
-                for(int i=0; i < p.size(); i++){
+                cout << endl;
+                cout << endl;
+                cout << endl;
+                for(int i=0; i < (int)p.size(); i++){
                     cout << p[i] << " ";
-                } 
-                while (!forca.rodada_terminada()){ //loop da rodada
-                    /*ler palpite*/
-                    string palpite;
-
-                    auto result = forca.palpite(palpite);
-                    /*testa palpite e atualiza a interface dependendo do resultado*/
                 }
+                cout << endl;
+                cout << "Pontos: 0" << endl;
+                string palpite;
+                cout << "Palpite: ";
+                cin >> palpite;
+                break;
+                //while (!forca.rodada_terminada()){ //loop da rodada
+                    /*ler palpite*/
+                    //string palpite;
+                    //cin >> palpite;
+                    //auto result = forca.palpite(palpite);
+                    /*testa palpite e atualiza a interface dependendo do resultado*/
+                //}
                 //if(/*acertou a palavra inteira*/){
                     /*imprime interface de continuar / parar*/
                     //if (/*parar*/){
