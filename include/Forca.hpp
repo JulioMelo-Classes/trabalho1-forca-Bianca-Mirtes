@@ -57,16 +57,30 @@ class Forca {
         std::pair<std::pair<bool, std::string>, std::pair<int, std::string>> eh_valido(){
             std::fstream m_arquivo_palavras;
             std::fstream m_arquivo_scores;
-            int count=0, pos;
+            int count=0, pos, pos1=0, count1, count2;
             std::string palavra, freq;
             std::string linha, str;
             std::pair<std::pair<bool, std::string>, std::pair<int, std::string>> erro;
             m_arquivo_palavras.open("base_formatada.txt", std::ios::in);
             m_arquivo_scores.open("base_scores.txt", std::ios::in);
+            while(!m_arquivo_scores.eof()){
+                getline(m_arquivo_scores, linha);
+                count1++;
+                for(int k=0; k < linha.size(); k++){
+                    if(linha[k] == ';'){
+                        pos1++;
+                        if(pos1 > 3 || pos1 < 3){
+                            count2 = count1;
+                        }
+                    }
+                }
+            }
             if(!m_arquivo_palavras){
                 return std::pair<std::pair<bool, std::string>, std::pair<int, std::string>>{{false, "Arquivo base_formatada.txt inexistente"}, {0, ""}};
             } else if(!m_arquivo_scores){
                 return std::pair<std::pair<bool, std::string>, std::pair<int, std::string>>{{false, "Arquivos base_scores.txt inexistente"}, {0, ""}};
+            } else if(pos1 > 3 || pos1 < 3){
+                 return std::pair<std::pair<bool, std::string>, std::pair<int, std::string>>{{false, "Excesso de ;"}, {count2, ""}};
             } else{
                 while(!m_arquivo_palavras.eof()){
                     getline(m_arquivo_palavras, linha);
