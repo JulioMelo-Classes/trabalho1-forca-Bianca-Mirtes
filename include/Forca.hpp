@@ -122,7 +122,6 @@ class Forca {
             std::vector<std::string> palavras;
             std::vector<int> pont;
             std::string line1;
-            int count=0;
             while(!m_arquivo_scores.eof()){
                 getline(m_arquivo_scores, line1, ';');
                 //std::cout << line1 << std::endl;
