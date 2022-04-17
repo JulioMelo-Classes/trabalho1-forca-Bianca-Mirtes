@@ -14,7 +14,7 @@ class Forca {
     private:
         //TODO: armazenar os scores?
         std::vector< std::pair<std::string, int> > m_palavras; //<! palavras e sua ocorrência no Corpus
-        
+
         std::string m_arquivo_scores; //<! nome do arquivo contendo os scores
  
         std::string m_arquivo_palavras; //<! nome do arquivo contendo as palavras
@@ -38,7 +38,10 @@ class Forca {
          * @param scores o nome do arquivo que contém os scores
          * @see eh_valido
          */
-        Forca( std::string palavras, std::string scores );
+        Forca( std::string palavras, std::string scores ){
+            palavras = "base_formatada.txt";
+            scores = "base_scores.txt";
+        };
        
  
         /**
@@ -95,7 +98,6 @@ class Forca {
             std::fstream m_arquivo_palavras;
             std::fstream m_arquivo_scores;
             std::string line, palavra;
-            std::vector< std::pair<std::string, int> > m_palavras;
             int freq;
             int pos;
             m_arquivo_palavras.open("teste.txt", std::ios::in);
@@ -145,7 +147,11 @@ class Forca {
          * alterando o valor de m_palavra_jogada de acordo.
          * @return o valor do atributo m_palavra_jogada.
          */
-        std::string proxima_palavra();
+        std::string proxima_palavra(){
+            if(m_dificuldade == 0){
+                
+            }
+        };
  
         /**
          * Retorna a palavra atual que está sendo jogada.

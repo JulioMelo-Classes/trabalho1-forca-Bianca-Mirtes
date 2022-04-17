@@ -5,11 +5,22 @@
 using namespace std;
 int main(int argc, char *argv[]){
     Forca forca(argv[1], argv[2]);
+    cout << ">>> Lendo arquivo de palavras ["<< argv[1] << "] e de scores [" << argv[2] << "], por favor aguarde.." << endl;
     forca.carregar_arquivos();
     auto valid = forca.eh_valido();
-    if(!valid.first){ //sai do programa ao encontrar um erro
-        cout<<"Erro "<<valid.second<<endl;
-        exit(-1);
+    if(valid.second.first == 0){
+        if(!valid.first.first){ //sai do programa ao encontrar um erro
+            cout<<"Erro " << valid.first.second << endl;
+            exit(-1);
+        } 
+    } else{
+        if(!valid.first.first){ //sai do programa ao encontrar um erro
+            cout<<"Erro " << valid.first.second << ", na linha: " << valid.second.first << ", palavra: " << valid.second.second << endl;
+            exit(-1);
+        }
+    cout << "-----------------------------------------------------------" << endl;
+    cout << "Arquivos OK" << endl;
+    cout << "-----------------------------------------------------------" << endl; 
     }
     while(true){
         /*imprime o menu principal e a escolha do usuário*/
