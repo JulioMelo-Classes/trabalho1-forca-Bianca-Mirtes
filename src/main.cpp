@@ -55,9 +55,13 @@ int main(int argc, char *argv[]){
             while(true){ //
                 string p = forca.proxima_palavra();
                 /*exibe interface do jogo*/
+                for(int i=0; i < p.size(); i++){
+                    cout << p[i] << " ";
+                } 
                 while (!forca.rodada_terminada()){ //loop da rodada
                     /*ler palpite*/
                     string palpite;
+
                     auto result = forca.palpite(palpite);
                     /*testa palpite e atualiza a interface dependendo do resultado*/
                 }
@@ -80,7 +84,7 @@ int main(int argc, char *argv[]){
         else if(choice == 2){
             /*mostrar score*/
         } else{
-            break
+            break;
              //qualquer outro número sai do jogo
         }   
     }

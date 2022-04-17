@@ -4,6 +4,10 @@
 #include <string>
 #include <cstring>
 #include <sstream>
+#include <ctime>
+#include <cstdlib>
+#include <random>
+#include <algorithm>
 
  
 class Forca {
@@ -113,11 +117,24 @@ class Forca {
                 palavra = (line.substr(0, pos));
                 freq = std::stoi(line.substr(pos+1, line.size()-2));
                 m_palavras.push_back(std::make_pair(palavra, freq));
-                }
-            std::vector<std::pair<std::string, std::string>> dif_nome;
-            std::vector<std::pair<std::vector<std::string>, int>> palavra_pont;
-            std::string palavras;
-            int pont;
+            }
+            std::vector<std::pair<std::string, std::string>> dificuldade_jogador;
+            std::vector<std::string> palavras;
+            std::vector<int> pont;
+            std::string line1;
+            int count=0;
+            while(!m_arquivo_scores.eof()){
+                getline(m_arquivo_scores, line1, ';');
+                //std::cout << line1 << std::endl;
+                std::string line2 = line1;
+                getline(m_arquivo_scores, line1, ';');
+                std::string line3 = line1;
+                dificuldade_jogador.push_back(make_pair(line2, line3));
+                getline(m_arquivo_scores, line1, ';');
+                palavras.push_back(line1);
+                getline(m_arquivo_scores, line1, '\n');
+                pont.push_back(std::stoi(line1));
+            }
             m_arquivo_palavras.close();
             m_arquivo_scores.close();
         }  
@@ -148,9 +165,63 @@ class Forca {
          * @return o valor do atributo m_palavra_jogada.
          */
         std::string proxima_palavra(){
+            srand(time(NULL));
             if(m_dificuldade == 0){
-                
+                for(int i=0; i < 10; i++){
+                    int sorteio = rand()%3480410;
+                    if(m_palavras[sorteio].second > 130){
+                        m_palavras_do_jogo.push_back(m_palavras[sorteio].first);
+                    } else{
+                        sorteio = rand()%3480410;
+                        m_palavras_do_jogo.push_back(m_palavras[sorteio].first);
+                    }
+                }
+            } else if (m_dificuldade == 1){
+                for(int i=0; i < 20; i++){
+                    int sorteio = rand()%3480410;
+                    if(i <= int(20/3)){
+                        if(m_palavras[sorteio].second < 130){
+                            m_palavras_do_jogo.push_back(m_palavras[sorteio].first);
+                        } else{
+                            sorteio = rand()%3480410;
+                            m_palavras_do_jogo.push_back(m_palavras[sorteio].first);
+                        }
+                    } else{
+                        if(m_palavras[sorteio].second >= 130){
+                            m_palavras_do_jogo.push_back(m_palavras[sorteio].first);
+                        } else{
+                            sorteio = rand()%3480410;
+                            m_palavras_do_jogo.push_back(m_palavras[sorteio].first);
+                        }
+                    }
+                }
+            } else{
+                for(int i=0; i < 30; i++){
+                    int sorteio = rand()%3480410;
+                    if(i <= int(20*(3/4))){
+                        if(m_palavras[sorteio].second < 130){
+                            m_palavras_do_jogo.push_back(m_palavras[sorteio].first);
+                        } else{
+                            sorteio = rand()%3480410;
+                            m_palavras_do_jogo.push_back(m_palavras[sorteio].first);
+                        }
+                    } else{
+                        if(m_palavras[sorteio].second >= 130){
+                            m_palavras_do_jogo.push_back(m_palavras[sorteio].first);
+                        } else{
+                            sorteio = rand()%3480410;
+                            m_palavras_do_jogo.push_back(m_palavras[sorteio].first);
+                        }
+                    }
+                }
             }
+            std::random_shuffle(m_palavras_do_jogo.begin(), m_palavras_do_jogo.end());
+            m_palavra_atual = m_palavras_do_jogo[rand()%(m_palavras_do_jogo.size()-1)];
+            m_palavra_jogada = m_palavra_atual;
+            for(int i=0; i < m_palavra_atual.size(); i++){
+                m_palavra_jogada[i] = '_';
+            }
+            return m_palavra_jogada;
         };
  
         /**
@@ -168,7 +239,9 @@ class Forca {
          * sendo jogada
          * @return o valor do atributo palavra_atual
          **/
-        std::string get_palavra_atual();
+        std::string get_palavra_atual(){
+            return m_palavra_atual;
+        };
  
         /**
          * Testa se uma letra pertence á palavra atual e se já foi jogada pelo jogador.
