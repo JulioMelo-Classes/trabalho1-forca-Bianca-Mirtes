@@ -8,7 +8,6 @@ int main(int argc, char *argv[]){
     cout << ">>> Lendo arquivo de palavras ["<< argv[1] << "] e de scores [" << argv[2] << "], por favor aguarde.." << endl;
     cout << 3 << endl;
     forca.carregar_arquivos();
-    cout << 5 << endl;
     auto valid = forca.eh_valido();
     if(valid.second.first == 0){
         if(!valid.first.first){ //sai do programa ao encontrar um erro
