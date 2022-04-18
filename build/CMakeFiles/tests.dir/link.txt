@@ -1,1 +1,0 @@
-/usr/bin/c++  -Wall   CMakeFiles/tests.dir/src/main.cpp.o  -o tests 

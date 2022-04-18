@@ -25,9 +25,6 @@ add_executable( ${APP_NAME}
 
 # Cria um segundo executável apenas para rodar os testes
 
-set( TESTS "tests" )
-add_executable( ${TESTS}
-                src/main.cpp)
 
 
 # define C++14 standard

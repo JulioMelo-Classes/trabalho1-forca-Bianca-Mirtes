@@ -61,7 +61,7 @@ class Forca {
         pair<pair<bool, string>, pair<int, string>> eh_valido(){
             fstream arq_palavras;
             fstream arq_scores;
-            int count=0, pos, qnt=0, count1=0;
+            int count=0, qnt=0, count1=0;
             string palavra, freq;
             string linha, str;
             pair<pair<bool, string>, pair<int, string>> erro;
@@ -73,16 +73,11 @@ class Forca {
                 return pair<pair<bool, string>, pair<int, string>>{{false, "Arquivos base_scores.txt inexistente"}, {0, ""}};
             } else{
                 while(!arq_palavras.eof()){
-                    getline(arq_palavras, linha);
+                    getline(arq_palavras, linha, ' ');
+                    palavra = linha;
+                    getline(arq_palavras, linha, '\n');
+                    freq = linha;
                     count++;
-                    for(int k=0; k < (int)linha.size(); k++){
-                        if(isspace(linha[k])){
-                            palavra = linha.substr(0, k);
-                            pos = k;
-                            break;
-                        }
-                    }
-                    freq = linha.substr(pos+1, linha.size()-1);
                     for(int i=0; i < (int)palavra.size(); i++){
                        if(ispunct(linha[i]) && (linha[i] != '-')){
                             return pair<pair<bool, string>, pair<int, string>>{{false, "Caractere especial encontrado"}, {count, palavra}};
@@ -118,22 +113,15 @@ class Forca {
         void carregar_arquivos(){
             fstream arquivo_palavras;
             fstream arquivo_scores;
-            string line, palavra;
-            int freq;
-            int pos;
+            string line, palavra, freq;
             arquivo_palavras.open(m_arquivo_palavras, ios::in);
             arquivo_scores.open(m_arquivo_scores, ios::in);
             while(!arquivo_palavras.eof()){
-                getline(arquivo_palavras, line);
-                for(int k=0; k < (int)line.size(); k++){
-                    if(isdigit(line[k])){
-                        pos = k-1;
-                        break;
-                    }
-                }
-                palavra = (line.substr(0, pos));
-                freq = stoi(line.substr(pos+1, line.size()-2));
-                m_palavras.push_back(make_pair(palavra, freq));
+                getline(arquivo_palavras, line, ' ');
+                palavra = line;
+                getline(arquivo_palavras, line, '\n');
+                freq = line;
+                m_palavras.push_back(make_pair(palavra, stoi(freq)));
             }
             vector<pair<string, string>> dificuldade_jogador;
             vector<string> palavras;

@@ -53,10 +53,6 @@ CMAKE_BINARY_DIR = /mnt/c/Users/alice/OneDrive/Documentos/GitHub/trabalho1-forca
 # Include the progress variables for this target.
 include CMakeFiles/run_tests.dir/progress.make
 
-CMakeFiles/run_tests: tests
-	./tests
-
-run_tests: CMakeFiles/run_tests
 run_tests: CMakeFiles/run_tests.dir/build.make
 
 .PHONY : run_tests

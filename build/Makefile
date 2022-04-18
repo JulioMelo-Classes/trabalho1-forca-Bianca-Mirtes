@@ -124,19 +124,6 @@ run_tests/fast:
 .PHONY : run_tests/fast
 
 #=============================================================================
-# Target rules for targets named tests
-
-# Build rule for target.
-tests: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 tests
-.PHONY : tests
-
-# fast build rule for target.
-tests/fast:
-	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/build
-.PHONY : tests/fast
-
-#=============================================================================
 # Target rules for targets named program
 
 # Build rule for target.
@@ -155,7 +142,6 @@ src/main.o: src/main.cpp.o
 
 # target to build an object file
 src/main.cpp.o:
-	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/src/main.cpp.o
 	$(MAKE) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
@@ -165,7 +151,6 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/src/main.cpp.i
 	$(MAKE) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
@@ -175,7 +160,6 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/src/main.cpp.s
 	$(MAKE) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
@@ -188,7 +172,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... run_tests"
-	@echo "... tests"
 	@echo "... program"
 	@echo "... src/main.o"
 	@echo "... src/main.i"

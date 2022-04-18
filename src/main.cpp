@@ -13,7 +13,7 @@ int main(int argc, char *argv[]){
             cout << "Erro " << valid.first.second << endl;
             exit(-1);
         } 
-    } else if(valid.second.second == "" && valid.second.first != 0){
+    } else if(valid.second.second == "" && (valid.second.first != 0)){
         if(!valid.first.first){ //sai do programa ao encontrar um erro
             cout << "Erro " << valid.first.second << " na linha: " << valid.second.first << endl;
             exit(-1);
