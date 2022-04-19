@@ -85,5 +85,16 @@ int main(){
     cout << m_palavra_atual << endl;
     for(int i=0; i < m_palavra_jogada.size(); i++){
         cout << m_palavra_jogada[i] << " ";
-    } 
+    }
+                while(!arquivo_palavras.eof()){
+                getline(arquivo_palavras, line, ' ');
+                palavra = line;
+                getline(arquivo_palavras, line, '\n');
+                freq = line;
+                m_palavras.push_back(make_pair(palavra, stoi(freq)));
+            } 
+                                getline(arq_palavras, linha, ' ');
+                    palavra = linha;
+                    getline(arq_palavras, linha, '\n');
+                    freq = linha;
 }

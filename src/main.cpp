@@ -1,14 +1,16 @@
 #include <iostream>
 #include "Forca.hpp"
 #include <istream>
+#include <ctype.h>
 
 using namespace std;
+
 int main(int argc, char *argv[]){
     Forca forca(argv[1], argv[2]);
     cout << ">>> Lendo arquivo de palavras ["<< argv[1] << "] e de scores [" << argv[2] << "], por favor aguarde.." << endl;
-    cout << 3 << endl;
     forca.carregar_arquivos();
     auto valid = forca.eh_valido();
+    forca.dados();
     if(valid.second.first == 0){
         if(!valid.first.first){ //sai do programa ao encontrar um erro
             cout << "Erro " << valid.first.second << endl;
@@ -50,17 +52,20 @@ int main(int argc, char *argv[]){
             if (dificuldade == 1){
                 d = 0; 
                 //Forca::Dificuldade::FACIL
-                //cout << "Iniciando o jogo no nível FÁCIL, será que você conhece essa palavra?" << endl;
+                cout << "Iniciando o jogo no nível FÁCIL, será que você conhece essa palavra?" << endl;
             } else if(dificuldade == 2){
                 d = 1;
                 //Forca::Dificuldade::MEDIO;
-                //cout << "Iniciando o jogo no nível MÉDIO, será que você conhece essa palavra?" << endl;
+                cout << "Iniciando o jogo no nível MÉDIO, será que você conhece essa palavra?" << endl;
             } else if(dificuldade == 3){
                 d = 2;
                 //Forca::Dificuldade::DIFICIL;
-                //cout << "Iniciando o jogo no nível DIFÍCIL, será que você conhece essa palavra?" << endl;
+                cout << "Iniciando o jogo no nível DIFÍCIL, será que você conhece essa palavra?" << endl;
             }
+            //cout << 3 << endl;
             forca.set_dificuldade(d);
+            //cout << 5 << endl;
+            int point=0;
             while(true){ //
                 string p = forca.proxima_palavra();
                 /*exibe interface do jogo*/
@@ -71,18 +76,16 @@ int main(int argc, char *argv[]){
                     cout << p[i] << " ";
                 }
                 cout << endl;
-                cout << "Pontos: 0" << endl;
-                string palpite;
+                cout << "Pontos: " << point << endl;
                 cout << "Palpite: ";
-                cin >> palpite;
                 break;
-                //while (!forca.rodada_terminada()){ //loop da rodada
+                while (!forca.rodada_terminada()){ //loop da rodada
                     /*ler palpite*/
-                    //string palpite;
-                    //cin >> palpite;
-                    //auto result = forca.palpite(palpite);
+                    char palpite;
+                    cin >> palpite;
+                    auto result = forca.palpite(toupper(palpite));
                     /*testa palpite e atualiza a interface dependendo do resultado*/
-                //}
+                }
                 //if(/*acertou a palavra inteira*/){
                     /*imprime interface de continuar / parar*/
                     //if (/*parar*/){

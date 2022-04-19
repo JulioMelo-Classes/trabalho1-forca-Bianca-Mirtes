@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <random>
 #include <algorithm>
+#include <ctype.h>
 
 using namespace std;
  
@@ -24,7 +25,8 @@ class Forca {
  
         string m_arquivo_palavras; //<! nome do arquivo contendo as palavras
  
-        Dificuldade m_dificuldade = Dificuldade::FACIL; //<! dificuldade atual do jogo
+        Dificuldade m_dificuldade;
+        //= Dificuldade::FACIL; //<! dificuldade atual do jogo
  
         vector< string > m_palavras_do_jogo; //<! container “Palavras do Jogo”
         vector< char > m_letras_palpitadas; //<! contem as letras palpitadas pelo jogador
@@ -33,8 +35,8 @@ class Forca {
         
         int m_tentativas_restantes; //TODO: armazenar tentativas restantes
         int qnt_palavras;
-        int soma_frequencia;
         int media_p;
+        int soma_freq=0;
    
     public:
         /**
@@ -61,7 +63,7 @@ class Forca {
         pair<pair<bool, string>, pair<int, string>> eh_valido(){
             fstream arq_palavras;
             fstream arq_scores;
-            int count=0, qnt=0, count1=0;
+            int count=0, pos, count1, qnt=0;
             string palavra, freq;
             string linha, str;
             pair<pair<bool, string>, pair<int, string>> erro;
@@ -73,10 +75,16 @@ class Forca {
                 return pair<pair<bool, string>, pair<int, string>>{{false, "Arquivos base_scores.txt inexistente"}, {0, ""}};
             } else{
                 while(!arq_palavras.eof()){
-                    getline(arq_palavras, linha, ' ');
-                    palavra = linha;
-                    getline(arq_palavras, linha, '\n');
-                    freq = linha;
+                    getline(arq_palavras, linha);
+                    count++;
+                    for(int k=0; k < linha.size(); k++){
+                        if(isspace(linha[k])){
+                            palavra = linha.substr(0, k);
+                            pos = k;
+                            break;
+                        }
+                    }
+                    freq = linha.substr(pos+1, linha.size()-1);
                     count++;
                     for(int i=0; i < (int)palavra.size(); i++){
                        if(ispunct(linha[i]) && (linha[i] != '-')){
@@ -113,15 +121,21 @@ class Forca {
         void carregar_arquivos(){
             fstream arquivo_palavras;
             fstream arquivo_scores;
-            string line, palavra, freq;
+            string line, palavra;
+            int freq, pos;
             arquivo_palavras.open(m_arquivo_palavras, ios::in);
             arquivo_scores.open(m_arquivo_scores, ios::in);
             while(!arquivo_palavras.eof()){
-                getline(arquivo_palavras, line, ' ');
-                palavra = line;
-                getline(arquivo_palavras, line, '\n');
-                freq = line;
-                m_palavras.push_back(make_pair(palavra, stoi(freq)));
+                getline(arquivo_palavras, line);
+                for(int k=0; k < line.size(); k++){
+                    if(isdigit(line[k])){
+                        pos = k-1;
+                        break;
+                    }
+                }
+                palavra = (line.substr(0, pos));
+                freq = stoi(line.substr(pos+1, line.size()-2));
+                m_palavras.push_back(make_pair(palavra, freq));
             }
             vector<pair<string, string>> dificuldade_jogador;
             vector<string> palavras;
@@ -143,17 +157,11 @@ class Forca {
         }
 
         void dados(){
-            int qnt_p=0, soma_f=0, media;  
             for(int i=0; i < (int)m_palavras.size(); i++){
-                if(m_palavras[i].first.size() > 4){
-                    qnt_p++;
-                    soma_f += m_palavras[i].second;
-                }
+                soma_freq += m_palavras[i].second;
             }
-            media = soma_f/qnt_p;
-            media_p = media;
-            qnt_palavras = qnt_p;
-            soma_frequencia = soma_f;
+            media_p = soma_freq/(int)m_palavras.size();
+            qnt_palavras = (int)m_palavras.size();
         }; 
 
         /**
@@ -168,7 +176,7 @@ class Forca {
                 m_dificuldade = FACIL;
             } else if(d == 1){
                 m_dificuldade = MEDIO;
-            } else{
+            } else if(d == 2){
                 m_dificuldade = DIFICIL;
             }
         };
@@ -185,16 +193,18 @@ class Forca {
             vector<string> nivel_facil;
             vector<string> nivel_medio;
             vector<string> nivel_dificil;
-            srand(time(NULL));
-            if(m_dificuldade == 0){
+            int sorteio;
+            unsigned semente = time(NULL);
+            srand(semente);
+            if(m_dificuldade == 0){ 
                 for(int i=0; i < (int)m_palavras.size(); i++){
                     if(m_palavras[i].second > media_p){
-                        nivel_facil.push_back(m_palavras[i].first);
+                         nivel_facil.push_back(m_palavras[i].first);
                     }
                 }
                 for(int k=0; k < 10; k++){
-                    int sorteio = rand()%qnt_palavras;
-                    m_palavras_do_jogo.push_back(nivel_facil[sorteio]);
+                     sorteio = rand()%nivel_facil.size();
+                     m_palavras_do_jogo.push_back(nivel_facil[sorteio]);
 
                 }
             } else if (m_dificuldade == 1){
@@ -210,7 +220,7 @@ class Forca {
                     }
                 }
                 for(int k=0; k < 20; k++){
-                    int sorteio = rand()%qnt_palavras;
+                    sorteio = rand()%nivel_medio.size();
                     m_palavras_do_jogo.push_back(nivel_medio[sorteio]);
                 }
             } else{
@@ -226,7 +236,7 @@ class Forca {
                     }
                 }
                 for(int k=0; k < 30; k++){
-                    int sorteio = rand()%qnt_palavras;
+                    sorteio = rand()%nivel_dificil.size();
                     m_palavras_do_jogo.push_back(nivel_dificil[sorteio]);
                 }
             }
@@ -270,7 +280,46 @@ class Forca {
          * @return {T,T} se o palpite pertence à palavra e é um palpite novo, {F,T} caso não pertença e é novo.
          *         {T,F} ou {F,F} no caso do palpite pertencer/não pertencer à palavra, mas não é novo.
          */
-        pair<bool, bool> palpite(string palpite);
+
+
+        // letra pertence a palavra e letra nova (T, T)
+        // letra não pertence e letra nova (F, T)
+        // letra pertence e letra repetida (T, F)
+        // letra não pertence e letra repetida (F, F) 
+        pair<bool, bool> palpite(char palpite){
+            int exist=0;
+            if(m_letras_palpitadas.size() != 0){
+                for(int k=0; k < (int)m_letras_palpitadas.size(); k++){
+                    if(m_letras_palpitadas[k] == palpite){
+                        exist = 1;
+                    }
+                }
+                for(int i=0; i < (int)m_palavra_atual.size(); i++){
+                    if (m_palavra_atual[i] == palpite && exist != 1){
+                        return pair<bool, bool>{true, true}; 
+                    } else if (m_palavra_atual[i] != palpite && exist != 1){
+                        return pair<bool, bool>{false, true};
+                    } else if(m_palavra_atual[i] == palpite && exist == 1){
+                        return pair<bool, bool>{true, false};
+                    } else if(m_palavra_atual[i] != palpite && exist == 1){
+                        return pair<bool, bool>{false, false};
+                    }
+                }
+            } else{  
+                m_letras_palpitadas.push_back(palpite);
+                for(int i=0; i < (int)m_palavra_atual.size(); i++){
+                    if (m_palavra_atual[i] == palpite){
+                        return pair<bool, bool>{true, true}; 
+                    } else if (m_palavra_atual[i] != palpite && exist != 1){
+                        return pair<bool, bool>{false, true};
+                    } else if(m_palavra_atual[i] == palpite && exist == 1){
+                        return pair<bool, bool>{true, false};
+                    } else if(m_palavra_atual[i] != palpite && exist == 1){
+                        return pair<bool, bool>{false, false};
+                    }
+                }
+            }
+        };
  
         /**
          * Em caso de Game Over ou do jogador ter acertado a palavra este método deve retornar T.

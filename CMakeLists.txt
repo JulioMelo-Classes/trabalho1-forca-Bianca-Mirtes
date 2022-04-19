@@ -21,20 +21,10 @@ set( APP_NAME "program" )
 add_executable( ${APP_NAME}
                 src/main.cpp )
 
-
-
-# Cria um segundo executável apenas para rodar os testes
-
-
-
-# define C++14 standard
-set_property(TARGET ${APP_NAME} PROPERTY CXX_STANDARD 14)
-set_property(TARGET ${TESTS} PROPERTY CXX_STANDARD 14)
-
-add_custom_target(
-    run_tests
-    COMMAND ${TESTS}
-    DEPENDS ${TESTS}
-)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/base_formatada.txt     
+    ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
+    
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/base_scores.txt    
+    ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
 
 # The end
