@@ -33,7 +33,7 @@ class Forca {
         string m_palavra_atual; //<! palavra sendo jogada “atualmente”
         string m_palavra_jogada; //<! palavra sendo jogada “atualmente” no formato “_ _ _ ... _ “
         
-        int m_tentativas_restantes; //TODO: armazenar tentativas restantes
+        int m_tentativas_restantes=0; //TODO: armazenar tentativas restantes
         int qnt_palavras;
         int media_p;
         int soma_freq=0;
@@ -77,7 +77,7 @@ class Forca {
                 while(!arq_palavras.eof()){
                     getline(arq_palavras, linha);
                     count++;
-                    for(int k=0; k < linha.size(); k++){
+                    for(int k=0; k < (int)linha.size(); k++){
                         if(isspace(linha[k])){
                             palavra = linha.substr(0, k);
                             pos = k;
@@ -127,7 +127,7 @@ class Forca {
             arquivo_scores.open(m_arquivo_scores, ios::in);
             while(!arquivo_palavras.eof()){
                 getline(arquivo_palavras, line);
-                for(int k=0; k < line.size(); k++){
+                for(int k=0; k < (int)line.size(); k++){
                     if(isdigit(line[k])){
                         pos = k-1;
                         break;
@@ -162,8 +162,7 @@ class Forca {
             }
             media_p = soma_freq/(int)m_palavras.size();
             qnt_palavras = (int)m_palavras.size();
-        }; 
-
+        };
         /**
          * Modifica a dificuldade do jogo.
          * Este método modifica a dificuldade do jogo gerando um novo vetor palavras_do_jogo
@@ -296,8 +295,10 @@ class Forca {
                 }
                 for(int i=0; i < (int)m_palavra_atual.size(); i++){
                     if (m_palavra_atual[i] == palpite && exist != 1){
+                        m_letras_palpitadas.push_back(palpite);
                         return pair<bool, bool>{true, true}; 
                     } else if (m_palavra_atual[i] != palpite && exist != 1){
+                        m_letras_palpitadas.push_back(palpite);
                         return pair<bool, bool>{false, true};
                     } else if(m_palavra_atual[i] == palpite && exist == 1){
                         return pair<bool, bool>{true, false};
@@ -310,12 +311,8 @@ class Forca {
                 for(int i=0; i < (int)m_palavra_atual.size(); i++){
                     if (m_palavra_atual[i] == palpite){
                         return pair<bool, bool>{true, true}; 
-                    } else if (m_palavra_atual[i] != palpite && exist != 1){
+                    } else if (m_palavra_atual[i] != palpite){
                         return pair<bool, bool>{false, true};
-                    } else if(m_palavra_atual[i] == palpite && exist == 1){
-                        return pair<bool, bool>{true, false};
-                    } else if(m_palavra_atual[i] != palpite && exist == 1){
-                        return pair<bool, bool>{false, false};
                     }
                 }
             }
@@ -326,7 +323,14 @@ class Forca {
          * @return T caso o m_tentativas_restantes do jogo esteja igual a 0 ou se o usuário 
          *         acertou toda a palavra, F caso contrário.
          */
-        bool rodada_terminada();
+        bool rodada_terminada(){
+            if(get_tentativas_restantes() == 6){
+                return true;
+            }
+            else{
+                return false;
+            }
+        };
  
         /**
          * Reseta o valor de tentativas restantes para 5 e do atributo m_letras_palpitadas para vazio
@@ -340,6 +344,9 @@ class Forca {
          * Retorna a quantidade de tentativas restantes.
          * @return a quantidade de tentativas restantes.
          */
-        int get_tentativas_restantes();
+        int get_tentativas_restantes(){
+            m_tentativas_restantes++;
+            return m_tentativas_restantes;
+        };
 
 };

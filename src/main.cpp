@@ -2,6 +2,7 @@
 #include "Forca.hpp"
 #include <istream>
 #include <ctype.h>
+#include <vector>
 
 using namespace std;
 
@@ -66,7 +67,8 @@ int main(int argc, char *argv[]){
             forca.set_dificuldade(d);
             //cout << 5 << endl;
             int point=0;
-            while(true){ //
+            vector<char> boneco{'o', '/', '|', '\\', '/', '\\'};
+            while(true){
                 string p = forca.proxima_palavra();
                 /*exibe interface do jogo*/
                 cout << endl;
@@ -78,15 +80,25 @@ int main(int argc, char *argv[]){
                 cout << endl;
                 cout << "Pontos: " << point << endl;
                 cout << "Palpite: ";
-                break;
                 while (!forca.rodada_terminada()){ //loop da rodada
                     /*ler palpite*/
                     char palpite;
                     cin >> palpite;
-                    auto result = forca.palpite(toupper(palpite));
+                    auto result = forca.palpite(palpite);
+                    cout << forca.get_palavra_atual() << endl;
+                    if(result.first == true && (result.second == true)){
+                        cout << "Correto, a palavra contem a letra " << palpite << endl;
+                        cout << endl;
+                        cout << endl;
+                        cout << endl;
+                    } else if(result.first == false && (result.second == true)){
+                        cout << "Não há a letra " << palpite << " na palavra :(" << endl;
+                    } else if(result.first == true && (result.second == false)){
+                        cout << "Você já tentou a letra " << palpite << endl;
+                    }
                     /*testa palpite e atualiza a interface dependendo do resultado*/
                 }
-                //if(/*acertou a palavra inteira*/){
+                //if(p.find('_') == p.size()){
                     /*imprime interface de continuar / parar*/
                     //if (/*parar*/){
                         //break;
@@ -96,7 +108,7 @@ int main(int argc, char *argv[]){
                 //}
                 //else{ /*perdeu*/
                     /*imprime gameover e a palavra que estava sendo jogada*/
-                    //cout << "O jogo acabou, a palavra era "<< Forca::get_palavra_atual << endl; 
+                    //cout << "O jogo acabou, a palavra era "<< forca.get_palavra_atual() << endl; 
                     //break;
                 //}
             }
