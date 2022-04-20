@@ -87,17 +87,46 @@ int main(int argc, char *argv[]){
                     auto result = forca.palpite(palpite);
                     cout << forca.get_palavra_atual() << endl;
                     if(result.first == true && (result.second == true)){
-                        cout << "Correto, a palavra contem a letra " << palpite << endl;
-                        cout << endl;
-                        cout << endl;
-                        cout << endl;
+                        cout << "Correto, a palavra contem a letra " << palpite << " :)" << endl;
+                        //p = forca.get_palavra_jogada(palpite);
+                        for(int i=0; i < (int)forca.get_palavra_atual().size(); i++){
+                            if (forca.get_palavra_atual()[i] == palpite){
+                                p[i] = palpite;
+                            }
+                        }
+                        for(int i=0; i < (int)p.size(); i++){
+                            cout << p[i] << " ";
+                        }
+                    cout << endl;
+                    cout << "Pontos: " << point << endl;
+                    cout << "Palpite: ";
                     } else if(result.first == false && (result.second == true)){
                         cout << "Não há a letra " << palpite << " na palavra :(" << endl;
+                        for(int i=0; i < (int)p.size(); i++){
+                            cout << p[i] << " ";
+                        }
+                        cout << endl;
+                        cout << "Pontos: " << point << endl;
+                        cout << "Palpite: ";
                     } else if(result.first == true && (result.second == false)){
-                        cout << "Você já tentou a letra " << palpite << endl;
+                        cout << "Você já tentou a letra " << palpite << " !!!" << endl;
+                        for(int i=0; i < (int)p.size(); i++){
+                            cout << p[i] << " ";
+                        }
+                        cout << endl;
+                        cout << "Pontos: " << point << endl;
+                        cout << "Palpite: ";
+                    } else if(result.first == false && (result.second == false)){
+                        cout << "Você já tentou a letra " << palpite << " e ela não está na palavra :(" << endl;
+                        for(int i=0; i < (int)p.size(); i++){
+                            cout << p[i] << " ";
+                        }
+                        cout << endl;
+                        cout << "Pontos: " << point << endl;
+                        cout << "Palpite: ";
                     }
-                    /*testa palpite e atualiza a interface dependendo do resultado*/
                 }
+                break;
                 //if(p.find('_') == p.size()){
                     /*imprime interface de continuar / parar*/
                     //if (/*parar*/){
@@ -114,10 +143,10 @@ int main(int argc, char *argv[]){
             }
             /*ler informações do jogador para o score e gravar no arquivo*/
         }
-        else if(choice == 2){
+        else if( choice == 2){
             /*mostrar score*/
         } else{
-            break;
+            //break;
              //qualquer outro número sai do jogo
         }   
     }

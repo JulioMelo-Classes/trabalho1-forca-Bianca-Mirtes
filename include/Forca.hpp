@@ -33,7 +33,7 @@ class Forca {
         string m_palavra_atual; //<! palavra sendo jogada “atualmente”
         string m_palavra_jogada; //<! palavra sendo jogada “atualmente” no formato “_ _ _ ... _ “
         
-        int m_tentativas_restantes=0; //TODO: armazenar tentativas restantes
+        int m_tentativas_restantes=6; //TODO: armazenar tentativas restantes
         int qnt_palavras;
         int media_p;
         int soma_freq=0;
@@ -256,7 +256,15 @@ class Forca {
          * já acertadas/sorteadas ao invés de “_”.
          * @return a palavra atualmente sendo jogada.
          */
-        string get_palavra_jogada();
+        string get_palavra_jogada(char palp){
+            for(int i=0; i < (int)m_palavra_atual.size(); i++){
+                if (m_palavra_atual[i] == palp){
+                    m_palavra_atual.replace(i, 1, "A"/*to_string(palp)*/);
+                }
+            }
+            cout << m_palavra_jogada << endl;
+            return m_palavra_jogada;
+        };
 
         /**
          * Retorna o valor da palavra atual, útil no caso de um game over, para mostrar a palavra que estava
@@ -285,37 +293,34 @@ class Forca {
         // letra não pertence e letra nova (F, T)
         // letra pertence e letra repetida (T, F)
         // letra não pertence e letra repetida (F, F) 
-        pair<bool, bool> palpite(char palpite){
+        pair<bool, bool> palpite(char palp){
             int exist=0;
-            if(m_letras_palpitadas.size() != 0){
-                for(int k=0; k < (int)m_letras_palpitadas.size(); k++){
-                    if(m_letras_palpitadas[k] == palpite){
+            if(m_letras_palpitadas.size() == 0){
+               m_letras_palpitadas.push_back(palp);
+                if (m_palavra_atual.find(palp) < m_palavra_atual.size()+1){
+                    return pair<bool, bool>{true, true}; 
+                } else if (m_palavra_atual.find(palp) > m_palavra_atual.size()+1){
+                    return pair<bool, bool>{false, true};
+                }
+            } else{
+               for(int k=0; k < (int)m_letras_palpitadas.size(); k++){
+                    if(m_letras_palpitadas[k] == palp){
                         exist = 1;
                     }
                 }
-                for(int i=0; i < (int)m_palavra_atual.size(); i++){
-                    if (m_palavra_atual[i] == palpite && exist != 1){
-                        m_letras_palpitadas.push_back(palpite);
-                        return pair<bool, bool>{true, true}; 
-                    } else if (m_palavra_atual[i] != palpite && exist != 1){
-                        m_letras_palpitadas.push_back(palpite);
-                        return pair<bool, bool>{false, true};
-                    } else if(m_palavra_atual[i] == palpite && exist == 1){
-                        return pair<bool, bool>{true, false};
-                    } else if(m_palavra_atual[i] != palpite && exist == 1){
-                        return pair<bool, bool>{false, false};
-                    }
-                }
-            } else{  
-                m_letras_palpitadas.push_back(palpite);
-                for(int i=0; i < (int)m_palavra_atual.size(); i++){
-                    if (m_palavra_atual[i] == palpite){
-                        return pair<bool, bool>{true, true}; 
-                    } else if (m_palavra_atual[i] != palpite){
-                        return pair<bool, bool>{false, true};
-                    }
+                if (m_palavra_atual.find(palp) < m_palavra_atual.size()+1 && (exist != 1)){
+                    m_letras_palpitadas.push_back(palp);
+                    return pair<bool, bool>{true, true}; 
+                } else if (m_palavra_atual.find(palp) > m_palavra_atual.size()+1 && (exist != 1)){
+                    m_letras_palpitadas.push_back(palp);
+                    return pair<bool, bool>{false, true};
+                } else if(m_palavra_atual.find(palp) < m_palavra_atual.size()+1 && (exist == 1)){
+                    return pair<bool, bool>{true, false};
+                } else if(m_palavra_atual.find(palp) > m_palavra_atual.size()+1 && (exist == 1)){
+                    return pair<bool, bool>{false, false};
                 }
             }
+            exist = 0;
         };
  
         /**
@@ -324,7 +329,7 @@ class Forca {
          *         acertou toda a palavra, F caso contrário.
          */
         bool rodada_terminada(){
-            if(get_tentativas_restantes() == 6){
+            if(get_tentativas_restantes() == 0 || m_palavra_jogada == m_palavra_atual){
                 return true;
             }
             else{
@@ -345,7 +350,7 @@ class Forca {
          * @return a quantidade de tentativas restantes.
          */
         int get_tentativas_restantes(){
-            m_tentativas_restantes++;
+            m_tentativas_restantes--;
             return m_tentativas_restantes;
         };
 
