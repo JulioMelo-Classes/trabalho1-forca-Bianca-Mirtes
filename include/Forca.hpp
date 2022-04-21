@@ -294,7 +294,6 @@ class Forca {
         // letra não pertence e letra repetida (F, F) 
         pair<bool, bool> palpite(char palp){
             int exist=0;
-            vector<char> boneco{'o', '/', '|', '\\', '/', '\\'};
             if(m_letras_palpitadas.size() == 0){
                m_letras_palpitadas.push_back(palp);
                 if (m_palavra_atual.find(palp) < m_palavra_atual.size()){
