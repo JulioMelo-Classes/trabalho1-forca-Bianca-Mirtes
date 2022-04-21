@@ -259,10 +259,9 @@ class Forca {
         string get_palavra_jogada(char palp){
             for(int i=0; i < (int)m_palavra_atual.size(); i++){
                 if (m_palavra_atual[i] == palp){
-                    m_palavra_atual.replace(i, 1, "A"/*to_string(palp)*/);
+                    m_palavra_jogada[i] = palp;
                 }
             }
-            cout << m_palavra_jogada << endl;
             return m_palavra_jogada;
         };
 
@@ -295,11 +294,12 @@ class Forca {
         // letra não pertence e letra repetida (F, F) 
         pair<bool, bool> palpite(char palp){
             int exist=0;
+            vector<char> boneco{'o', '/', '|', '\\', '/', '\\'};
             if(m_letras_palpitadas.size() == 0){
                m_letras_palpitadas.push_back(palp);
-                if (m_palavra_atual.find(palp) < m_palavra_atual.size()+1){
+                if (m_palavra_atual.find(palp) < m_palavra_atual.size()){
                     return pair<bool, bool>{true, true}; 
-                } else if (m_palavra_atual.find(palp) > m_palavra_atual.size()+1){
+                } else if (m_palavra_atual.find(palp) > m_palavra_atual.size()){
                     return pair<bool, bool>{false, true};
                 }
             } else{
@@ -308,15 +308,16 @@ class Forca {
                         exist = 1;
                     }
                 }
-                if (m_palavra_atual.find(palp) < m_palavra_atual.size()+1 && (exist != 1)){
+                if (m_palavra_atual.find(palp) < m_palavra_atual.size() && (exist != 1)){
                     m_letras_palpitadas.push_back(palp);
                     return pair<bool, bool>{true, true}; 
-                } else if (m_palavra_atual.find(palp) > m_palavra_atual.size()+1 && (exist != 1)){
+                } else if (m_palavra_atual.find(palp) > m_palavra_atual.size() && (exist != 1)){
+                    m_tentativas_restantes--;
                     m_letras_palpitadas.push_back(palp);
                     return pair<bool, bool>{false, true};
-                } else if(m_palavra_atual.find(palp) < m_palavra_atual.size()+1 && (exist == 1)){
+                } else if(m_palavra_atual.find(palp) < m_palavra_atual.size() && (exist == 1)){
                     return pair<bool, bool>{true, false};
-                } else if(m_palavra_atual.find(palp) > m_palavra_atual.size()+1 && (exist == 1)){
+                } else if(m_palavra_atual.find(palp) > m_palavra_atual.size() && (exist == 1)){
                     return pair<bool, bool>{false, false};
                 }
             }
@@ -343,14 +344,16 @@ class Forca {
          * de cada rodada, resetando o valor de tentativas restantes para 5 e do atributo
          * m_letras_palpitadas como sendo um vetor vazio
          */
-        void reset_rodada();
+        void reset_rodada(){
+            m_tentativas_restantes = 6;
+            m_letras_palpitadas = {};
+        };
  
         /**
          * Retorna a quantidade de tentativas restantes.
          * @return a quantidade de tentativas restantes.
          */
         int get_tentativas_restantes(){
-            m_tentativas_restantes--;
             return m_tentativas_restantes;
         };
 

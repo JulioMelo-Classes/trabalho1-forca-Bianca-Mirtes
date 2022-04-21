@@ -52,23 +52,21 @@ int main(int argc, char *argv[]){
             cin >> dificuldade;
             if (dificuldade == 1){
                 d = 0; 
-                //Forca::Dificuldade::FACIL
-                cout << "Iniciando o jogo no nível FÁCIL, será que você conhece essa palavra?" << endl;
             } else if(dificuldade == 2){
                 d = 1;
-                //Forca::Dificuldade::MEDIO;
-                cout << "Iniciando o jogo no nível MÉDIO, será que você conhece essa palavra?" << endl;
             } else if(dificuldade == 3){
                 d = 2;
-                //Forca::Dificuldade::DIFICIL;
-                cout << "Iniciando o jogo no nível DIFÍCIL, será que você conhece essa palavra?" << endl;
             }
-            //cout << 3 << endl;
             forca.set_dificuldade(d);
-            //cout << 5 << endl;
             int point=0;
-            vector<char> boneco{'o', '/', '|', '\\', '/', '\\'};
             while(true){
+                if (dificuldade == 1){
+                    cout << "Iniciando o jogo no nível FÁCIL, será que você conhece essa palavra?" << endl;
+                } else if(dificuldade == 2){
+                    cout << "Iniciando o jogo no nível MÉDIO, será que você conhece essa palavra?" << endl;
+                } else if(dificuldade == 3){
+                    cout << "Iniciando o jogo no nível DIFÍCIL, será que você conhece essa palavra?" << endl;
+                }
                 string p = forca.proxima_palavra();
                 /*exibe interface do jogo*/
                 cout << endl;
@@ -84,40 +82,65 @@ int main(int argc, char *argv[]){
                     /*ler palpite*/
                     char palpite;
                     cin >> palpite;
+                    vector<char> boneco{'o', '/', '|', '\\', '/', '\\'};
                     auto result = forca.palpite(palpite);
-                    cout << forca.get_palavra_atual() << endl;
+                    //cout << forca.get_palavra_atual() << endl;
                     if(result.first == true && (result.second == true)){
                         cout << "Correto, a palavra contem a letra " << palpite << " :)" << endl;
-                        //p = forca.get_palavra_jogada(palpite);
+                        p = forca.get_palavra_jogada(palpite);
                         for(int i=0; i < (int)forca.get_palavra_atual().size(); i++){
                             if (forca.get_palavra_atual()[i] == palpite){
-                                p[i] = palpite;
+                                if(p == forca.get_palavra_atual()){
+                                    point += 2;
+                                    break;
+                                }
+                            point++;     
                             }
                         }
                         for(int i=0; i < (int)p.size(); i++){
                             cout << p[i] << " ";
                         }
-                    cout << endl;
-                    cout << "Pontos: " << point << endl;
-                    cout << "Palpite: ";
+                        cout << endl;
+                        cout << "Pontos: " << point << endl;
+                        cout << "Palpite: ";
                     } else if(result.first == false && (result.second == true)){
-                        cout << "Não há a letra " << palpite << " na palavra :(" << endl;
+                        if(forca.get_tentativas_restantes() == 0){
+                            cout << "=== FIM DE JOGO ===" << endl;
+                            cout << "Os pequenos fracassos cotidianos preparam você para derrotas extraordinárias!" << endl;
+                        }else{
+                          cout << "Não há a letra " << palpite << " na palavra :(" << endl;  
+                        }
+                        point--;
+                        if(forca.get_tentativas_restantes() == 6){
+                            cout << " O " << endl;
+                        }
+                        if(forca.get_tentativas_restantes() == 4){
+                            cout << "/";
+                        }
+                        if(forca.get_tentativas_restantes() == 3){
+                            cout << "|";
+                        }
+                        if(forca.get_tentativas_restantes() == 3){
+                            cout << "\\" << endl;
+                        }
+                        if(forca.get_tentativas_restantes() == 2){
+                            cout << "/";
+                        }
+                        if(forca.get_tentativas_restantes() == 1){
+                            cout << " \\";
+                        }
                         for(int i=0; i < (int)p.size(); i++){
                             cout << p[i] << " ";
                         }
                         cout << endl;
-                        cout << "Pontos: " << point << endl;
-                        cout << "Palpite: ";
-                    } else if(result.first == true && (result.second == false)){
+                        if(forca.get_tentativas_restantes() == 0){
+                            cout << "Pontos: " << point << endl;
+                        }else{
+                            cout << "Pontos: " << point << endl;
+                            cout << "Palpite: ";
+                        }
+                    } else if((result.first == true && (result.second == false)) || (result.first == false && (result.second == false))){
                         cout << "Você já tentou a letra " << palpite << " !!!" << endl;
-                        for(int i=0; i < (int)p.size(); i++){
-                            cout << p[i] << " ";
-                        }
-                        cout << endl;
-                        cout << "Pontos: " << point << endl;
-                        cout << "Palpite: ";
-                    } else if(result.first == false && (result.second == false)){
-                        cout << "Você já tentou a letra " << palpite << " e ela não está na palavra :(" << endl;
                         for(int i=0; i < (int)p.size(); i++){
                             cout << p[i] << " ";
                         }
@@ -126,27 +149,32 @@ int main(int argc, char *argv[]){
                         cout << "Palpite: ";
                     }
                 }
-                break;
-                //if(p.find('_') == p.size()){
+                if(p.find('_') > p.size()){
                     /*imprime interface de continuar / parar*/
-                    //if (/*parar*/){
-                        //break;
-                    //} else{
-                        //forca.reset_rodada();
-                    //}
-                //}
-                //else{ /*perdeu*/
+                    int choice2;
+                    cout << endl;
+                    cout << "1 - Nova Partida" << endl;
+                    cout << "2 - Sair do Jogo" << endl;
+                    cout << "Sua escolha: ";
+                    cin >> choice2;
+                    if (choice2 == 2){
+                        break;
+                    } else{
+                        forca.reset_rodada();
+                    }
+                }
+                else{ /*perdeu*/
                     /*imprime gameover e a palavra que estava sendo jogada*/
-                    //cout << "O jogo acabou, a palavra era "<< forca.get_palavra_atual() << endl; 
-                    //break;
-                //}
+                    cout << "\nO jogo acabou, a palavra era "<< forca.get_palavra_atual() << endl; 
+                    break;
+                }
             }
             /*ler informações do jogador para o score e gravar no arquivo*/
         }
         else if( choice == 2){
             /*mostrar score*/
         } else{
-            //break;
+            break;
              //qualquer outro número sai do jogo
         }   
     }
