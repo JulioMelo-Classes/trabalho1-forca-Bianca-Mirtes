@@ -299,6 +299,7 @@ class Forca {
                 if (m_palavra_atual.find(palp) < m_palavra_atual.size()){
                     return pair<bool, bool>{true, true}; 
                 } else if (m_palavra_atual.find(palp) > m_palavra_atual.size()){
+                    m_tentativas_restantes--;
                     return pair<bool, bool>{false, true};
                 }
             } else{
@@ -345,7 +346,7 @@ class Forca {
          */
         void reset_rodada(){
             m_tentativas_restantes = 6;
-            m_letras_palpitadas = {};
+            m_letras_palpitadas.clear();
         };
  
         /**

@@ -40,6 +40,8 @@ int main(int argc, char *argv[]){
         int choice;
         cout << "Sua escolha: ";
         cin >> choice;
+        vector<string> jogadores;
+        string nome;
         if(choice == 1){
             /*Seleciona dificuldade*/
             cout << "Vamos iniciar o jogo! Por favor escolha o nivel de dificuldade:" << endl;
@@ -82,12 +84,17 @@ int main(int argc, char *argv[]){
                     /*ler palpite*/
                     char palpite;
                     cin >> palpite;
-                    vector<char> boneco{'o', '/', '|', '\\', '/', '\\'};
                     auto result = forca.palpite(palpite);
                     //cout << forca.get_palavra_atual() << endl;
                     if(result.first == true && (result.second == true)){
-                        cout << "Correto, a palavra contem a letra " << palpite << " :)" << endl;
                         p = forca.get_palavra_jogada(palpite);
+                        if(forca.get_tentativas_restantes() == 0){
+                            cout << "FIM DE JOGO, VOCÊ PERDEU! :(" << endl;
+                        }else if(p == forca.get_palavra_atual()){
+                            cout << "PARABÉNS, VOCÊ GANHOU!!!! :)" << endl;
+                        } else{
+                          cout << "Correto, a palavra contem a letra " << palpite << " :)" << endl;
+                        }
                         for(int i=0; i < (int)forca.get_palavra_atual().size(); i++){
                             if (forca.get_palavra_atual()[i] == palpite){
                                 if(p == forca.get_palavra_atual()){
@@ -97,75 +104,133 @@ int main(int argc, char *argv[]){
                             point++;     
                             }
                         }
+                        if(forca.get_tentativas_restantes() <= 5){
+                            cout << " O " << endl;
+                        }
+                        if(forca.get_tentativas_restantes() <= 4){
+                            cout << "/";
+                        }
+                        if(forca.get_tentativas_restantes() <= 3){
+                            cout << "|";
+                        }   
+                        if(forca.get_tentativas_restantes() <= 2){
+                            cout << "\\" << endl;
+                        }
+                        if(forca.get_tentativas_restantes() <= 1){
+                            cout << "/";
+                        }
+                        if(forca.get_tentativas_restantes() <= 0){
+                            cout << " \\";
+                        } 
+                        cout << endl;
                         for(int i=0; i < (int)p.size(); i++){
                             cout << p[i] << " ";
                         }
                         cout << endl;
-                        cout << "Pontos: " << point << endl;
-                        cout << "Palpite: ";
+                        if(forca.get_tentativas_restantes() == 0 || p == forca.get_palavra_atual()){
+                            cout << "Pontos: " << point << endl;
+                        }else{
+                            cout << "Pontos: " << point << endl;
+                            cout << "Palpite: ";
+                        }
                     } else if(result.first == false && (result.second == true)){
                         if(forca.get_tentativas_restantes() == 0){
-                            cout << "=== FIM DE JOGO ===" << endl;
-                            cout << "Os pequenos fracassos cotidianos preparam você para derrotas extraordinárias!" << endl;
+                            cout << "FIM DE JOGO, VOCÊ PERDEU! :(" << endl;
                         }else{
                           cout << "Não há a letra " << palpite << " na palavra :(" << endl;  
                         }
                         point--;
-                        if(forca.get_tentativas_restantes() == 6){
+                        if(forca.get_tentativas_restantes() <= 5){
                             cout << " O " << endl;
                         }
-                        if(forca.get_tentativas_restantes() == 4){
+                        if(forca.get_tentativas_restantes() <= 4){
                             cout << "/";
                         }
-                        if(forca.get_tentativas_restantes() == 3){
+                        if(forca.get_tentativas_restantes() <= 3){
                             cout << "|";
                         }
-                        if(forca.get_tentativas_restantes() == 3){
+                        if(forca.get_tentativas_restantes() <= 2){
                             cout << "\\" << endl;
                         }
-                        if(forca.get_tentativas_restantes() == 2){
+                        if(forca.get_tentativas_restantes() <= 1){
                             cout << "/";
                         }
-                        if(forca.get_tentativas_restantes() == 1){
+                        if(forca.get_tentativas_restantes() <= 0){
                             cout << " \\";
                         }
+                        cout << endl;
                         for(int i=0; i < (int)p.size(); i++){
                             cout << p[i] << " ";
                         }
                         cout << endl;
-                        if(forca.get_tentativas_restantes() == 0){
+                        if(forca.get_tentativas_restantes() == 0 || p == forca.get_palavra_atual()){
                             cout << "Pontos: " << point << endl;
                         }else{
                             cout << "Pontos: " << point << endl;
                             cout << "Palpite: ";
                         }
                     } else if((result.first == true && (result.second == false)) || (result.first == false && (result.second == false))){
-                        cout << "Você já tentou a letra " << palpite << " !!!" << endl;
+                        if(forca.get_tentativas_restantes() == 0){
+                            cout << "FIM DE JOGO, VOCÊ PERDEU! :(" << endl;
+                        }else{
+                           cout << "Você já tentou a letra " << palpite << " !!!" << endl;
+                        }
+                        if(forca.get_tentativas_restantes() <= 5){
+                            cout << " O " << endl;
+                        }
+                        if(forca.get_tentativas_restantes() <= 4){
+                            cout << "/";
+                        }
+                        if(forca.get_tentativas_restantes() <= 3){
+                            cout << "|";
+                        }
+                        if(forca.get_tentativas_restantes() <= 2){
+                            cout << "\\" << endl;
+                        }
+                        if(forca.get_tentativas_restantes() <= 1){
+                            cout << "/";
+                        }
+                        if(forca.get_tentativas_restantes() <= 0){
+                            cout << " \\" << endl;
+                        }
+                        cout << endl;
                         for(int i=0; i < (int)p.size(); i++){
                             cout << p[i] << " ";
                         }
                         cout << endl;
-                        cout << "Pontos: " << point << endl;
-                        cout << "Palpite: ";
+                        if(forca.get_tentativas_restantes() == 0 || p == forca.get_palavra_atual()){
+                            cout << "Pontos: " << point << endl;
+                        }else{
+                            cout << "Pontos: " << point << endl;
+                            cout << "Palpite: ";
+                        }
                     }
                 }
                 if(p.find('_') > p.size()){
                     /*imprime interface de continuar / parar*/
-                    int choice2;
-                    cout << endl;
+                    int choice2; 
+                    cout << "Aclamação, sucesso e talento? OK" << endl;
                     cout << "1 - Nova Partida" << endl;
-                    cout << "2 - Sair do Jogo" << endl;
+                    cout << "2 - Menu Inicial" << endl;
                     cout << "Sua escolha: ";
                     cin >> choice2;
                     if (choice2 == 2){
+                        cout << "Apelido: ";
+                        cin >> nome;
+                        jogadores.push_back(nome);
+                        cout << endl;
                         break;
                     } else{
                         forca.reset_rodada();
                     }
-                }
-                else{ /*perdeu*/
+                } else{ /*perdeu*/
                     /*imprime gameover e a palavra que estava sendo jogada*/
-                    cout << "\nO jogo acabou, a palavra era "<< forca.get_palavra_atual() << endl; 
+                    cout << "\"Os pequenos fracassos cotidianos preparam você para derrotas extraordinárias!\"" << endl;
+                    cout << "O jogo acabou, a palavra era "<< forca.get_palavra_atual() << "."<< endl;
+                    cout << "Apelido: ";
+                    cin >> nome;
+                    jogadores.push_back(nome);
+                    cout << endl;
                     break;
                 }
             }
