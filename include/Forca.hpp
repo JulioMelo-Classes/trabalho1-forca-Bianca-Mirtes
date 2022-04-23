@@ -19,34 +19,33 @@ class Forca {
         };
     private:
         //TODO: armazenar os scores?
-        vector< pair<string, int> > m_palavras; //<! palavras e sua ocorrência no Corpus
+        vector< pair<string, int> > m_palavras; //<! PALAVRAS E SUA OCORRÊNCIA NO CORPUS 
 
-        string m_arquivo_scores; //<! nome do arquivo contendo os scores
+        string m_arquivo_scores; //<! NOME DO ARQUIVO CONTENDO OS SCORES 
  
-        string m_arquivo_palavras; //<! nome do arquivo contendo as palavras
+        string m_arquivo_palavras; //<! NOME DO ARQUIVO CONTENDO AS PALAVRAS 
  
-        Dificuldade m_dificuldade;
-        //= Dificuldade::FACIL; //<! dificuldade atual do jogo
+        Dificuldade m_dificuldade; //<! DIFICULDADE ATUAL DO JOGO 
  
-        vector< string > m_palavras_do_jogo; //<! container “Palavras do Jogo”
-        vector< char > m_letras_palpitadas; //<! contem as letras palpitadas pelo jogador
-        string m_palavra_atual; //<! palavra sendo jogada “atualmente”
-        string m_palavra_jogada; //<! palavra sendo jogada “atualmente” no formato “_ _ _ ... _ “
+        vector< string > m_palavras_do_jogo; //<! CONTAINER “PALAVRAS DO JOGO”
+        vector< char > m_letras_palpitadas; //<! CONTEM AS LETRAS PALPITADAS PELO JOGADOR
+        string m_palavra_atual; //<! PALAVRA SENDO JOGADA “ATUALMENTE”
+        string m_palavra_jogada; //<! PALAVRA SENDO JOGADA “ATUALMENTE” NO FORMATO “_ _ _ ... _ “ 
         
-        int m_tentativas_restantes=6; //TODO: armazenar tentativas restantes
+        int m_tentativas_restantes=6; // ARMAZENA AS TENTATIVAS RESTANTES
         int qnt_palavras;
         int media_p;
         int soma_freq=0;
    
     public:
-        /**
-         * Cria a um objeto Forca
-         * O construtor pode ou não validar os arquivos de entrada, no entanto, mesmo com 
-         * os arquivos inválidos o objeto deve ser construído. Para o caso de arquivos de palavras
-         * ou scores inválidos, use o método eh_valido.
-         * @param palavras o arquivo que contém as palavras
-         * @param scores o nome do arquivo que contém os scores
-         * @see eh_valido
+        /** 
+         * CRIA A UM OBJETO FORCA 
+         * O CONSTRUTOR PODE OU NÃO VALIDAR OS ARQUIVOS DE ENTRADA, NO ENTANTO, MESMO COM  
+         * OS ARQUIVOS INVÁLIDOS O OBJETO DEVE SER CONSTRUÍDO. PARA O CASO DE ARQUIVOS DE PALAVRAS 
+         * OU SCORES INVÁLIDOS, USE O MÉTODO eh_valido(). 
+         * @param PALAVRAS O NOME DO ARQUIVO QUE CONTÉM AS PALAVRAS 
+         * @param SCORES O NOME DO ARQUIVO QUE CONTÉM OS SCORES 
+         * @see EH_VALIDO 
          */
         Forca( string palavras, string scores ){
             m_arquivo_palavras = palavras;
@@ -55,10 +54,10 @@ class Forca {
        
  
         /**
-         * Valida os arquivos de entrada de acordo com as especificações.
-         * Ao validar os arquivos, no caso de arquivos inválidos, este método deve retornar a 
-         * razão correspondente de acordo com as especificações.
-         * @return {T,""} se os arquivos estiverem válidos, {F,"razão"} caso contrário.
+         * VALIDA OS ARQUIVOS DE ENTRADA DE ACORDO COM AS ESPECIFICAÇÕES.
+         * AO VALIDAR OS ARQUIVOS, NO CASO DE ARQUIVOS INVÁLIDOS, ESTE MÉTODO DEVE RETORNAR A  
+         * RAZÃO CORRESPONDENTE DE ACORDO COM AS ESPECIFICAÇÕES. 
+         * @return {T,""} SE OS ARQUIVOS ESTIVEREM VÁLIDOS, {F,"RAZÃO"} CASO CONTRÁRIO. 
          */
         pair<pair<bool, string>, pair<int, string>> eh_valido(){
             fstream arq_palavras;
@@ -115,9 +114,9 @@ class Forca {
             return pair<pair<bool, string>, pair<int, string>> {{true, "Válido"}, {0, ""}};
         };
  
-        /**
-         * Carrega os arquivos de scores e palavras preenchendo **ao menos** a estrutura m_palavras
-         */
+        /** 
+         * CARREGA OS ARQUIVOS DE SCORES E PALAVRAS PREENCHENDO **AO MENOS** A ESTRUTURA m_palavras 
+         */ 
         void carregar_arquivos(){
             fstream arquivo_palavras;
             fstream arquivo_scores;
@@ -156,6 +155,10 @@ class Forca {
             arquivo_scores.close();
         }
 
+        /*DETERMINA:
+            # A SOMA DE TODAS AS FREQUÊNCIAS DO VETOR DE PARES m_palavras
+            # A QUANTIDADE DE PALAVRAS PRESENTES NO VETOR DE PARES m_palavras
+            # MÉDIA DA FREQUÊNCIA DAS PALAVRAS*/
         void dados(){
             for(int i=0; i < (int)m_palavras.size(); i++){
                 soma_freq += m_palavras[i].second;
@@ -163,13 +166,14 @@ class Forca {
             media_p = soma_freq/(int)m_palavras.size();
             qnt_palavras = (int)m_palavras.size();
         };
-        /**
-         * Modifica a dificuldade do jogo.
-         * Este método modifica a dificuldade do jogo gerando um novo vetor palavras_do_jogo
-         * toda vez que é chamado.
-         * @param d a dificuldade desejada
-         * @see proxima_palavra
-         */
+
+        /** 
+         * MODIFICA A DIFICULDADE DO JOGO. 
+         * ESTE MÉTODO MODIFICA A DIFICULDADE DO JOGO GERANDO UM NOVO VETOR m_palavras_do_jogo
+         * TODA VEZ QUE É CHAMADO. 
+         * @param d A DIFICULDADE DESEJADA 
+         * @see proxima_palavra 
+         */ 
         void set_dificuldade(int d){
             if (d == 0){
                 m_dificuldade = FACIL;
@@ -180,13 +184,13 @@ class Forca {
             }
         };
  
-        /**
-         * Retorna a próxima palavra de acordo com a dificuldade atual.
-         * Este método deve atualizar o valor dos atributos m_palavra_atual, com a palavra atual,
-         * do atributo m_palavra_jogada com um texto no formato "_ _ _ _ ... _".
-         * O método também deve sortear as letras que devem aparecer dependendo do nível de dificuldade,
-         * alterando o valor de m_palavra_jogada de acordo.
-         * @return o valor do atributo m_palavra_jogada.
+        /** 
+         * RETORNA A PRÓXIMA PALAVRA DE ACORDO COM A DIFICULDADE ATUAL. 
+         * ESTE MÉTODO DEVE ATUALIZAR O VALOR DOS ATRIBUTOS m_palavra_atual, COM A PALAVRA ATUAL, 
+         * DO ATRIBUTO m_palavra_jogada COM UM TEXTO NO FORMATO "_ _ _ _ ... _". 
+         * O MÉTODO TAMBÉM DEVE SORTEAR AS LETRAS QUE DEVEM APARECER DEPENDENDO DO NÍVEL DE DIFICULDADE, 
+         * ALTERANDO O VALOR DE m_palavra_jogada DE ACORDO. 
+         * @return O VALOR DO ATRIBUTO m_palavra_jogada. 
          */
         string proxima_palavra(){
             vector<string> nivel_facil;
@@ -248,14 +252,14 @@ class Forca {
             return m_palavra_jogada;
         };
  
-        /**
-         * Retorna a palavra atual que está sendo jogada.
-         * Diferente do método proxima_palavra(), este método __não atualiza__ o atributo
-         * m_palavra_atual, apenas retorna o atributo m_palavra_jogada que é a palavra no
-         * formato  "_ _ _ _ ... _" contendo todas as letras
-         * já acertadas/sorteadas ao invés de “_”.
-         * @return a palavra atualmente sendo jogada.
-         */
+         /** 
+         * RETORNA A PALAVRA ATUAL QUE ESTÁ SENDO JOGADA. 
+         * DIFERENTE DO MÉTODO proxima_palavra(), ESTE MÉTODO __NÃO ATUALIZA__ O ATRIBUTO 
+         * m_palavra_atual, APENAS RETORNA O ATRIBUTO m_palavra_jogada QUE É A PALAVRA NO 
+         * FORMATO  "_ _ _ _ ... _" CONTENDO TODAS AS LETRAS 
+         * JÁ ACERTADAS/SORTEADAS AO INVÉS DE “_”. 
+         * @return A PALAVRA ATUALMENTE SENDO JOGADA. 
+         */ 
         string get_palavra_jogada(char palp){
             for(int i=0; i < (int)m_palavra_atual.size(); i++){
                 if (m_palavra_atual[i] == palp){
@@ -265,29 +269,28 @@ class Forca {
             return m_palavra_jogada;
         };
 
-        /**
-         * Retorna o valor da palavra atual, útil no caso de um game over, para mostrar a palavra que estava
-         * sendo jogada
-         * @return o valor do atributo palavra_atual
-         **/
+        /** 
+         * RETORNA O VALOR DA PALAVRA ATUAL, ÚTIL NO CASO DE UM GAME OVER, PARA MOSTRAR A PALAVRA QUE ESTAVA 
+         * SENDO JOGADA 
+         * @return O VALOR DO ATRIBUTO m_palavra_atual 
+         **/ 
         string get_palavra_atual(){
             return m_palavra_atual;
         };
  
-        /**
-         * Testa se uma letra pertence á palavra atual e se já foi jogada pelo jogador.
-         * Este método testa se uma letra pertence à palavra atual, caso a letra pertença a palavra
-         * e ainda não foi jogada o método retorna {T, T}, caso a letra não pertença à palavra o método retorna {F,T}; 
-         * Caso a letra já tenha sido jogada o método retorna {T, F}, quando a letra pertence à palavra e {F, F}, quando
-         * não pertence.
-         * Este método deve atualizar os atributos m_tentativas, m_palavra_jogada e m_letras_palpitadas, para refletir
-         * as situações citadas. No caso da letra já ter sido escolhida, o método não deve atualizar m_tentativas.
-         * @param palpite uma letra, que deve ser testada se pertence à palavra.
-         * @return {T,T} se o palpite pertence à palavra e é um palpite novo, {F,T} caso não pertença e é novo.
-         *         {T,F} ou {F,F} no caso do palpite pertencer/não pertencer à palavra, mas não é novo.
+        /** 
+
+         * TESTA SE UMA LETRA PERTENCE Á PALAVRA ATUAL E SE JÁ FOI JOGADA PELO JOGADOR. 
+         * ESTE MÉTODO TESTA SE UMA LETRA PERTENCE À PALAVRA ATUAL, CASO A LETRA PERTENÇA A PALAVRA 
+         * E AINDA NÃO FOI JOGADA O MÉTODO RETORNA {T, T}, CASO A LETRA NÃO PERTENÇA À PALAVRA O MÉTODO RETORNA {F,T};  
+         * CASO A LETRA JÁ TENHA SIDO JOGADA O MÉTODO RETORNA {T, F}, QUANDO A LETRA PERTENCE À PALAVRA E {F, F}, QUANDO 
+         * NÃO PERTENCE. 
+         * ESTE MÉTODO DEVE ATUALIZAR OS ATRIBUTOS m_tentativas_restantes, m_palavra_jogada E m_letras_palpitadas, PARA REFLETIR 
+         * AS SITUAÇÕES CITADAS. NO CASO DA LETRA JÁ TER SIDO ESCOLHIDA, O MÉTODO NÃO DEVE ATUALIZAR m_tentativas_restantes. 
+         * @param palpite UMA LETRA, QUE DEVE SER TESTADA SE PERTENCE À PALAVRA. 
+         * @return {T,T} SE O PALPITE PERTENCE À PALAVRA E É UM PALPITE NOVO, {F,T} CASO NÃO PERTENÇA E É NOVO. 
+         *         {T,F} OU {F,F} NO CASO DO PALPITE PERTENCER/NÃO PERTENCER À PALAVRA, MAS NÃO É NOVO. 
          */
-
-
         // letra pertence a palavra e letra nova (T, T)
         // letra não pertence e letra nova (F, T)
         // letra pertence e letra repetida (T, F)
@@ -324,11 +327,11 @@ class Forca {
             exist = 0;
         };
  
-        /**
-         * Em caso de Game Over ou do jogador ter acertado a palavra este método deve retornar T.
-         * @return T caso o m_tentativas_restantes do jogo esteja igual a 0 ou se o usuário 
-         *         acertou toda a palavra, F caso contrário.
-         */
+        /** 
+         * EM CASO DE GAME OVER OU DO JOGADOR TER ACERTADO A PALAVRA ESTE MÉTODO DEVE RETORNAR T. 
+         * @return T CASO O m_tentativas_restantes DO JOGO ESTEJA IGUAL A 0 OU SE O USUÁRIO  
+         *         ACERTOU TODA A PALAVRA, F CASO CONTRÁRIO. 
+         */ 
         bool rodada_terminada(){
             if(get_tentativas_restantes() == 0 || m_palavra_jogada == m_palavra_atual){
                 return true;
@@ -338,23 +341,54 @@ class Forca {
             }
         };
  
-        /**
-         * Reseta o valor de tentativas restantes para 5 e do atributo m_letras_palpitadas para vazio
-         * Este método é útil no caso do jogador escolher continuar o jogo, ou no início
-         * de cada rodada, resetando o valor de tentativas restantes para 5 e do atributo
-         * m_letras_palpitadas como sendo um vetor vazio
-         */
+        /** 
+         * RESETA O VALOR DE TENTATIVAS RESTANTES PARA 5 E DO ATRIBUTO m_letras_palpitadas PARA VAZIO 
+         * ESTE MÉTODO É ÚTIL NO CASO DO JOGADOR ESCOLHER CONTINUAR O JOGO, OU NO INÍCIO 
+         * DE CADA RODADA, RESETANDO O VALOR DE TENTATIVAS RESTANTES PARA 5 E DO ATRIBUTO 
+         * m_letras_palpitadas COMO SENDO UM VETOR VAZIO 
+         */ 
         void reset_rodada(){
             m_tentativas_restantes = 6;
             m_letras_palpitadas.clear();
         };
  
-        /**
-         * Retorna a quantidade de tentativas restantes.
-         * @return a quantidade de tentativas restantes.
-         */
+        /** 
+         * RETORNA A QUANTIDADE DE TENTATIVAS RESTANTES. 
+         * @return A QUANTIDADE DE TENTATIVAS RESTANTES. 
+         */ 
         int get_tentativas_restantes(){
             return m_tentativas_restantes;
+        };
+
+        /*CRIA O BONECO DE ACORDO COM AS TENTATIVAS RESTANTES*/
+        void boneco(){
+            if(get_tentativas_restantes() <= 5){
+                    cout << " O " << endl;
+            } else{
+                cout << endl;
+                cout << endl;
+            }
+            if(get_tentativas_restantes() <= 4){
+                    cout << "/";
+            }
+            if(get_tentativas_restantes() <= 3){
+                cout << "|";
+            }
+            if(get_tentativas_restantes() <= 2){
+                cout << "\\" << endl;
+                        }
+            if(get_tentativas_restantes() <= 1){
+                cout << "/";
+            }
+            if(get_tentativas_restantes() <= 0){
+                cout << " \\" << endl;
+            }
+            if(get_tentativas_restantes() == 4 || get_tentativas_restantes() == 3 || get_tentativas_restantes() == 1){
+                cout << endl;
+                cout << endl;
+            } else{
+                cout << endl; 
+            }
         };
 
 };

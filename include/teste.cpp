@@ -97,4 +97,32 @@ int main(){
                     palavra = linha;
                     getline(arq_palavras, linha, '\n');
                     freq = linha;
+
+                            /*if(forca.get_tentativas_restantes() <= 5){
+                            cout << " O " << endl;
+                        } else{
+                            cout << endl;
+                            cout << endl;
+                        }
+                        if(forca.get_tentativas_restantes() <= 4){
+                            cout << "/";
+                        }
+                        if(forca.get_tentativas_restantes() <= 3){
+                            cout << "|";
+                        }
+                        if(forca.get_tentativas_restantes() <= 2){
+                            cout << "\\" << endl;
+                        }
+                        if(forca.get_tentativas_restantes() <= 1){
+                            cout << "/";
+                        }
+                        if(forca.get_tentativas_restantes() <= 0){
+                            cout << " \\" << endl;
+                        }
+                        if(forca.get_tentativas_restantes() == 4 || forca.get_tentativas_restantes() == 3 || forca.get_tentativas_restantes() == 1){
+                            cout << endl;
+                            cout << endl;
+                        } else{
+                           cout << endl; 
+                        }*/
 }
