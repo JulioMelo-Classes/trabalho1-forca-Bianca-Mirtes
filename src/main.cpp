@@ -20,6 +20,7 @@ int main(int argc, char *argv[]){
     // ARQUIVO DE SCORES
     // 1 - ERRO DE INEXISTENCIA;
     // 2 - ERRO DE EXCESSO OU FALTA DE ";";
+    // 3 - ERRO DE CAMPO VAZIO;
     auto valid = forca.eh_valido(); 
     forca.dados();
     if(valid.second.first == 0){
@@ -117,9 +118,9 @@ int main(int argc, char *argv[]){
                                 // CASO O JOGADOR TENHA ACERTADO A ÚLTIMA LETRA DA PALAVRA SOMA +2 PONTOS AO INVES DE +1 
                                 if(p == forca.get_palavra_atual()){
                                     point += 2;
-                                    break;
+                                } else{
+                                  point++;  
                                 }
-                            point++;     
                             }
                         }
                         // FORMAÇÃO DO BONECO DE ACORDO COM AS TENTATIVAS RESTANTES
