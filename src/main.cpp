@@ -178,10 +178,10 @@ int main(int argc, char *argv[]){
                         }
                         cout << endl;
                         if(forca.get_tentativas_restantes() == 0 || p == forca.get_palavra_atual()){
-                            //PARA QUANDO A PARTIDA FINALIZAR (GAMEOVER OU VITÓRIA)
+                            // QUANDO A PARTIDA FINALIZAR (GAMEOVER OU VITÓRIA) IMPRIME SOMENTE A PONTUAÇÃO
                             cout << "Pontos: " << point << endl;
                         }else{
-                            //AO LONGO DA PARTIDA
+                            // AO LONGO DA PARTIDA IMPRIME A PONTUAÇÃO E O PALPITE
                             cout << "Pontos: " << point << endl;
                             cout << "Palpite: ";
                         }
