@@ -68,67 +68,64 @@ class Forca {
             int count=0, pos, count1=0, qnt=0;
             string palavra, freq;
             string linha, str;
+            string dificult, jogador, pont; 
+            vector<char> pos_pv;
             pair<pair<bool, string>, pair<int, string>> erro;
             // ABRE OS ARQUIVOS PARA LEITURA DOS DADOS
             arq_palavras.open(m_arquivo_palavras, ios::in);
             arq_scores.open(m_arquivo_scores, ios::in);
-            // CASO A FUNÇÃO OPEN() NÃO CONSIGA ABRIR OS ARQUIVOS A FUNÇÃO RETORNA O ERRO DO TIPO INEXISTÊNCIA DE ARQUIVO
-            if(!arq_palavras){
-                return pair<pair<bool, string>, pair<int, string>>{{false, "Arquivo base_formatada.txt inexistente"}, {0, ""}};
-            } else if(!arq_scores){
-                return pair<pair<bool, string>, pair<int, string>>{{false, "Arquivos base_scores.txt inexistente"}, {0, ""}};
-            } else{
-                // LER O CONTEÚDO DO ARQUIVO DE PALAVRAS LINHA A LINHA ENQUANDO NÃO CHEGAR AO FINAL DO ARQUIVO
-                while(!arq_palavras.eof()){
-                    getline(arq_palavras, linha);   // LER A LINHA INTEIRA
-                    count++;                        // CONTABILIZA A QUANTIDADE DE LINHAS
-                    for(int k=0; k < (int)linha.size(); k++){   //PERCORRE A LINHA
-                        //SE ENCONTRAR UM ESPAÇO GUARDA A POSIÇÃO DO ESPAÇO EM BRANCO NA VARIÁVEL "pos"
-                        if(isspace(linha[k])){
-                            palavra = linha.substr(0, k);   // ARMAZENA A PARTE DA LINHA QUE CONTÉM A PALAVRA
-                            pos = k;
-                            break;
-                        }
+            // LER O CONTEÚDO DO ARQUIVO DE PALAVRAS LINHA A LINHA ENQUANDO NÃO CHEGAR AO FINAL DO ARQUIVO
+            while(!arq_palavras.eof()){
+                getline(arq_palavras, linha);   // LER A LINHA INTEIRA
+                count++;                        // CONTABILIZA A QUANTIDADE DE LINHAS
+                for(int k=0; k < (int)linha.size(); k++){   // PERCORRE A LINHA
+                // SE ENCONTRAR UM NÚMERO ELE GUARDA A POSIÇÃO ANTERIOR QUE É O ESPAÇO EM BRANCO E GUARDA A POSIÇÃO NA VARIÁVEL "pos"
+                    if(isdigit(linha[k])){
+                        palavra = linha.substr(0, k-1);   // ARMAZENA A PARTE DA LINHA QUE CONTÉM A PALAVRA
+                        pos = k-1;
+                        break;
                     }
-                    freq = linha.substr(pos+1, linha.size()-1); // UTILIZA A POSIÇÃO DO ESPAÇO EM BRANCO PARA ARMAZENAR A PARTE DA LINHA QUE CONTÉM A FREQUÊNCIA
-                    for(int i=0; i < (int)palavra.size(); i++){ // PERCORRE A PALAVRA PARA ANALISAR OS POSSÍVEIS ERROS
-                       if(ispunct(palavra[i]) && (palavra[i] != '-')){  //CASO ENCONTRE ALGUM CARACTERE ESPECIAL NA PALAVRA, EXCETO O HÍFEN, RETORNA O ERRO DO TIPO CARACTERE ESPECIAL
-                            return pair<pair<bool, string>, pair<int, string>>{{false, "Caractere especial encontrado"}, {count, palavra}};
-                       } else if(isspace(palavra[i])){  //CASO ENCONTRE ALGUM ESPAÇO EM BRANCO NA PALAVRA, RETORNA O ERRO DO TIPO ESPAÇO EM BRANCO
-                            return pair<pair<bool, string>, pair<int, string>>{{false, "Espaço em branco encontrado"}, {count, palavra}};
-                       } else if(palavra.size() <= 4){  //CASO ENCONTRE ALGUMA PALAVRA COM TAMANHO <=4, RETORNA O ERRO DO TIPO TAMANHO DA PALAVRA <=4
-                            return pair<pair<bool, string>, pair<int, string>>{{false, "Palavra com tamanho menor ou igual a 4"}, {count, palavra}};
-                       } else if(stoi(freq) < 0){   //CASO ENCONTRE ALGUMA FREQUÊNCIA NEGATIVA, RETORNA O ERRO DO TIPO FREQUÊNCIA NEGATIVA
-                            return pair<pair<bool, string>, pair<int, string>>{{false, "Frequência Negativa"}, {count, freq}};
-                       }
-                    }  
                 }
-                // LER O CONTEÚDO DO ARQUIVO DE SCORES LINHA A LINHA ENQUANDO NÃO CHEGAR AO FINAL DO ARQUIVO
-                while(!arq_scores.eof()){
-                    getline(arq_scores, linha); // LER A LINHA INTEIRA
-                    count1++;                   // CONTABILIZA A QUANTIDADE DE LINHAS
-                    for(int k=0; k < (int)linha.size(); k++){ //PERCORRE A LINHA
-                        if(linha[k] == ';'){ // SE ENCONTRAR UM ';' SOMA +1 NA VARIÁVEL qnt
-                            qnt++;
-                        }
+                freq = linha.substr(pos, linha.size()-1); // UTILIZA A POSIÇÃO DO ESPAÇO EM BRANCO PARA ARMAZENAR A PARTE DA LINHA QUE CONTÉM A FREQUÊNCIA
+                for(int i=0; i < (int)palavra.size(); i++){ // PERCORRE A PALAVRA PARA ANALISAR OS POSSÍVEIS ERROS
+                    if(ispunct(palavra[i]) && (palavra[i] != '-')){  //CASO ENCONTRE ALGUM CARACTERE ESPECIAL NA PALAVRA, EXCETO O HÍFEN, RETORNA O ERRO DO TIPO CARACTERE ESPECIAL
+                        return pair<pair<bool, string>, pair<int, string>>{{false, "Caractere especial encontrado"}, {count, palavra}};
+                    } else if(isspace(palavra[i])){  //CASO ENCONTRE ALGUM ESPAÇO EM BRANCO NA PALAVRA, RETORNA O ERRO DO TIPO ESPAÇO EM BRANCO
+                        return pair<pair<bool, string>, pair<int, string>>{{false, "Espaço em branco encontrado"}, {count, palavra}};
+                    } else if(palavra.size() <= 4){  //CASO ENCONTRE ALGUMA PALAVRA COM TAMANHO <=4, RETORNA O ERRO DO TIPO TAMANHO DA PALAVRA <=4
+                        return pair<pair<bool, string>, pair<int, string>>{{false, "Palavra com tamanho menor ou igual a 4"}, {count, palavra}};
+                    } else if(stoi(freq) < 0){   //CASO ENCONTRE ALGUMA FREQUÊNCIA NEGATIVA, RETORNA O ERRO DO TIPO FREQUÊNCIA NEGATIVA
+                        return pair<pair<bool, string>, pair<int, string>>{{false, "Frequência Negativa"}, {count, freq}};
                     }
-                    if(qnt != 3){ // CASO O N° DE ';' SEJA > OU < QUE 3 RETORNA O ERRO DE EXCESSO OU FALTA DE ';'
-                        return pair<pair<bool, string>, pair<int, string>>{{false, "Excesso ou falta de ;"}, {count1, ""}};
+                }  
+            }
+            // LER O CONTEÚDO DO ARQUIVO DE SCORES LINHA A LINHA ENQUANDO NÃO CHEGAR AO FINAL DO ARQUIVO
+            while(!arq_scores.eof()){
+                getline(arq_scores, linha); // LER A LINHA INTEIRA
+                count1++;                   // CONTABILIZA A QUANTIDADE DE LINHAS
+                for(int k=0; k < (int)linha.size(); k++){ //PERCORRE A LINHA
+                    if(linha[k] == ';'){ // SE ENCONTRAR UM ';' SOMA +1 NA VARIÁVEL qnt
+                        pos_pv.push_back(k);
+                        qnt++;
                     }
-                    qnt = 0; // ZERA A VARIÁVEL qnt PARA SER USADA NA LEITURA DA PRÓXIMA LINHA
-                    // VERIFICA SE OS CAMPOS DE DIFICULDADE, NOME DO JOGADOR(A) OU PONTUAÇÃO DO ARQUIVO DE SCORES ESTÃO VAZIOS E RETORNA O ERRO TIPO CAMPO VAZIO
-                    for(int i=0; i < (int)dificuldade_jogador.size(); i++){
-                        if((dificuldade_jogador[i].first.size() == 0) || (dificuldade_jogador[i].second.size() == 0) || (to_string(pont[i]).empty())){
-                            return pair<pair<bool, string>, pair<int, string>>{{false, "Campo vazio"}, {count1, ""}};
-                        }
-                    }
+                }
+                if(qnt != 3){ // CASO O N° DE ';' SEJA > OU < QUE 3 RETORNA O ERRO DE EXCESSO OU FALTA DE ';'
+                    return pair<pair<bool, string>, pair<int, string>>{{false, "Excesso ou falta de ;"}, {count1, ""}};
+                }
+                qnt = 0; // ZERA A VARIÁVEL qnt PARA SER USADA NA LEITURA DA PRÓXIMA LINHA
+                // VERIFICA SE OS CAMPOS DE DIFICULDADE, NOME DO JOGADOR(A) OU PONTUAÇÃO DO ARQUIVO DE SCORES ESTÃO VAZIOS E RETORNA A RAZÃO DO ERRO E A LINHA
+                dificult = linha.substr(0, pos_pv[0]);
+                jogador = linha.substr(pos_pv[0], pos_pv[1]);
+                pont = linha.substr(pos_pv[2], linha.size()-1);
+                if((dificult.size() == 0) || (jogador.size() == 0) || (pont.size() == 0)){
+                    return pair<pair<bool, string>, pair<int, string>>{{false, "Campo vazio"}, {count1, ""}};
                 }
             }
-            // FECHA OS ARQUIVOS
-            arq_palavras.close();
-            arq_scores.close();
-            // SE NÃO OCORRER NENHUM DOS ERROS, RETORNA {TRUE, "VÁLIDO"}
-            return pair<pair<bool, string>, pair<int, string>> {{true, "Válido"}, {0, ""}};
+        // FECHA OS ARQUIVOS
+        arq_palavras.close();
+        arq_scores.close();
+        // SE NÃO OCORRER NENHUM DOS ERROS, RETORNA {TRUE, "VÁLIDO"}
+        return pair<pair<bool, string>, pair<int, string>> {{true, "Válido"}, {0, ""}};
         };
  
         /** 
@@ -142,6 +139,17 @@ class Forca {
             // ABRE OS ARQUIVOS PARA LEITURA DOS DADOS
             arquivo_palavras.open(m_arquivo_palavras, ios::in);
             arquivo_scores.open(m_arquivo_scores, ios::in);
+            // CASO A FUNÇÃO OPEN() NÃO CONSIGA ABRIR OS ARQUIVOS A FUNÇÃO IMPRIME O ERRO DO TIPO INEXISTÊNCIA DE ARQUIVO E ENCERRA O PROGRAMA
+            if(!arquivo_palavras.is_open() && (!arquivo_scores.is_open())){
+                cout << "Erro: Arquivo base_formatada.txt e Arquivo base_scores.txt inexistentes" << endl;
+                exit(0);
+            } else if(!arquivo_palavras.is_open()){
+                cout << "Erro: Arquivo base_formatada.txt inexistente" << endl;
+                exit(0);
+            } else if(!arquivo_scores.is_open()){
+                cout << "Erro: Arquivo base_scores.txt inexistente" << endl;
+                exit(0);
+            }
             // LER O CONTEÚDO DO ARQUIVO DE PALAVRAS LINHA A LINHA ENQUANDO NÃO CHEGAR AO FINAL DO ARQUIVO
             while(!arquivo_palavras.eof()){
                 getline(arquivo_palavras, line); // LER A LINHA INTEIRA

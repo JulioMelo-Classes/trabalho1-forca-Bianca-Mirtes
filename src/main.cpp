@@ -21,23 +21,23 @@ int main(int argc, char *argv[]){
     // 1 - ERRO DE INEXISTENCIA;
     // 2 - ERRO DE EXCESSO OU FALTA DE ";";
     // 3 - ERRO DE CAMPO VAZIO;
-    auto valid = forca.eh_valido(); 
+    auto valid = forca.eh_valido();
     forca.dados();
     if(valid.second.first == 0){
         if(!valid.first.first){ /*SAI DO PROGRAMA AO ENCONTRAR UM ERRO*/
-            cout << "Erro " << valid.first.second << endl; // IMPRIME O ERRO
+            cout << "Erro: " << valid.first.second << endl; // IMPRIME O ERRO
             exit(-1);
         } 
     } else if(valid.second.second == "" && (valid.second.first != 0)){
         if(!valid.first.first){ /*SAI DO PROGRAMA AO ENCONTRAR UM ERRO*/
             /*IMPRIME O ERRO E A LINHA EM QUE OCORREU O ERRO*/
-            cout << "Erro " << valid.first.second << " na linha: " << valid.second.first << endl;
+            cout << "Erro: " << valid.first.second << " na linha: " << valid.second.first << endl;
             exit(-1);
         } 
     } else{
         if(!valid.first.first){ /*SAI DO PROGRAMA AO ENCONTRAR UM ERRO*/
             /*IMPRIME O ERRO, A LINHA EM QUE OCORREU O ERRO E A PALAVRA OU FREQUÊNCIA*/
-            cout << "Erro " << valid.first.second << ", na linha: " << valid.second.first << ", palavra: " << valid.second.second << endl;
+            cout << "Erro: " << valid.first.second << ", na linha: " << valid.second.first << ", palavra/frequência: " << valid.second.second << endl;
             exit(-1);
         }
     }
