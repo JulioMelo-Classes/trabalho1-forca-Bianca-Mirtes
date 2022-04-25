@@ -30,10 +30,11 @@ Repositório contendo as especificações do Trabalho 1 da disciplina de LP1
 
 2. Arquivo de Scores:  
     - (a) ERRO DE EXCESSO OU FALTA DE ';' ;
-        - ![erro5](https://user-images.githubusercontent.com/82531511/165169546-bc2b87cb-76fc-496e-8d7f-6819e51453a3.jpeg)
+        - ![erro10](https://user-images.githubusercontent.com/82531511/165178802-86ac2d4c-3b79-4b85-a984-82d1309754fb.png)
+
 
     - (b) ERRO DE CAMPO VAZIO;
-        - ![erro2](https://user-images.githubusercontent.com/82531511/165169481-7d8320bf-ffb7-474c-af95-e5a5072ee709.jpeg)
+        - ![erro09](https://user-images.githubusercontent.com/82531511/165178705-4f45179a-ebf9-487d-8207-1112bf348c5a.png)
         - ![erro1](https://user-images.githubusercontent.com/82531511/165169404-af0261fc-3a9d-4415-99b3-458119852ad2.jpeg)
 
 
