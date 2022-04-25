@@ -2,12 +2,14 @@
 Repositório contendo as especificações do Trabalho 1 da disciplina de LP1
 # Processo de Compilação
 1º Exclua a pasta build; <br />
-2º No terminal: <br />
-    - mkdir build <br />
-    - cd build/ <br />
-    - cmake .. <br />
-    - cmake --build . <br />
-    - ./program base_formatada.txt base_scores.txt
+2º Digite no terminal: <br />
+```
+    mkdir build
+    cd build/ 
+    cmake ..
+    cmake --build .
+    ./program base_formatada.txt base_scores.txt
+```
 # Validação Dos Arquivos: Possíveis Erros
 
     Arquivo de Palavras:
