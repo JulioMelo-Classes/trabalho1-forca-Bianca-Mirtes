@@ -1,8 +1,8 @@
 # Trabalho-1
 Repositório contendo as especificações do Trabalho 1 da disciplina de LP1
 # Processo de Compilação
-1º Exclua a pasta build;
-2º No terminal:
+<1º Exclua a pasta build;/>
+<2º No terminal:/>
     - mkdir build
     - cd build/
     - cmake ..
