@@ -10,7 +10,7 @@ int main(int argc, char *argv[]){
     Forca forca(argv[1], argv[2]); /*ARMAZENA O NOME DOS ARQUIVOS TXT COM A BASE DE PALAVRAS E OS SCORES*/
     cout << ">>> Lendo arquivo de palavras ["<< argv[1] << "] e de scores [" << argv[2] << "], por favor aguarde.." << endl;
     //FAZ A LEITURA DOS ARQUIVOS CONTENDO AS PALAVRAS E OS SCORES PARA, RESPECTIVAMENTE EXTRAIR AS PALAVRAS E FREQUENCIAS E EXTRAIR AS INFORMAÇÕES DAS PARTIDAS DE CADA JOGADOR
-    forca.carregar_arquivos(); 
+    forca.carregar_arquivos();
     //FAZ A LEITURA DOS ARQUIVOS NOVAMENTE PARA VERIFICAR POSSIVEIS ERROS NOS ARQUIVOS
     // ARQUIVO DE PALAVRAS
     // 1 - ERRO DE INEXISTÊNCIA;

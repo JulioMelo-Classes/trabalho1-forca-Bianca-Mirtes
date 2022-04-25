@@ -67,9 +67,9 @@ class Forca {
             fstream arq_scores;
             int count=0, pos, count1=0, qnt=0;
             string palavra, freq;
-            string linha, str;
+            string linha, linha2;
             string dificult, jogador, pont; 
-            vector<char> pos_pv;
+            vector<int> pos_pv;
             pair<pair<bool, string>, pair<int, string>> erro;
             // ABRE OS ARQUIVOS PARA LEITURA DOS DADOS
             arq_palavras.open(m_arquivo_palavras, ios::in);
@@ -101,10 +101,10 @@ class Forca {
             }
             // LER O CONTEÚDO DO ARQUIVO DE SCORES LINHA A LINHA ENQUANDO NÃO CHEGAR AO FINAL DO ARQUIVO
             while(!arq_scores.eof()){
-                getline(arq_scores, linha); // LER A LINHA INTEIRA
+                getline(arq_scores, linha2); // LER A LINHA INTEIRA
                 count1++;                   // CONTABILIZA A QUANTIDADE DE LINHAS
-                for(int k=0; k < (int)linha.size(); k++){ //PERCORRE A LINHA
-                    if(linha[k] == ';'){ // SE ENCONTRAR UM ';' SOMA +1 NA VARIÁVEL qnt
+                for(int k=0; k < (int)linha2.size(); k++){ //PERCORRE A LINHA
+                    if(linha2[k] == ';'){ // SE ENCONTRAR UM ';' SOMA +1 NA VARIÁVEL qnt
                         pos_pv.push_back(k);
                         qnt++;
                     }
@@ -114,18 +114,19 @@ class Forca {
                 }
                 qnt = 0; // ZERA A VARIÁVEL qnt PARA SER USADA NA LEITURA DA PRÓXIMA LINHA
                 // VERIFICA SE OS CAMPOS DE DIFICULDADE, NOME DO JOGADOR(A) OU PONTUAÇÃO DO ARQUIVO DE SCORES ESTÃO VAZIOS E RETORNA A RAZÃO DO ERRO E A LINHA
-                dificult = linha.substr(0, pos_pv[0]);
-                jogador = linha.substr(pos_pv[0], pos_pv[1]);
-                pont = linha.substr(pos_pv[2], linha.size()-1);
+                dificult = linha2.substr(0, pos_pv[0]);
+                jogador = linha2.substr(pos_pv[0], pos_pv[1]);
+                pont = linha2.substr(pos_pv[2], -1);
                 if((dificult.size() == 0) || (jogador.size() == 0) || (pont.size() == 0)){
                     return pair<pair<bool, string>, pair<int, string>>{{false, "Campo vazio"}, {count1, ""}};
                 }
+                pos_pv.clear();
             }
-        // FECHA OS ARQUIVOS
-        arq_palavras.close();
-        arq_scores.close();
-        // SE NÃO OCORRER NENHUM DOS ERROS, RETORNA {TRUE, "VÁLIDO"}
-        return pair<pair<bool, string>, pair<int, string>> {{true, "Válido"}, {0, ""}};
+            // FECHA OS ARQUIVOS
+            arq_palavras.close();
+            arq_scores.close();
+            // SE NÃO OCORRER NENHUM DOS ERROS, RETORNA {TRUE, "VÁLIDO"}
+            return pair<pair<bool, string>, pair<int, string>> {{true, "Válido"}, {0, ""}};
         };
  
         /** 
