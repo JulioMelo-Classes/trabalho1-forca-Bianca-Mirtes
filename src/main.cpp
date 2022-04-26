@@ -9,10 +9,7 @@ using namespace std;
 int main(int argc, char *argv[]){
     Forca forca(argv[1], argv[2]); /*ARMAZENA O NOME DOS ARQUIVOS TXT COM A BASE DE PALAVRAS E OS SCORES*/
     cout << ">>> Lendo arquivo de palavras ["<< argv[1] << "] e de scores [" << argv[2] << "], por favor aguarde.." << endl;
-    // FAZ A LEITURA DOS ARQUIVOS CONTENDO AS PALAVRAS E OS SCORES PARA, RESPECTIVAMENTE EXTRAIR AS PALAVRAS E FREQUÊNCIAS E EXTRAIR AS INFORMAÇÕES DAS PARTIDAS
-    // FAZ A VALIDAÇÃO DOS ARQUIVOS PARA O ERRO DE INEXISTÊNCIA
-    forca.carregar_arquivos();
-    //FAZ A LEITURA DOS ARQUIVOS NOVAMENTE PARA VERIFICAR POSSIVEIS ERROS NOS ARQUIVOS
+    //FAZ A LEITURA DOS ARQUIVOS PARA VERIFICAR POSSIVEIS ERROS NOS ARQUIVOS
     // ARQUIVO DE PALAVRAS
     // 1 - ERRO DE CARACTERE ESPECIAL;
     // 2 - ESPAÇO EM BRANCO ENCONTRADO;
@@ -22,7 +19,6 @@ int main(int argc, char *argv[]){
     // 1 - ERRO DE EXCESSO OU FALTA DE ";";
     // 2 - ERRO DE CAMPO VAZIO;
     auto valid = forca.eh_valido();
-    forca.dados();
     if(valid.second.first == 0){
         if(!valid.first.first){ /*SAI DO PROGRAMA AO ENCONTRAR UM ERRO*/
             cout << "Erro: " << valid.first.second << endl; // IMPRIME O ERRO
@@ -41,6 +37,9 @@ int main(int argc, char *argv[]){
             exit(-1);
         }
     }
+    // FAZ A LEITURA DOS ARQUIVOS CONTENDO AS PALAVRAS E OS SCORES PARA, RESPECTIVAMENTE EXTRAIR AS PALAVRAS E FREQUÊNCIAS E EXTRAIR AS INFORMAÇÕES DAS PARTIDAS
+    forca.carregar_arquivos();
+    forca.dados();  // CALCULA A FRÊQUENCIA MÉDIA DAS PALAVRAS
     cout << "-----------------------------------------------------------" << endl;
     cout << ">>> Arquivos OK" << endl;
     cout << "-----------------------------------------------------------" << endl; 
@@ -118,9 +117,8 @@ int main(int argc, char *argv[]){
                                 // CASO O JOGADOR TENHA ACERTADO A ÚLTIMA LETRA DA PALAVRA SOMA +2 PONTOS AO INVES DE +1 
                                 if(p == forca.get_palavra_atual()){
                                     point += 2;
-                                } else{
-                                  point++;  
                                 }
+                                point++;  
                             }
                         }
                         // FORMAÇÃO DO BONECO DE ACORDO COM AS TENTATIVAS RESTANTES

@@ -1,6 +1,6 @@
 # Trabalho-1
 Repositório contendo as especificações do Trabalho 1 da disciplina de LP1
-# Processo de Compilação
+# Processo de Compilação e Execução do Programa
 1º Exclua a pasta build; <br />
 2º Digite no terminal: <br />
 ```
@@ -8,7 +8,7 @@ Repositório contendo as especificações do Trabalho 1 da disciplina de LP1
     cd build/ 
     cmake ..
     cmake --build .
-    ./program base_formatada.txt base_scores.txt
+    ./program ../base_formatada.txt ../base_scores.txt
 ```
 # Validação Dos Arquivos: Possíveis Erros
 

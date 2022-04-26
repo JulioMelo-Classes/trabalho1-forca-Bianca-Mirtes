@@ -20,11 +20,6 @@ include_directories( include )
 set( APP_NAME "program" )
 add_executable( ${APP_NAME}
                 src/main.cpp )
-
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/base_formatada.txt     
-    ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
-    
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/base_scores.txt    
-    ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
+                
 
 # The end

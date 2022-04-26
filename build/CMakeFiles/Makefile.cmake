@@ -8,8 +8,6 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
   "../CMakeLists.txt"
-  "../base_formatada.txt"
-  "../base_scores.txt"
   "CMakeFiles/3.16.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.16.3/CMakeSystem.cmake"
   "/usr/share/cmake-3.16/Modules/CMakeCXXCompiler.cmake.in"
@@ -91,8 +89,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/3.16.3/CMakeSystem.cmake"
   "CMakeFiles/3.16.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.16.3/CMakeCXXCompiler.cmake"
-  "base_formatada.txt"
-  "base_scores.txt"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
