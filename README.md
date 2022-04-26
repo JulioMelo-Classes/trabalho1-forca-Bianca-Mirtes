@@ -38,17 +38,16 @@ Repositório contendo as especificações do Trabalho 1 da disciplina de LP1
         - ![erro2](https://user-images.githubusercontent.com/99360129/165215463-677bd4ff-fbbd-49d3-bb7d-7e8e1d727490.png)
 
     - (c) ERRO DE CAMPO VAZIO (DIFICULDADE);
-        - 
-        - 
+        - ![erro1](https://user-images.githubusercontent.com/99360129/165219697-b1227398-8713-46c4-ba2a-7cca647e72aa.png)
+        - ![erro2](https://user-images.githubusercontent.com/99360129/165219734-b3adb272-6fd5-4709-9099-b42b0a55e239.png)
 
     - (d) ERRO DE CAMPO VAZIO (NOME);
-        - 
-        - 
+        - ![erro1](https://user-images.githubusercontent.com/99360129/165219812-0ed9b4d6-a3cc-4893-b08a-9678c62e3ddd.png)
+        - ![erro2](https://user-images.githubusercontent.com/99360129/165219857-94128ad2-b8e3-453b-86e7-57a4953a41b1.png)
         
     - (e) ERRO DE CAMPO VAZIO (PONTUAÇÃO);
-        - 
-        - 
-
+        - ![erro1](https://user-images.githubusercontent.com/99360129/165219909-c75f9269-404e-442e-a756-e2a4b1f423d1.png)
+        - ![erro2](https://user-images.githubusercontent.com/99360129/165219930-0502b43f-ea27-4530-9fb6-c66bdf173edc.png)
 
 
 # Documento de Especificação
