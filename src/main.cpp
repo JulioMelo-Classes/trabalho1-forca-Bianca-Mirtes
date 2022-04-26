@@ -11,13 +11,18 @@ int main(int argc, char *argv[]){
     cout << ">>> Lendo arquivo de palavras ["<< argv[1] << "] e de scores [" << argv[2] << "], por favor aguarde.." << endl;
     //FAZ A LEITURA DOS ARQUIVOS PARA VERIFICAR POSSIVEIS ERROS NOS ARQUIVOS
     // ARQUIVO DE PALAVRAS
-    // 1 - ERRO DE CARACTERE ESPECIAL;
-    // 2 - ESPAÇO EM BRANCO ENCONTRADO;
-    // 3 - ERRO DE PALAVRAS COM O TAMANHO IGUAL OU MENOR QUE 4; 
-    // 4 - ERRO DE FREQUÊNCIA NEGATIVA;
+    // 1 - ERRO DE INEXISTÊNCIA;
+    // 2 - ERRO DE CARACTERE ESPECIAL;
+    // 3 - ESPAÇO EM BRANCO ENCONTRADO;
+    // 4 - ERRO DE PALAVRAS COM O TAMANHO IGUAL OU MENOR QUE 4; 
+    // 5 - ERRO DE FREQUÊNCIA NEGATIVA;
     // ARQUIVO DE SCORES
-    // 1 - ERRO DE EXCESSO OU FALTA DE ";";
-    // 2 - ERRO DE CAMPO VAZIO;
+    // 1 - ERRO DE INEXISTÊNCIA;
+    // 2 - ERRO DE EXCESSO DE ";";
+    // 3 - ERRO DE FALTA DE ";";
+    // 4 - ERRO DE CAMPO VAZIO (DIFICULDADE);
+    // 5 - ERRO DE CAMPO VAZIO (NOME);
+    // 6 - ERRO DE CAMPO VAZIO (PONTUAÇÃO);
     auto valid = forca.eh_valido();
     if(valid.second.first == 0){
         if(!valid.first.first){ /*SAI DO PROGRAMA AO ENCONTRAR UM ERRO*/

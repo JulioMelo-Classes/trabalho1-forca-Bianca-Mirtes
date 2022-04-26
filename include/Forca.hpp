@@ -112,7 +112,7 @@ class Forca {
                     count1++;                   // CONTABILIZA A QUANTIDADE DE LINHAS
                     for(int k=0; k < (int)linha2.size(); k++){ //PERCORRE A LINHA
                         if(linha2[k] == ';'){ // SE ENCONTRAR UM ';' SOMA +1 NA VARIÁVEL qnt
-                            pos_pv.push_back(k); // ARMAZENA TODAS AS POSIÇÕES DOS ';'
+                            pos_pv.push_back(k); // ARMAZENA A POSIÇÃO DE TODOS OS ';'
                             qnt++;
                         }
                     }
@@ -133,7 +133,7 @@ class Forca {
                     } else if(pont.size() == 0){
                         return pair<pair<bool, string>, pair<int, string>>{{false, "Campo PONTUAÇÃO vazio"}, {count1, ""}};
                     }
-                    pos_pv.clear();
+                    pos_pv.clear(); // LIMPA O VETOR QUE ARMAZENA AS POSIÇÕES DO ';' PARA SER USADO A CADA NOVA LINHA LIDA
                 } 
             }
             // FECHA OS ARQUIVOS
