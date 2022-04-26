@@ -112,18 +112,20 @@ class Forca {
                     count1++;                   // CONTABILIZA A QUANTIDADE DE LINHAS
                     for(int k=0; k < (int)linha2.size(); k++){ //PERCORRE A LINHA
                         if(linha2[k] == ';'){ // SE ENCONTRAR UM ';' SOMA +1 NA VARIÁVEL qnt
-                            pos_pv.push_back(k);
+                            pos_pv.push_back(k); // ARMAZENA TODAS AS POSIÇÕES DOS ';'
                             qnt++;
                         }
                     }
-                    if(qnt != 3){ // CASO O N° DE ';' SEJA > OU < QUE 3 RETORNA O ERRO DE EXCESSO OU FALTA DE ';'
-                        return pair<pair<bool, string>, pair<int, string>>{{false, "Excesso ou falta de ;"}, {count1, ""}};
+                    if(qnt > 3){ // CASO O N° DE ';' SEJA MAIOR QUE 3 RETORNA O ERRO EXCESSO DE ';'
+                        return pair<pair<bool, string>, pair<int, string>>{{false, "Excesso de ponto e vírgula"}, {count1, ""}};
+                    } else if(qnt < 3){ // CASO O N° DE ';' SEJA MENOR QUE 3 RETORNA O ERRO FALTA DE ';'
+                        return pair<pair<bool, string>, pair<int, string>>{{false, "Falta de ponto e vírgula"}, {count1, ""}};
                     }
                     qnt = 0; // ZERA A VARIÁVEL qnt PARA SER USADA NA LEITURA DA PRÓXIMA LINHA
                     // VERIFICA SE OS CAMPOS DE DIFICULDADE, NOME DO JOGADOR(A) OU PONTUAÇÃO DO ARQUIVO DE SCORES ESTÃO VAZIOS E RETORNA A RAZÃO DO ERRO E A LINHA
                     dificult = linha2.substr(0, pos_pv[0]);
-                    jogador = linha2.substr(pos_pv[0], pos_pv[1]);
-                    pont = linha2.substr(pos_pv[2], -1);
+                    jogador = linha2.substr(pos_pv[0]+1, pos_pv[1]-(pos_pv[0]+1));
+                    pont = linha2.substr(pos_pv[2]+1, -1);
                     if((dificult.size() == 0) || (jogador.size() == 0) || (pont.size() == 0)){
                         return pair<pair<bool, string>, pair<int, string>>{{false, "Campo vazio"}, {count1, ""}};
                     }
