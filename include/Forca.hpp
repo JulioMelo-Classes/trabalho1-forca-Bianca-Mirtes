@@ -126,8 +126,12 @@ class Forca {
                     dificult = linha2.substr(0, pos_pv[0]);
                     jogador = linha2.substr(pos_pv[0]+1, pos_pv[1]-(pos_pv[0]+1));
                     pont = linha2.substr(pos_pv[2]+1, -1);
-                    if((dificult.size() == 0) || (jogador.size() == 0) || (pont.size() == 0)){
-                        return pair<pair<bool, string>, pair<int, string>>{{false, "Campo vazio"}, {count1, ""}};
+                    if(dificult.size() == 0){
+                        return pair<pair<bool, string>, pair<int, string>>{{false, "Campo DIFICULDADE vazio"}, {count1, ""}};
+                    } else if(jogador.size() == 0){
+                        return pair<pair<bool, string>, pair<int, string>>{{false, "Campo NOME vazio"}, {count1, ""}};
+                    } else if(pont.size() == 0){
+                        return pair<pair<bool, string>, pair<int, string>>{{false, "Campo PONTUAÇÃO vazio"}, {count1, ""}};
                     }
                     pos_pv.clear();
                 } 
