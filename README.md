@@ -30,11 +30,11 @@ Repositório contendo as especificações do Trabalho 1 da disciplina de LP1
 
 2. Arquivo de Scores:  
     - (a) ERRO DE EXCESSO DE PONTO E VÍRGULA;
-        - 
-        - 
+        - ![erro1](https://user-images.githubusercontent.com/99360129/165215384-ee4f1437-eacd-4535-a6d7-3e656bbf20ef.png)
+        - ![erro2](https://user-images.githubusercontent.com/99360129/165215289-7c4a7760-2541-4858-bf1d-fe2a0c626991.png)
     - (b) ERRO DE FALTA DE PONTO E VÍRGULA;
-        - 
-        - 
+        - ![erro1](https://user-images.githubusercontent.com/99360129/165215523-3656898f-9f70-41f6-8a56-3bc1202f5f0b.png)
+        - ![erro2](https://user-images.githubusercontent.com/99360129/165215463-677bd4ff-fbbd-49d3-bb7d-7e8e1d727490.png)
     - (c) ERRO DE CAMPO VAZIO;
         - ![erro2](https://user-images.githubusercontent.com/82531511/165180965-6419217e-aa25-430c-978c-6d55b260b72a.jpeg)
         - ![erro1](https://user-images.githubusercontent.com/82531511/165169404-af0261fc-3a9d-4415-99b3-458119852ad2.jpeg)
