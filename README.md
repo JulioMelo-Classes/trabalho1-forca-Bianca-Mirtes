@@ -1,13 +1,21 @@
-# Trabalho-1
-Repositório contendo as especificações do Trabalho 1 da disciplina de LP1
+# Trabalho-1-Jogo-da-Forca-LP1
+* Repositório contendo as especificações do Trabalho 1 da disciplina de LP1
 # Processo de Compilação e Execução do Programa
-1º Exclua a pasta build; <br />
-2º Digite no terminal: <br />
+1. Pré-Requisitos:
+    - CMAKE;
+1º Excluir a pasta build; <br />
+2º Criar uma nova pasta build e entrar nela digitando no terminal: <br />
 ```
     mkdir build
-    cd build/ 
+    cd build/
+```
+3º Execulte o cmake para compilar o projeto na build, digitando:
+``` 
     cmake ..
     cmake --build .
+```
+4º Finalizada a compilação, execulte o programa utilizando: 
+```
     ./program ../base_formatada.txt ../base_scores.txt
 ```
 # Validação Dos Arquivos: Possíveis Erros
