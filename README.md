@@ -17,9 +17,9 @@ Para fazer a compilação e execução do programa, digite no terminal: <br />
 1. Arquivo de Palavras e de Scores:
     - (a) ERRO DE INEXISTÊNCIA;
         - (I) Caso somente o arquivo "base_formatada.txt" não exista.
-            - ![erro1](https://user-images.githubusercontent.com/99360129/165418565-61f29b6b-aace-45ca-9f4f-4ffd04be28c7.png)
+            - ![erro1](https://user-images.githubusercontent.com/99360129/165418646-3983a2d4-cd5c-4c3b-bc88-13aa3750277b.png)
         - (II) Caso somente o arquivo "base_scores.txt" não exista.
-            - ![erro2](https://user-images.githubusercontent.com/99360129/165418646-3983a2d4-cd5c-4c3b-bc88-13aa3750277b.png)
+            - ![erro2](https://user-images.githubusercontent.com/99360129/165418565-61f29b6b-aace-45ca-9f4f-4ffd04be28c7.png)
         - (III) Caso os arquivos "base_formatada.txt" e "base_scores.txt" não existam.
             - ![erro3](https://user-images.githubusercontent.com/99360129/165418661-a1d98534-de4a-40ef-a12b-b3f2d152f026.png)
        
