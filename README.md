@@ -3,15 +3,12 @@
 # Processo de Compilação e Execução do Programa
 * Pré-Requisitos:
     - CMAKE; <br />
-Para a compilação do programa digite no terminal os seguintes comandos: <br />
+Para a compilação e execução do programa, digite no terminal: <br />
 ```
     mkdir build
     cd build/
     cmake ..
     cmake --build .
-```
-Finalizada a compilação, para execultar o programa digite, em seguida: 
-```
     ./program ../data/base_formatada.txt ../data/base_scores.txt
 ```
 # Validação Dos Arquivos
