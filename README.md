@@ -2,9 +2,9 @@
 * Repositório contendo as especificações do Trabalho 1 da disciplina de LP1
 # Processo de Compilação e Execução do Programa
 1. Pré-Requisitos:
-    - CMAKE;
+    - CMAKE; <br />
 1º Excluir a pasta build; <br />
-2º Criar uma nova pasta build e entrar nela digitando no terminal: <br />
+2º Criar uma nova pasta build para que o Cmake seja configurado para a sua máquina e entrar nela digitando no terminal: <br />
 ```
     mkdir build
     cd build/
@@ -16,7 +16,7 @@
 ```
 4º Finalizada a compilação, execulte o programa utilizando: 
 ```
-    ./program ../base_formatada.txt ../base_scores.txt
+    ./program ../data/base_formatada.txt ../data/base_scores.txt
 ```
 # Validação Dos Arquivos: Possíveis Erros
 
