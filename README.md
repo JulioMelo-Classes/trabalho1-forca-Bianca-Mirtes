@@ -16,7 +16,12 @@ Para fazer a compilação e execução do programa, digite no terminal: <br />
 
 1. Arquivo de Palavras e de Scores:
     - (a) ERRO DE INEXISTÊNCIA;
-        - ![erro7](https://user-images.githubusercontent.com/82531511/165169587-4716169f-6c34-42ca-994b-30ef84ba4e72.jpeg)
+        - (I) Caso somente o arquivo "base_formatada.txt" não exista.
+            - ![erro7](https://user-images.githubusercontent.com/82531511/165169587-4716169f-6c34-42ca-994b-30ef84ba4e72.jpeg)
+        - (II) Caso somente o arquivo "base_scores.txt" não exista.
+            - 
+        - (III) Caso nenhum dos arquivos exista
+            - 
        
 2. Arquivo de Palavras:
     - (a) ERRO DE CARACTERE ESPECIAL;
