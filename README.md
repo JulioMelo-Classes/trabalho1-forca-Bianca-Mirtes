@@ -4,7 +4,7 @@
 * Pré-Requisitos:
     - CMAKE; <br />
 
-Para fazer a compilação e execução do programa, digite no terminal: <br />
+Para fazer a compilação (criação do executável) e executar o arquivo .exe criado, digite no terminal: <br />
 ```
     mkdir build
     cd build/
