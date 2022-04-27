@@ -1,5 +1,5 @@
-# Trabalho-1-Jogo-da-Forca-LP1
-* Repositório contendo as especificações do Trabalho 1 da disciplina de LP1
+# Trabalho-1-Jogo-da-Forca-LP1-2022.1
+* Repositório contendo as especificações do Trabalho 1 da disciplina de LP1 do semestre 2022.1
 # Processo de Compilação e Execução do Programa
 * Pré-Requisitos:
     - CMAKE; <br />
