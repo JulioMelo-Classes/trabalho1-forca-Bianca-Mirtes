@@ -12,7 +12,7 @@ Para fazer a compilação e execução do programa, digite no terminal: <br />
     cmake --build .
     ./program ../data/base_formatada.txt ../data/base_scores.txt
 ```
-# Validação Dos Arquivos
+# Validação Dos Arquivos-Testes
 
 1. Arquivo de Palavras e de Scores:
     - (a) ERRO DE INEXISTÊNCIA;
