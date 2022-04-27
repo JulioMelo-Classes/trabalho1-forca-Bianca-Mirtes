@@ -3,7 +3,8 @@
 # Processo de Compilação e Execução do Programa
 * Pré-Requisitos:
     - CMAKE; <br />
-Para a compilação e execução do programa, digite no terminal: <br />
+
+Para fazer a compilação e execução do programa, digite no terminal: <br />
 ```
     mkdir build
     cd build/
