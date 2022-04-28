@@ -1,5 +1,26 @@
 # Trabalho-1-Jogo-da-Forca-LP1-2022.1
 * Repositório contendo as especificações do Trabalho 1 da disciplina de LP1 do semestre 2022.1
+
+# Avaliação e Feeback
+
+- Implementação do carregamento dos arquivos |  10 / 10 pontos
+    - Mutio boa a ideia para suportar palavras compostas!
+
+- Implementação de parte da validação | / 10 pontos
+    - bom trabalho, quase completo ou 100% já?
+
+- Implementação de um main funcional com parte da UI | 5 / 5 pontos
+
+- Implementação de parte da lógica de sorteio de palavras | 6 / 10 pontos
+    - A forma como vcs fizeram não tem garantia de que o vetor m_palavras não tem palavras repetidas.
+    - Além disso, a forma como vc está preenchendo o vetor nos níveis fácil e médio está equivocada, da forma como
+    está pode ocorrer do vetor ser formado apenas por palavras menores que a média!
+
+- Estrutura básica dos arquivos e processo de compilação definido | 5 / 5 pontos
+
+- Observações gerais
+    - Por favor, não entreguem sem implementar um .cpp pro forca, bem como **removam** o using namespace std do forca.hpp
+
 # Processo de Compilação e Execução do Programa
 * Pré-Requisitos:
     - CMAKE; <br />
