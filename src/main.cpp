@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include <vector>
 #include <fstream>
+#include <random>
 
 using namespace std;
 
@@ -95,6 +96,7 @@ int main(int argc, char *argv[]){
                 cout << endl;
                 cout << endl;
                 cout << endl;
+                p = forca.dica_jogador();
                 for(int i=0; i < (int)p.size(); i++){
                     cout << p[i] << " ";
                 }

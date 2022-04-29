@@ -488,6 +488,36 @@ class Forca {
                 cout << endl; 
             }
         };
+        string dica_jogador(){
+            vector<char> consoantes;
+            vector<char> vogais;
+            int dica;
+            for(int i=0; i < (int)get_palavra_atual().size(); i++){
+                if((get_palavra_atual()[i] != 'A') && (get_palavra_atual()[i] != 'E') && (get_palavra_atual()[i] != 'I') && (get_palavra_atual()[i] != 'O') && (get_palavra_atual()[i] != 'U')){
+                    consoantes.push_back(get_palavra_atual()[i]);
+                } else if(get_palavra_atual()[i] == 'A' || get_palavra_atual()[i] == 'E' || get_palavra_atual()[i] == 'I' || get_palavra_atual()[i] == 'O' || get_palavra_atual()[i] == 'U'){
+                    vogais.push_back(get_palavra_atual()[i]);
+                }
+            }
+            if (m_dificuldade == 0){
+                dica = rand()%(consoantes.size()-1);
+                m_letras_palpitadas.push_back(consoantes[dica]);
+                for(int i=0; i < (int)m_palavra_jogada.size(); i++){
+                    if(get_palavra_atual()[i] == consoantes[dica]){
+                        m_palavra_jogada[i] = consoantes[dica];
+                    }
+                }
+            } else if(m_dificuldade == 1){
+                dica = rand()%(vogais.size()-1);
+                m_letras_palpitadas.push_back(vogais[dica]);
+                for(int i=0; i < (int)m_palavra_jogada.size(); i++){
+                    if(get_palavra_atual()[i] == vogais[dica]){
+                        m_palavra_jogada[i] = vogais[dica];
+                    }
+                }
+            }
+            return m_palavra_jogada;
+        };
 
         void score_tabela(){
             string d = "Dificuldade";
