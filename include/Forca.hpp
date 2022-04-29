@@ -10,7 +10,6 @@
 #include <algorithm>
 #include <ctype.h>
 #include <iomanip>
-#include <regex>
 
 /*using cout;
 using endl;
@@ -278,13 +277,6 @@ class Forca {
                 }
             }
             if(m_dificuldade == 0){
-                while(count1 < 10){
-                    sorteio = rand()%(freq_maior.size()-1);
-                    if(m_palavras_do_jogo.empty()){
-                        m_palavras_do_jogo.push_back(freq_maior[sorteio]);
-                    } else{
-                    }
-                }
                 for(int k=0; k < 10; k++){ // FAZ O SORTEIO DAS 10 PALAVRAS E ARMAZENA NO VETOR m_palavras_do_jogo
                     sorteio = rand()%(freq_maior.size()-1);
                     m_palavras_do_jogo.push_back(freq_maior[sorteio]);
@@ -501,4 +493,5 @@ class Forca {
             }
             
         };
+
 };
