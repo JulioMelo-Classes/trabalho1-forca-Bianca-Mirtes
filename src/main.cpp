@@ -3,6 +3,7 @@
 #include <istream>
 #include <ctype.h>
 #include <vector>
+#include <fstream>
 
 using namespace std;
 
@@ -23,6 +24,11 @@ int main(int argc, char *argv[]){
     // 4 - ERRO DE CAMPO VAZIO (DIFICULDADE);
     // 5 - ERRO DE CAMPO VAZIO (NOME);
     // 6 - ERRO DE CAMPO VAZIO (PONTUAÇÃO);
+    fstream atualiza_score;
+    vector<string> palavras_jogador;
+    string dificuldade_score;
+    atualiza_score.open(argv[2], ios::app);
+    
     auto valid = forca.eh_valido();
     if(valid.second.first == 0){
         if(!valid.first.first){ /*SAI DO PROGRAMA AO ENCONTRAR UM ERRO*/
@@ -57,7 +63,6 @@ int main(int argc, char *argv[]){
         int choice;
         cout << "Sua escolha: ";
         cin >> choice;
-        vector<string> jogadores;
         string nome;
         if(choice == 1){
             /*SELECIONA A DIFICULDADE*/ 
@@ -192,7 +197,15 @@ int main(int argc, char *argv[]){
                 }
                 if(p.find('_') > p.size()){
                     /*IMPRIME A INTERFACE DE CONTINUAR OU PARAR*/
-                    int choice2; 
+                    int choice2;
+                    palavras_jogador.push_back(forca.get_palavra_atual());
+                    if(dificuldade == 1){
+                        dificuldade_score = "FACIL";
+                    } else if(dificuldade == 2){
+                        dificuldade_score = "MEDIO";
+                    } else if(dificuldade == 3){
+                        dificuldade_score = "DIFICIL";
+                    }
                     cout << "Aclamação, sucesso e talento? OK" << endl;
                     cout << "1 - Nova Partida" << endl;
                     cout << "2 - Menu Inicial" << endl;
@@ -206,6 +219,13 @@ int main(int argc, char *argv[]){
                     }
                 } else{ /*PERDEU*/
                     /*IMPRIME O GAMEOVER E A PALAVRA QUE ESTAVA SENDO JOGADA*/ 
+                    if(dificuldade == 1){
+                        dificuldade_score = "FACIL";
+                    } else if(dificuldade == 2){
+                        dificuldade_score = "MEDIO";
+                    } else if(dificuldade == 3){
+                        dificuldade_score = "DIFICIL";
+                    }
                     cout << "\"Os pequenos fracassos cotidianos preparam você para derrotas extraordinárias!\"" << endl;
                     cout << "O jogo acabou, a palavra era "<< forca.get_palavra_atual() << "."<< endl;
                     break;
@@ -215,15 +235,32 @@ int main(int argc, char *argv[]){
             /*PEDE O NOME DO JOGADOR PARA ARMAZENAR OS DADOS DA PARTIDA NO ARQUIVO DE SCORES*/
             cout << "Apelido: ";
             cin >> nome;
-            jogadores.push_back(nome);
             cout << endl;
+            atualiza_score << "\n" << dificuldade_score << "; " << nome << "; ";
+            for(int i=0; i < (int)palavras_jogador.size(); i++){
+                if(palavras_jogador.size() <= 1){
+                    atualiza_score << palavras_jogador[i];
+                } else{
+                    if(i == palavras_jogador.size()-1){
+                        atualiza_score << palavras_jogador[i];
+                    } else{
+                      atualiza_score << palavras_jogador[i] << ", ";  
+                    }
+                }
+                
+            }
+            atualiza_score << ";" << point;
+            atualiza_score.close();
+            palavras_jogador.clear();
         }
         else if( choice == 2){
+
             /*MOSTRAR SCORE*/
         } else{
             break;
             //QUALQUER OUTRO NÚMERO SAI DO JOGO 
         }   
     }
+    atualiza_score.close();
     return 0;
 }

@@ -9,13 +9,16 @@
 #include <random>
 #include <algorithm>
 #include <ctype.h>
-using std::cout;
-using std::endl;
-using std::vector;
-using std::string;
-using std::pair;
-using std::fstream;
-using std::ios;
+
+/*using cout;
+using endl;
+using vector;
+using string;
+using pair;
+using fstream;
+using ios;*/
+
+using namespace std;
 
 class Forca {
     public:
@@ -24,26 +27,26 @@ class Forca {
         };
     private:
         //TODO: armazenar os scores?
-        std::vector< std::pair<std::string, int> > m_palavras; //<! VETOR CONTENDO AS PALAVRAS E SUA OCORRÊNCIA NO CORPUS 
+        vector< pair<string, int> > m_palavras; //<! VETOR CONTENDO AS PALAVRAS E SUA OCORRÊNCIA NO CORPUS 
 
-        std::string m_arquivo_scores; //<! NOME DO ARQUIVO CONTENDO OS SCORES 
+        string m_arquivo_scores; //<! NOME DO ARQUIVO CONTENDO OS SCORES 
  
-        std::string m_arquivo_palavras; //<! NOME DO ARQUIVO CONTENDO AS PALAVRAS 
+        string m_arquivo_palavras; //<! NOME DO ARQUIVO CONTENDO AS PALAVRAS 
  
         Dificuldade m_dificuldade; //<! DIFICULDADE ATUAL DO JOGO 
  
-        std::vector< std::string > m_palavras_do_jogo; //<! CONTAINER “PALAVRAS DO JOGO”
-        std::vector< char > m_letras_palpitadas; //<! CONTEM AS LETRAS PALPITADAS PELO JOGADOR
-        std::string m_palavra_atual; //<! PALAVRA SENDO JOGADA “ATUALMENTE”
-        std::string m_palavra_jogada; //<! PALAVRA SENDO JOGADA “ATUALMENTE” NO FORMATO “_ _ _ ... _ “ 
+        vector< string > m_palavras_do_jogo; //<! CONTAINER “PALAVRAS DO JOGO”
+        vector< char > m_letras_palpitadas; //<! CONTEM AS LETRAS PALPITADAS PELO JOGADOR
+        string m_palavra_atual; //<! PALAVRA SENDO JOGADA “ATUALMENTE”
+        string m_palavra_jogada; //<! PALAVRA SENDO JOGADA “ATUALMENTE” NO FORMATO “_ _ _ ... _ “ 
         
         int m_tentativas_restantes=6; // ARMAZENA AS TENTATIVAS RESTANTES
         int qnt_palavras; // A QUANTIDADE DE PALAVRAS DO ARQUIVO base_formatada.txt
         int media_p; // MÉDIA DAS FREQUÊNCIAS DAS PALAVRAS DO ARQUIVO base_formatada.txt
         int soma_freq=0; // SOMA DAS FREQUÊNCIAS DAS PALAVRAS DO ARQUIVO base_formatada.txt
-        std::vector<std::pair<std::string, std::string>> dificuldade_jogador;
-        std::vector<std::string> palavras;
-        std::vector<int> pont;
+        vector<pair<string, string>> dificuldade_jogador;
+        vector<string> palavras;
+        vector<int> pont;
    
     public:
         /** 
@@ -55,7 +58,7 @@ class Forca {
          * @param SCORES O NOME DO ARQUIVO QUE CONTÉM OS SCORES 
          * @see eh_valido 
          */
-        Forca( std::string palavras, std::string scores ){
+        Forca( string palavras, string scores ){
             m_arquivo_palavras = palavras;
             m_arquivo_scores = scores;
         };
@@ -67,24 +70,24 @@ class Forca {
          * RAZÃO CORRESPONDENTE DE ACORDO COM AS ESPECIFICAÇÕES. 
          * @return {T,""} SE OS ARQUIVOS ESTIVEREM VÁLIDOS, {F,"RAZÃO"} CASO CONTRÁRIO. 
          */
-        std::pair<std::pair<bool, std::string>, std::pair<int, std::string>> eh_valido(){
-            std::fstream arq_palavras;
-            std::fstream arq_scores;
+        pair<pair<bool, string>, pair<int, string>> eh_valido(){
+            fstream arq_palavras;
+            fstream arq_scores;
             int count=0, pos, count1=0, qnt=0;
-            std::string palavra, freq;
-            std::string linha, linha2;
-            std::string dificult, jogador, pont; 
-            std::vector<int> pos_pv;
-            std::pair<std::pair<bool, std::string>, std::pair<int, std::string>> erro;
+            string palavra, freq;
+            string linha, linha2;
+            string dificult, jogador, pont; 
+            vector<int> pos_pv;
+            pair<pair<bool, string>, pair<int, string>> erro;
             // ABRE OS ARQUIVOS PARA LEITURA DOS DADOS
-            arq_palavras.open(m_arquivo_palavras, std::ios::in);
-            arq_scores.open(m_arquivo_scores, std::ios::in);
+            arq_palavras.open(m_arquivo_palavras, ios::in);
+            arq_scores.open(m_arquivo_scores, ios::in);
             if(!arq_palavras.is_open() && (!arq_scores.is_open())){
-                return std::pair<std::pair<bool, std::string>, std::pair<int, std::string>> {{false, "Arquivo base_formatada.txt e Arquivo base_scores.txt inexistentes"}, {0, ""}};
+                return pair<pair<bool, string>, pair<int, string>> {{false, "Arquivo base_formatada.txt e Arquivo base_scores.txt inexistentes"}, {0, ""}};
             } else if(!arq_palavras.is_open()){
-                return std::pair<std::pair<bool, std::string>, std::pair<int, std::string>> {{false, "Arquivo base_formatada.txt inexistente"}, {0, ""}};
+                return pair<pair<bool, string>, pair<int, string>> {{false, "Arquivo base_formatada.txt inexistente"}, {0, ""}};
             } else if(!arq_scores.is_open()){
-                return std::pair<std::pair<bool, std::string>, std::pair<int, std::string>> {{false, "Arquivo base_scores.txt inexistente"}, {0, ""}};
+                return pair<pair<bool, string>, pair<int, string>> {{false, "Arquivo base_scores.txt inexistente"}, {0, ""}};
             } else{
                // LER O CONTEÚDO DO ARQUIVO DE PALAVRAS LINHA A LINHA ENQUANDO NÃO CHEGAR AO FINAL DO ARQUIVO
                 while(!arq_palavras.eof()){
@@ -101,13 +104,13 @@ class Forca {
                     freq = linha.substr(pos, linha.size()-1); // UTILIZA A POSIÇÃO DO ESPAÇO EM BRANCO PARA ARMAZENAR A PARTE DA LINHA QUE CONTÉM A FREQUÊNCIA
                     for(int i=0; i < (int)palavra.size(); i++){ // PERCORRE A PALAVRA PARA ANALISAR OS POSSÍVEIS ERROS
                         if(ispunct(palavra[i]) && (palavra[i] != '-')){  //CASO ENCONTRE ALGUM CARACTERE ESPECIAL NA PALAVRA, EXCETO O HÍFEN, RETORNA O ERRO DO TIPO CARACTERE ESPECIAL
-                            return std::pair<std::pair<bool, std::string>, std::pair<int, std::string>>{{false, "Caractere especial encontrado"}, {count, palavra}};
+                            return pair<pair<bool, string>, pair<int, string>>{{false, "Caractere especial encontrado"}, {count, palavra}};
                         } else if(isspace(palavra[i])){  //CASO ENCONTRE ALGUM ESPAÇO EM BRANCO NA PALAVRA, RETORNA O ERRO DO TIPO ESPAÇO EM BRANCO
-                            return std::pair<std::pair<bool, std::string>, std::pair<int, std::string>>{{false, "Espaço em branco encontrado"}, {count, palavra}};
+                            return pair<pair<bool, string>, pair<int, string>>{{false, "Espaço em branco encontrado"}, {count, palavra}};
                         } else if(palavra.size() <= 4){  //CASO ENCONTRE ALGUMA PALAVRA COM TAMANHO <=4, RETORNA O ERRO DO TIPO TAMANHO DA PALAVRA <=4
-                            return std::pair<std::pair<bool, std::string>, std::pair<int, std::string>>{{false, "Palavra com tamanho menor ou igual a 4"}, {count, palavra}};
+                            return pair<pair<bool, string>, pair<int, string>>{{false, "Palavra com tamanho menor ou igual a 4"}, {count, palavra}};
                         } else if(stoi(freq) < 0){   //CASO ENCONTRE ALGUMA FREQUÊNCIA NEGATIVA, RETORNA O ERRO DO TIPO FREQUÊNCIA NEGATIVA
-                            return std::pair<std::pair<bool, std::string>, std::pair<int, std::string>>{{false, "Frequência Negativa"}, {count, freq}};
+                            return pair<pair<bool, string>, pair<int, string>>{{false, "Frequência Negativa"}, {count, freq}};
                         }
                     }  
                 }
@@ -122,21 +125,21 @@ class Forca {
                         }
                     }
                     if(qnt > 3){ // CASO O N° DE ';' SEJA MAIOR QUE 3 RETORNA O ERRO EXCESSO DE ';'
-                        return std::pair<std::pair<bool, std::string>, std::pair<int, std::string>>{{false, "Excesso de ponto e vírgula"}, {count1, ""}};
+                        return pair<pair<bool, string>, pair<int, string>>{{false, "Excesso de ponto e vírgula"}, {count1, ""}};
                     } else if(qnt < 3){ // CASO O N° DE ';' SEJA MENOR QUE 3 RETORNA O ERRO FALTA DE ';'
-                        return std::pair<std::pair<bool, std::string>, std::pair<int, std::string>>{{false, "Falta de ponto e vírgula"}, {count1, ""}};
+                        return pair<pair<bool, string>, pair<int, string>>{{false, "Falta de ponto e vírgula"}, {count1, ""}};
                     }
                     qnt = 0; // ZERA A VARIÁVEL qnt PARA SER USADA NA LEITURA DA PRÓXIMA LINHA
-                    // VERIFICA SE OS CAMPOS DE DIFICULDADE, NOME DO JOGADOR(A) OU PONTUAÇÃO DO ARQUIVO DE SCORES ESTÃO VAZstd::ios E RETORNA A RAZÃO DO ERRO E A LINHA
+                    // VERIFICA SE OS CAMPOS DE DIFICULDADE, NOME DO JOGADOR(A) OU PONTUAÇÃO DO ARQUIVO DE SCORES ESTÃO VAZios E RETORNA A RAZÃO DO ERRO E A LINHA
                     dificult = linha2.substr(0, pos_pv[0]);
                     jogador = linha2.substr(pos_pv[0]+1, pos_pv[1]-(pos_pv[0]+1));
                     pont = linha2.substr(pos_pv[2]+1, -1);
                     if(dificult.size() == 0){
-                        return std::pair<std::pair<bool, std::string>, std::pair<int, std::string>>{{false, "Campo DIFICULDADE vazio"}, {count1, ""}};
+                        return pair<pair<bool, string>, pair<int, string>>{{false, "Campo DIFICULDADE vazio"}, {count1, ""}};
                     } else if(jogador.size() == 0){
-                        return std::pair<std::pair<bool, std::string>, std::pair<int, std::string>>{{false, "Campo NOME vazio"}, {count1, ""}};
+                        return pair<pair<bool, string>, pair<int, string>>{{false, "Campo NOME vazio"}, {count1, ""}};
                     } else if(pont.size() == 0){
-                        return std::pair<std::pair<bool, std::string>, std::pair<int, std::string>>{{false, "Campo PONTUAÇÃO vazio"}, {count1, ""}};
+                        return pair<pair<bool, string>, pair<int, string>>{{false, "Campo PONTUAÇÃO vazio"}, {count1, ""}};
                     }
                     pos_pv.clear(); // LIMPA O VETOR QUE ARMAZENA AS POSIÇÕES DO ';' PARA SER USADO A CADA NOVA LINHA LIDA
                 } 
@@ -145,41 +148,41 @@ class Forca {
             arq_palavras.close();
             arq_scores.close();
             // SE NÃO OCORRER NENHUM DOS ERROS, RETORNA {TRUE, "VÁLIDO"}
-            return std::pair<std::pair<bool, std::string>, std::pair<int, std::string>> {{true, "Válido"}, {0, ""}};
+            return pair<pair<bool, string>, pair<int, string>> {{true, "Válido"}, {0, ""}};
         };
  
         /** 
          * CARREGA OS ARQUIVOS DE SCORES E PALAVRAS PREENCHENDO **AO MENOS** A ESTRUTURA m_palavras 
          */ 
         void carregar_arquivos(){
-            std::fstream arquivo_palavras;
-            std::fstream arquivo_scores;
-            std::string line, palavra;
+            fstream arquivo_palavras;
+            fstream arquivo_scores;
+            string line, palavra;
             int freq, pos;
             // ABRE OS ARQUIVOS PARA LEITURA DOS DADOS
-            arquivo_palavras.open(m_arquivo_palavras, std::ios::in);
-            arquivo_scores.open(m_arquivo_scores, std::ios::in);
+            arquivo_palavras.open(m_arquivo_palavras, ios::in);
+            arquivo_scores.open(m_arquivo_scores, ios::in);
             // LÊ O CONTEÚDO DO ARQUIVO DE PALAVRAS LINHA A LINHA ENQUANDO NÃO CHEGAR AO FINAL DO ARQUIVO
             while(!arquivo_palavras.eof()){
                 getline(arquivo_palavras, line); // LER A LINHA INTEIRA
                 for(int k=0; k < (int)line.size(); k++){
-                    // SE ENCONTRAR UM NÚMERO ELE GUARDA A POSIÇÃO ANTERIOR QUE É O ESPAÇO EM BRANCO PARA FAZER O "FATIAMENTO" DA std::string line
+                    // SE ENCONTRAR UM NÚMERO ELE GUARDA A POSIÇÃO ANTERIOR QUE É O ESPAÇO EM BRANCO PARA FAZER O "FATIAMENTO" DA string line
                     if(isdigit(line[k])){
                         pos = k-1;
                         break;
                     }
                 }
-                palavra = (line.substr(0, pos));    // ARMAZENA A PALAVRA NA VARIÁVEL palavra 
+                palavra = (line.substr(0, pos));    // ARMAZENA A PALAVRA NA VARIÁVEL palavra
                 freq = stoi(line.substr(pos+1, line.size()-2)); // ARMAZENA A FREQUÊNCIA NA VARIÁVEL freq
                 m_palavras.push_back(make_pair(palavra, freq)); // ARMAZENA A PALAVRA E SUA RESPECTIVA FREQUÊNCIA EM UM VETOR DE PARES
             }
-            std::string line1;
+            string line1;
             // LER O CONTEÚDO DO ARQUIVO DE SCORES LINHA A LINHA ENQUANDO NÃO CHEGAR AO FINAL DO ARQUIVO
             while(!arquivo_scores.eof()){
                 getline(arquivo_scores, line1, ';'); // LER ATÉ ENCONTRAR O ';'
-                std::string line2 = line1;
+                string line2 = line1;
                 getline(arquivo_scores, line1, ';'); // PARTINDO DA POSIÇÃO DO PRIMEIRO getline() LÊ ATÉ ENCONTRAR O ';'
-                std::string line3 = line1;
+                string line3 = line1;
                 dificuldade_jogador.push_back(make_pair(line2, line3)); // ARMAZENA A DIFICULDADE E O NOME DO JOGADOR(A) NO VETOR DE PARES dificuldade_jogador 
                 getline(arquivo_scores, line1, ';'); // PARTINDO DA POSIÇÃO DO SEGUNDO getline() LÊ ATÉ ENCONTRAR O ';'
                 palavras.push_back(line1); //ARMAZENA A(S) PALAVRA(S) ACERTADAS PELO JOGADOR(A)
@@ -228,54 +231,48 @@ class Forca {
          * ALTERANDO O VALOR DE m_palavra_jogada DE ACORDO. 
          * @return O VALOR DO ATRIBUTO m_palavra_jogada. 
          */
-        std::string proxima_palavra(){
-            std::vector<std::string> nivel_facil; // VETOR PARA ARMAZENAR AS PALAVRAS DO NÍVEL FÁCIL
-            std::vector<std::string> nivel_medio; // VETOR PARA ARMAZENAR AS PALAVRAS DO NÍVEL MÉDIO
-            std::vector<std::string> nivel_dificil; // VETOR PARA ARMAZENAR AS PALAVRAS DO NÍVEL DIFÍCIL
+        string proxima_palavra(){
+            vector<string> freq_maior_igual;
+            vector<string> freq_menor;
+            vector<string> freq_maior;
             int sorteio;
             unsigned semente = time(NULL); // PARA AUMENTAR A ALEATORIEDADE DA FUNÇÃO rand(), ALTERANDO A SEMENTE A CADA COMPILAÇÃO
             srand(semente);
-            if(m_dificuldade == 0){ 
-                for(int i=0; i < (int)m_palavras.size(); i++){ // PERCORRE O VETOR m_palavras
-                    if(m_palavras[i].second > media_p){ // SE A FREQUÊNCIA FOR MAIOR QUE A MÉDIA, ARMAZENA EM nivel_facil
-                         nivel_facil.push_back(m_palavras[i].first);
-                    }
+            for(int i=0; i < (int)m_palavras.size(); i++){
+                if(m_palavras[i].second < media_p){ 
+                    freq_menor.push_back(m_palavras[i].first);
                 }
+                if(m_palavras[i].second >= media_p){
+                    freq_maior_igual.push_back(m_palavras[i].first);
+                }
+                if(m_palavras[i].second > media_p){
+                    freq_maior.push_back(m_palavras[i].first);
+                }
+            }
+            if(m_dificuldade == 0){
                 for(int k=0; k < 10; k++){ // FAZ O SORTEIO DAS 10 PALAVRAS E ARMAZENA NO VETOR m_palavras_do_jogo
-                    sorteio = rand()%nivel_facil.size();
-                    m_palavras_do_jogo.push_back(nivel_facil[sorteio]);
+                    sorteio = rand()%(freq_maior.size()-1);
+                    m_palavras_do_jogo.push_back(freq_maior[sorteio]);
                 }
             } else if (m_dificuldade == 1){
-                for(int i=0; i < (int)m_palavras.size(); i++){ // PERCORRE O VETOR m_palavras
-                    if(i <= (int)(20/3)){   // ATÉ 1/3 DAS PALAVRAS VERIFICA SE A FREQUÊNCIA É MAIOR QUE A MÉDIA E ARMAZENA EM nivel_medio
-                        if(m_palavras[i].second > media_p){ 
-                            nivel_medio.push_back(m_palavras[i].first);
-                        }  
-                    } else{ // NO RESTANTE DAS PALAVRAS VERIFICA SE A FREQUÊNCIA É MENOR OU IGUAL QUE A MÉDIA E ARMAZENA EM nivel_medio
-                        if(m_palavras[i].second <= media_p){
-                            nivel_medio.push_back(m_palavras[i].first);
-                        }  
-                    }
-                }
                 for(int k=0; k < 20; k++){  // FAZ O SORTEIO DAS 20 PALAVRAS E ARMAZENA NO VETOR m_palavras_do_jogo
-                    sorteio = rand()%nivel_medio.size();
-                    m_palavras_do_jogo.push_back(nivel_medio[sorteio]);
+                    if(k <= (int)(20/3)){
+                        sorteio = rand()%(freq_menor.size()-1);
+                        m_palavras_do_jogo.push_back(freq_menor[sorteio]);
+                    } else{
+                        sorteio = rand()%(freq_maior_igual.size()-1);
+                        m_palavras_do_jogo.push_back(freq_maior_igual[sorteio]);
+                    }
                 }
             } else if(m_dificuldade == 2){
-                for(int i=0; i < (int)m_palavras.size(); i++){ // PERCORRE O VETOR m_palavras
-                    if(i <= 22){ // ATÉ 3/4 DAS PALAVRAS VERIFICA SE A FREQUÊNCIA É MENOR QUE A MÉDIA E ARMAZENA EM nivel_dificil
-                        if(m_palavras[i].second < media_p){
-                            nivel_dificil.push_back(m_palavras[i].first);
-                        }  
-                    } else{ // NO RESTANTE DAS PALAVRAS VERIFICA SE A FREQUÊNCIA É MAIOR OU IGUAL QUE A MÉDIA E ARMAZENA EM nivel_dificil
-                        if(m_palavras[i].second >= media_p){
-                            nivel_dificil.push_back(m_palavras[i].first);
-                        }  
+                for(int k=0; k < 30; k++){  // FAZ O SORTEIO DAS 20 PALAVRAS E ARMAZENA NO VETOR m_palavras_do_jogo
+                    if(k <= 22){
+                        sorteio = rand()%(freq_menor.size()-1);
+                        m_palavras_do_jogo.push_back(freq_menor[sorteio]);  
+                    } else{
+                        sorteio = rand()%(freq_maior_igual.size()-1);
+                        m_palavras_do_jogo.push_back(freq_maior_igual[sorteio]);
                     }
-                }
-                for(int k=0; k < 30; k++){  // FAZ O SORTEIO DAS 30 PALAVRAS E ARMAZENA NO VETOR m_palavras_do_jogo
-                    sorteio = rand()%nivel_dificil.size();
-                    m_palavras_do_jogo.push_back(nivel_dificil[sorteio]);
                 }
             }
             random_shuffle(m_palavras_do_jogo.begin(), m_palavras_do_jogo.end()); //EMBARALHA A ORDEM DAS PALAVRAS
@@ -295,7 +292,7 @@ class Forca {
          * JÁ ACERTADAS/SORTEADAS AO INVÉS DE “_”. 
          * @return A PALAVRA ATUALMENTE SENDO JOGADA. 
          */ 
-        std::string get_palavra_jogada(char palp){
+        string get_palavra_jogada(char palp){
             for(int i=0; i < (int)m_palavra_atual.size(); i++){ // PERCORRE m_palavra_atual
                 if (m_palavra_atual[i] == palp){ // SE ALGUM CARACTERE COINCIDIR COM O PALPITE DO JOGADOR(A) SUBSTUI-O EM m_palavra_jogada
                     m_palavra_jogada[i] = palp;
@@ -309,7 +306,7 @@ class Forca {
          * SENDO JOGADA 
          * @return O VALOR DO ATRIBUTO m_palavra_atual 
          **/ 
-        std::string get_palavra_atual(){
+        string get_palavra_atual(){
             return m_palavra_atual;
         };
  
@@ -330,15 +327,15 @@ class Forca {
         // letra não pertence e letra nova (F, T)
         // letra pertence e letra repetida (T, F)
         // letra não pertence e letra repetida (F, F) 
-        std::pair<bool, bool> palpite(char palp){
+        pair<bool, bool> palpite(char palp){
             int exist=0;
             if(m_letras_palpitadas.size() == 0){ // CASO SEJA O PRIMEIRO PALPITE DO JOGADOR(A)
                m_letras_palpitadas.push_back(palp); // ARMAZENA O PALPITE
                 if (m_palavra_atual.find(palp) < m_palavra_atual.size()){ // SE O PALPITE ESTIVER CONTIDO EM m_palavra_atual RETORNA {T, T}
-                    return std::pair<bool, bool>{true, true}; 
+                    return pair<bool, bool>{true, true}; 
                 } else if (m_palavra_atual.find(palp) > m_palavra_atual.size()){ // SE O PALPITE NÃO ESTIVER CONTIDO EM m_palavra_atual SUBTRAI -1 DE m_tentativas_restantes E RETORNA {F, T}
                     m_tentativas_restantes--;
-                    return std::pair<bool, bool>{false, true};
+                    return pair<bool, bool>{false, true};
                 }
             } else{
                for(int k=0; k < (int)m_letras_palpitadas.size(); k++){ //PERCORRE m_letras_palpitadas
@@ -348,15 +345,15 @@ class Forca {
                 }
                 if (m_palavra_atual.find(palp) < m_palavra_atual.size() && (exist != 1)){ // SE O PALPITE ESTIVER CONTIDO EM m_palavra_atual E A LETRA FOR NOVA, RETORNA {T, T}
                     m_letras_palpitadas.push_back(palp);
-                    return std::pair<bool, bool>{true, true}; 
+                    return pair<bool, bool>{true, true}; 
                 } else if (m_palavra_atual.find(palp) > m_palavra_atual.size() && (exist != 1)){ // SE O PALPITE NÃO ESTIVER CONTIDO EM m_palavra_atual E A LETRA FOR NOVA, SUBTRAI -1 DE m_tentativas_restantes E RETORNA {F, T}
                     m_tentativas_restantes--;
                     m_letras_palpitadas.push_back(palp);
-                    return std::pair<bool, bool>{false, true};
+                    return pair<bool, bool>{false, true};
                 } else if(m_palavra_atual.find(palp) < m_palavra_atual.size() && (exist == 1)){ // SE O PALPITE ESTIVER CONTIDO EM m_palavra_atual E A LETRA FOR REPETIDA, RETORNA {T, F}
-                    return std::pair<bool, bool>{true, false};
+                    return pair<bool, bool>{true, false};
                 } else if(m_palavra_atual.find(palp) > m_palavra_atual.size() && (exist == 1)){// SE O PALPITE NÃO ESTIVER CONTIDO EM m_palavra_atual E A LETRA FOR REPETIDA, RETORNA {F, F}
-                    return std::pair<bool, bool>{false, false};
+                    return pair<bool, bool>{false, false};
                 }
             }
             exist = 0; // ZERA A VARIÁVEL exist PARA SER USADA A CADA NOVO PALPITE
@@ -399,39 +396,39 @@ class Forca {
         void boneco(){
             //SE AS TENTATIVAS RESTANTES FOREM <=5 IMPRIME A CABEÇA DO BONECO
             if(get_tentativas_restantes() <= 5){
-                    std::cout << " O " << std::endl;
+                    cout << " O " << endl;
             } else{
                 /*CASO AINDA NÃO TENHA OCORRIDO NENHUM ERRO, OU SEJA, O NÚMERO DE TENTATIVAS AINDA SEJA 6,
                 IMPRIME OS ESPAÇOS EM BRANCO QUE SEPARAM A FRASE DO PALPITE DA PALAVRA.*/
-                std::cout << std::endl;
-                std::cout << std::endl;
+                cout << endl;
+                cout << endl;
             }
             //SE AS TENTATIVAS RESTANTES FOREM <=4 IMPRIME UM DOS BRAÇOS DO BONECO
             if(get_tentativas_restantes() <= 4){
-                    std::cout << "/";
+                    cout << "/";
             }
             //SE AS TENTATIVAS RESTANTES FOREM <=3 IMPRIME O TRONCO DO BONECO
             if(get_tentativas_restantes() <= 3){
-                std::cout << "|";
+                cout << "|";
             }
             //SE AS TENTATIVAS RESTANTES FOREM <=2 IMPRIME O OUTRO BRAÇO DO BONECO
             if(get_tentativas_restantes() <= 2){
-                std::cout << "\\" << std::endl;
+                cout << "\\" << endl;
             }
             //SE AS TENTATIVAS RESTANTES FOREM <=1 IMPRIME UMA DAS PERNAS DO BONECO
             if(get_tentativas_restantes() <= 1){
-                std::cout << "/";
+                cout << "/";
             }
             //SE AS TENTATIVAS RESTANTES FOREM <=0 IMPRIME A OUTRA PERNA DO BONECO
             if(get_tentativas_restantes() <= 0){
-                std::cout << " \\" << std::endl;
+                cout << " \\" << endl;
             }
             // PARA PADRONIZAR O ESPAÇO ENTRE O BONECO E A PALAVRA
             if(get_tentativas_restantes() == 4 || get_tentativas_restantes() == 3 || get_tentativas_restantes() == 1){
-                std::cout << std::endl;
-                std::cout << std::endl;
+                cout << endl;
+                cout << endl;
             } else{
-                std::cout << std::endl; 
+                cout << endl; 
             }
         };
 };
