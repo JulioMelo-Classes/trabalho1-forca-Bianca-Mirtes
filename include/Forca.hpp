@@ -9,6 +9,8 @@
 #include <random>
 #include <algorithm>
 #include <ctype.h>
+#include <iomanip>
+#include <regex>
 
 /*using cout;
 using endl;
@@ -179,13 +181,36 @@ class Forca {
             string line1;
             // LER O CONTEÚDO DO ARQUIVO DE SCORES LINHA A LINHA ENQUANDO NÃO CHEGAR AO FINAL DO ARQUIVO
             while(!arquivo_scores.eof()){
+                /*getline(arquivo_scores, line1);
+                for(int k=0; k < (int)line1.size(); k++){
+                    if(line1[k] == ';'){
+                        pos_pv.push_back(k);
+                    }
+                    if(line[k] == ','){
+                        pos_v.push_back(k);
+                    }
+                }
+                dificuldade_jogador.push_back(make_pair(line1.substr(0, pos_pv[0]), line1.substr(pos_pv[0]+1, pos_pv[1])));
+                palavras[count].push_back(line1.substr(pos_pv[-1]+2, pos_v[0]));
+                for(int k=0; k < pos_v.size()+1; ){
+                    
+                }*/
                 getline(arquivo_scores, line1, ';'); // LER ATÉ ENCONTRAR O ';'
                 string line2 = line1;
                 getline(arquivo_scores, line1, ';'); // PARTINDO DA POSIÇÃO DO PRIMEIRO getline() LÊ ATÉ ENCONTRAR O ';'
                 string line3 = line1;
                 dificuldade_jogador.push_back(make_pair(line2, line3)); // ARMAZENA A DIFICULDADE E O NOME DO JOGADOR(A) NO VETOR DE PARES dificuldade_jogador 
                 getline(arquivo_scores, line1, ';'); // PARTINDO DA POSIÇÃO DO SEGUNDO getline() LÊ ATÉ ENCONTRAR O ';'
-                palavras.push_back(line1); //ARMAZENA A(S) PALAVRA(S) ACERTADAS PELO JOGADOR(A)
+                if(line1.size() == 1){
+                    line1 = "<nenhuma>";
+                    palavras.push_back(line1);
+                } else{
+                  palavras.push_back(line1);  
+                }
+                cout << line1 << endl;
+                for(int i=0; i < line1.size(); i++){
+                    if(line1[i] == ',')
+                //}
                 getline(arquivo_scores, line1, '\n'); // PARTINDO DA POSIÇÃO DO TERCEIRO getline() LER ATÉ ENCONTRAR O FINAL DA LINHA (\n)
                 pont.push_back(stoi(line1)); // ARMAZENA A PONTUAÇÃO DO JOGADOR(A)
             }
@@ -235,7 +260,10 @@ class Forca {
             vector<string> freq_maior_igual;
             vector<string> freq_menor;
             vector<string> freq_maior;
-            int sorteio;
+            vector<string> nivel_facil;
+            vector<string> nivel_medio;
+            vector<string> nivel_dificil;
+            int sorteio, count1=0, count2=0, count3=0;
             unsigned semente = time(NULL); // PARA AUMENTAR A ALEATORIEDADE DA FUNÇÃO rand(), ALTERANDO A SEMENTE A CADA COMPILAÇÃO
             srand(semente);
             for(int i=0; i < (int)m_palavras.size(); i++){
@@ -250,6 +278,13 @@ class Forca {
                 }
             }
             if(m_dificuldade == 0){
+                while(count1 < 10){
+                    sorteio = rand()%(freq_maior.size()-1);
+                    if(m_palavras_do_jogo.empty()){
+                        m_palavras_do_jogo.push_back(freq_maior[sorteio]);
+                    } else{
+                    }
+                }
                 for(int k=0; k < 10; k++){ // FAZ O SORTEIO DAS 10 PALAVRAS E ARMAZENA NO VETOR m_palavras_do_jogo
                     sorteio = rand()%(freq_maior.size()-1);
                     m_palavras_do_jogo.push_back(freq_maior[sorteio]);
@@ -430,5 +465,40 @@ class Forca {
             } else{
                 cout << endl; 
             }
+        };
+
+        void score_tabela(){
+            string d = "Dificuldade";
+            string j = "jogador";
+            string pa = "Palavras";
+            string pon = "Pontos";
+            vector<string> str_separadas;
+            vector<int> posicoes;
+            int qnt=0;
+            cout << "Dificuldade " << "|" << " Jogador " << "|" << " Palavras " << "|" << " Pontos" << endl;
+            for(int i=0; i < (int)dificuldade_jogador.size(); i++){
+                cout << dificuldade_jogador[i].first << setw((d.size() - dificuldade_jogador[i].first.size())+2) << "|" << dificuldade_jogador[i].second << setw((j.size() - dificuldade_jogador[i].first.size())+2) << "|";
+                for(int k=0; k < palavras[i].size(); k++){
+                    if(palavras[i][k] == ','){
+                        posicoes.push_back(k);
+                        qnt++;
+                    }
+                }
+                cout << palavras[i].substr(0, posicoes[0]) << setw((pa.size() - dificuldade_jogador[i].first.size())+2) << "|" << " " << pont[i] << endl;
+                while(qnt>0){
+                    for(int r=0; r < posicoes.size(); r++){
+                        if(r == posicoes.size()-1){
+                            cout << setw(dificuldade_jogador[i].first.size() + (d.size() - dificuldade_jogador[i].first.size())+2) << "|" << setw(dificuldade_jogador[i].second.size() + (j.size() - dificuldade_jogador[i].first.size())+2) << "|";
+                            cout << palavras[i].substr(posicoes[r]+2, -1) << setw((pa.size() - dificuldade_jogador[i].first.size())+2) << "|" << " " << pont[i] << endl;
+                        } else{
+                            cout << setw(dificuldade_jogador[i].first.size() + (d.size() - dificuldade_jogador[i].first.size())+2) << "|" << setw(dificuldade_jogador[i].second.size() + (j.size() - dificuldade_jogador[i].first.size())+2) << "|";
+                            cout << palavras[i].substr(posicoes[r]+2, posicoes[r+1]) << setw((pa.size() - dificuldade_jogador[i].first.size())+2) << "|" << " " << pont[i] << endl;
+                        }
+                    }
+                    qnt--;
+                }
+                posicoes.clear();
+            }
+            
         };
 };

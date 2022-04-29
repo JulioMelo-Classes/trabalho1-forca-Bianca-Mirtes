@@ -29,6 +29,10 @@ algorithm
 -
 ctype.h
 -
+iomanip
+-
+regex
+-
 
 /mnt/c/Users/alice/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/src/main.cpp
 iostream

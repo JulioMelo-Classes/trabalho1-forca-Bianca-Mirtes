@@ -241,7 +241,7 @@ int main(int argc, char *argv[]){
                 if(palavras_jogador.size() <= 1){
                     atualiza_score << palavras_jogador[i];
                 } else{
-                    if(i == palavras_jogador.size()-1){
+                    if(i == (int)palavras_jogador.size()-1){
                         atualiza_score << palavras_jogador[i];
                     } else{
                       atualiza_score << palavras_jogador[i] << ", ";  
@@ -254,8 +254,9 @@ int main(int argc, char *argv[]){
             palavras_jogador.clear();
         }
         else if( choice == 2){
-
             /*MOSTRAR SCORE*/
+            forca.score_tabela();
+            cout << endl;
         } else{
             break;
             //QUALQUER OUTRO NÚMERO SAI DO JOGO 
