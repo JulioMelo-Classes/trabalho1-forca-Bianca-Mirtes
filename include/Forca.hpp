@@ -207,9 +207,6 @@ class Forca {
                   palavras.push_back(line1);  
                 }
                 cout << line1 << endl;
-                for(int i=0; i < line1.size(); i++){
-                    if(line1[i] == ',')
-                //}
                 getline(arquivo_scores, line1, '\n'); // PARTINDO DA POSIÇÃO DO TERCEIRO getline() LER ATÉ ENCONTRAR O FINAL DA LINHA (\n)
                 pont.push_back(stoi(line1)); // ARMAZENA A PONTUAÇÃO DO JOGADOR(A)
             }
@@ -259,10 +256,8 @@ class Forca {
             vector<string> freq_maior_igual;
             vector<string> freq_menor;
             vector<string> freq_maior;
-            vector<string> nivel_facil;
-            vector<string> nivel_medio;
-            vector<string> nivel_dificil;
-            int sorteio, count1=0, count2=0, count3=0;
+            int sorteio;
+            int count1=0;
             unsigned semente = time(NULL); // PARA AUMENTAR A ALEATORIEDADE DA FUNÇÃO rand(), ALTERANDO A SEMENTE A CADA COMPILAÇÃO
             srand(semente);
             for(int i=0; i < (int)m_palavras.size(); i++){
@@ -277,28 +272,63 @@ class Forca {
                 }
             }
             if(m_dificuldade == 0){
-                for(int k=0; k < 10; k++){ // FAZ O SORTEIO DAS 10 PALAVRAS E ARMAZENA NO VETOR m_palavras_do_jogo
+                while(count1 < 10){
                     sorteio = rand()%(freq_maior.size()-1);
-                    m_palavras_do_jogo.push_back(freq_maior[sorteio]);
+                    if(m_palavras_do_jogo.empty()){
+                        m_palavras_do_jogo.push_back(freq_maior[sorteio]);
+                    } else{
+                        if(find(m_palavras_do_jogo.begin(), m_palavras_do_jogo.end(), freq_maior[sorteio]) == m_palavras_do_jogo.end()){
+                            m_palavras_do_jogo.push_back(freq_maior[sorteio]);
+                            count1++;
+                        }
+                    }
                 }
             } else if (m_dificuldade == 1){
-                for(int k=0; k < 20; k++){  // FAZ O SORTEIO DAS 20 PALAVRAS E ARMAZENA NO VETOR m_palavras_do_jogo
-                    if(k <= (int)(20/3)){
+                while(count1 < 20){
+                    if(count1 <= (int)(20/3)){
                         sorteio = rand()%(freq_menor.size()-1);
-                        m_palavras_do_jogo.push_back(freq_menor[sorteio]);
+                        if(m_palavras_do_jogo.empty()){
+                            m_palavras_do_jogo.push_back(freq_menor[sorteio]);
+                        } else{
+                            if(find(m_palavras_do_jogo.begin(), m_palavras_do_jogo.end(), freq_menor[sorteio]) == m_palavras_do_jogo.end()){
+                                m_palavras_do_jogo.push_back(freq_menor[sorteio]);
+                                count1++;
+                            }
+                        }
                     } else{
                         sorteio = rand()%(freq_maior_igual.size()-1);
-                        m_palavras_do_jogo.push_back(freq_maior_igual[sorteio]);
+                        if(m_palavras_do_jogo.empty()){
+                            m_palavras_do_jogo.push_back(freq_maior_igual[sorteio]);
+                        } else{
+                            if(find(m_palavras_do_jogo.begin(), m_palavras_do_jogo.end(), freq_menor[sorteio]) == m_palavras_do_jogo.end()){
+                                m_palavras_do_jogo.push_back(freq_maior_igual[sorteio]);
+                                count1++;
+                            }
+                        }
                     }
                 }
             } else if(m_dificuldade == 2){
-                for(int k=0; k < 30; k++){  // FAZ O SORTEIO DAS 20 PALAVRAS E ARMAZENA NO VETOR m_palavras_do_jogo
-                    if(k <= 22){
+                while(count1 < 30){
+                    if(count1 <= 22){
                         sorteio = rand()%(freq_menor.size()-1);
-                        m_palavras_do_jogo.push_back(freq_menor[sorteio]);  
+                        if(m_palavras_do_jogo.empty()){
+                            m_palavras_do_jogo.push_back(freq_menor[sorteio]);
+                        } else{
+                            if(find(m_palavras_do_jogo.begin(), m_palavras_do_jogo.end(), freq_menor[sorteio]) == m_palavras_do_jogo.end()){
+                                m_palavras_do_jogo.push_back(freq_menor[sorteio]);
+                                count1++;
+                            }
+                        }
                     } else{
                         sorteio = rand()%(freq_maior_igual.size()-1);
-                        m_palavras_do_jogo.push_back(freq_maior_igual[sorteio]);
+                        if(m_palavras_do_jogo.empty()){
+                            m_palavras_do_jogo.push_back(freq_maior_igual[sorteio]);
+                        } else{
+                            if(find(m_palavras_do_jogo.begin(), m_palavras_do_jogo.end(), freq_menor[sorteio]) == m_palavras_do_jogo.end()){
+                                m_palavras_do_jogo.push_back(freq_maior_igual[sorteio]);
+                                count1++;
+                            }
+                        }
                     }
                 }
             }
