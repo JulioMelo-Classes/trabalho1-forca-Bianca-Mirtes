@@ -32,11 +32,11 @@ pair<pair<bool, string>, pair<int, string>> Forca::eh_valido(){
     arq_palavras.open(m_arquivo_palavras, ios::in);
     arq_scores.open(m_arquivo_scores, ios::in);
     if(!arq_palavras.is_open() && (!arq_scores.is_open())){
-        return pair<pair<bool, string>, pair<int, string>> {{false, "Arquivo base_formatada.txt e Arquivo base_scores.txt inexistentes"}, {0, ""}};
+        return pair<pair<bool, string>, pair<int, string>> {{false, "Arquivo(s) Inexistente(s)"}, {0, ""}};
     } else if(!arq_palavras.is_open()){
-        return pair<pair<bool, string>, pair<int, string>> {{false, "Arquivo base_formatada.txt inexistente"}, {0, ""}};
+        return pair<pair<bool, string>, pair<int, string>> {{false, "Arquivo(s) Inexistente(s)"}, {0, ""}};
     } else if(!arq_scores.is_open()){
-        return pair<pair<bool, string>, pair<int, string>> {{false, "Arquivo base_scores.txt inexistente"}, {0, ""}};
+        return pair<pair<bool, string>, pair<int, string>> {{false, "Arquivo(s) Inexistente(s)"}, {0, ""}};
     } else{
         // LER O CONTEÚDO DO ARQUIVO DE PALAVRAS LINHA A LINHA ENQUANDO NÃO CHEGAR AO FINAL DO ARQUIVO
         while(!arq_palavras.eof()){
@@ -87,7 +87,7 @@ pair<pair<bool, string>, pair<int, string>> Forca::eh_valido(){
                 return pair<pair<bool, string>, pair<int, string>>{{false, "Campo DIFICULDADE vazio"}, {count1, ""}};
             } else if(jogador.size() == 0){
                 return pair<pair<bool, string>, pair<int, string>>{{false, "Campo NOME vazio"}, {count1, ""}};
-            } else if(pont.size() == 0){
+            } else if(pont.size()-1 == 0){
                 return pair<pair<bool, string>, pair<int, string>>{{false, "Campo PONTUAÇÃO vazio"}, {count1, ""}};
             }
             pos_pv.clear(); // LIMPA O VETOR QUE ARMAZENA AS POSIÇÕES DO ';' PARA SER USADO A CADA NOVA LINHA LIDA

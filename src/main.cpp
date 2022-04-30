@@ -25,11 +25,6 @@ int main(int argc, char *argv[]){
     // 4 - ERRO DE CAMPO VAZIO (DIFICULDADE);
     // 5 - ERRO DE CAMPO VAZIO (NOME);
     // 6 - ERRO DE CAMPO VAZIO (PONTUAÇÃO);
-    fstream atualiza_score;
-    vector<string> palavras_jogador;
-    string dificuldade_score;
-    atualiza_score.open(argv[2], ios::app);
-    
     auto valid = forca.eh_valido();
     if(valid.second.first == 0){
         if(!valid.first.first){ /*SAI DO PROGRAMA AO ENCONTRAR UM ERRO*/
@@ -51,6 +46,10 @@ int main(int argc, char *argv[]){
     }
     // FAZ A LEITURA DOS ARQUIVOS CONTENDO AS PALAVRAS E OS SCORES PARA, RESPECTIVAMENTE EXTRAIR AS PALAVRAS E FREQUÊNCIAS E EXTRAIR AS INFORMAÇÕES DAS PARTIDAS
     forca.carregar_arquivos();
+    fstream atualiza_score;
+    vector<string> palavras_jogador;
+    string dificuldade_score;
+    atualiza_score.open(argv[2], ios::app);
     forca.dados();  // CALCULA A FRÊQUENCIA MÉDIA DAS PALAVRAS
     cout << "-----------------------------------------------------------" << endl;
     cout << ">>> Arquivos OK" << endl;
