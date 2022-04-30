@@ -123,6 +123,33 @@ program/fast:
 	$(MAKE) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/build
 .PHONY : program/fast
 
+src/forca.o: src/forca.cpp.o
+
+.PHONY : src/forca.o
+
+# target to build an object file
+src/forca.cpp.o:
+	$(MAKE) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/src/forca.cpp.o
+.PHONY : src/forca.cpp.o
+
+src/forca.i: src/forca.cpp.i
+
+.PHONY : src/forca.i
+
+# target to preprocess a source file
+src/forca.cpp.i:
+	$(MAKE) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/src/forca.cpp.i
+.PHONY : src/forca.cpp.i
+
+src/forca.s: src/forca.cpp.s
+
+.PHONY : src/forca.s
+
+# target to generate assembly for a file
+src/forca.cpp.s:
+	$(MAKE) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/src/forca.cpp.s
+.PHONY : src/forca.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -159,6 +186,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... program"
+	@echo "... src/forca.o"
+	@echo "... src/forca.i"
+	@echo "... src/forca.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

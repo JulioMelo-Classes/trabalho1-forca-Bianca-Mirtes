@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/program.dir/src/forca.cpp.o"
   "CMakeFiles/program.dir/src/main.cpp.o"
   "program"
   "program.pdb"

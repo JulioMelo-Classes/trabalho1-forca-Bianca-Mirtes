@@ -49,6 +49,7 @@
         "compare": "cpp",
         "concepts": "cpp",
         "numbers": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "iomanip": "cpp"
     }
 }

@@ -19,7 +19,8 @@ include_directories( include )
 # Cria um executável com nome "program" com base no main.cpp
 set( APP_NAME "program" )
 add_executable( ${APP_NAME}
-                src/main.cpp )
+                src/main.cpp
+                src/forca.cpp )
                 
 
 # The end
