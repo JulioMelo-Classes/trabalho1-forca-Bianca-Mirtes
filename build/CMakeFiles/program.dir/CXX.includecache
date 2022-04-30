@@ -60,19 +60,3 @@ iomanip
 Forca.hpp
 /mnt/c/Users/alice/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/src/Forca.hpp
 
-/mnt/c/Users/alice/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/src/main.cpp
-iostream
--
-Forca.hpp
-/mnt/c/Users/alice/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/src/Forca.hpp
-istream
--
-ctype.h
--
-vector
--
-fstream
--
-random
--
-
