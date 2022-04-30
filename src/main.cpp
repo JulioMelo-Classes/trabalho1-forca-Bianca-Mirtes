@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Forca.hpp"
 #include <istream>
-#include <ctype.h>
+#include <cctype>
 #include <vector>
 #include <fstream>
 #include <random>
@@ -107,6 +107,7 @@ int main(int argc, char *argv[]){
                     /*LER PALPITE*/
                     char palpite;
                     cin >> palpite;
+                    palpite = toupper(palpite);
                     auto result = forca.palpite(palpite);
                     if(result.first == true && (result.second == true)){
                         // ATUALIZA A VARIAVEL "p"
