@@ -32,7 +32,7 @@ ctype.h
 iomanip
 -
 
-/mnt/c/Users/polya/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/src/forca.cpp
+/mnt/c/Users/alice/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/src/forca.cpp
 iostream
 -
 vector
@@ -58,21 +58,5 @@ ctype.h
 iomanip
 -
 Forca.hpp
-/mnt/c/Users/polya/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/src/Forca.hpp
-
-/mnt/c/Users/polya/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/src/main.cpp
-iostream
--
-Forca.hpp
-/mnt/c/Users/polya/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/src/Forca.hpp
-istream
--
-cctype
--
-vector
--
-fstream
--
-random
--
+/mnt/c/Users/alice/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/src/Forca.hpp
 

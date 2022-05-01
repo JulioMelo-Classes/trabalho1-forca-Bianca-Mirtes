@@ -6,5 +6,5 @@ CXX_FLAGS = -Wall
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/mnt/c/Users/polya/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/include 
+CXX_INCLUDES = -I/mnt/c/Users/alice/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/include 
 

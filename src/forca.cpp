@@ -85,7 +85,7 @@ pair<pair<bool, string>, pair<int, string>> Forca::eh_valido(){
                 return pair<pair<bool, string>, pair<int, string>>{{false, "Campo DIFICULDADE vazio"}, {count1, ""}};
             } else if(jogador.size() == 0){
                 return pair<pair<bool, string>, pair<int, string>>{{false, "Campo NOME vazio"}, {count1, ""}};
-            } else if(pont.size()-1 == 0){
+            } else if(pont.size() == 0){
                 return pair<pair<bool, string>, pair<int, string>>{{false, "Campo PONTUAÇÃO vazio"}, {count1, ""}};
             }
             pos_pv.clear(); // LIMPA O VETOR QUE ARMAZENA AS POSIÇÕES DO ';' PARA SER USADO A CADA NOVA LINHA LIDA
@@ -192,7 +192,7 @@ string Forca::proxima_palavra(){
     int count1=0;
     unsigned semente = time(NULL); // PARA AUMENTAR A ALEATORIEDADE DA FUNÇÃO rand(), ALTERANDO A SEMENTE A CADA COMPILAÇÃO
     srand(semente);
-    for(int i=0; i < (int)m_palavras.size(); i++){// PERCORRE PELO VETOR m_palavras QUE CONTÉM AS PALAVRAS E SUAS FREQUENCIAS
+    for(int i=0; i < (int)m_palavras.size(); i++){// PERCORRE O VETOR m_palavras QUE CONTÉM AS PALAVRAS E SUAS FREQUENCIAS
         if(m_palavras[i].second < media_p){ // ENQUANTO A FREQUÊNCIA FOR MENOR QUE A MÉDIA
             freq_menor.push_back(m_palavras[i].first); // ARMAZENA NO VETOR DE FREQUENCIA MENOR
         }
