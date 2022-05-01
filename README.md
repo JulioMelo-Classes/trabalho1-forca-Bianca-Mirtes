@@ -15,22 +15,22 @@ Para fazer a compilação (criação do executável) e executar o arquivo .exe c
 # Validação Dos Arquivos - Testes
 
 1. Arquivo de Palavras e de Scores:
-    - (a) ERRO DE INEXISTÊNCIA;
-        - (I) Caso somente o arquivo "base_formatada.txt" não exista.
+    - (a) ERRO DE INEXISTÊNCIA;  <br />
+        - (I) Caso somente o arquivo "base_formatada.txt" não exista.  <br />
             Para testar o erro de "Arquivo Inexistente", execute o comando:
             ```
             ./program ../data/teste_EX_p.txt ../data/teste_EX_s.txt
             ```
             A saída esperada é:
             - ![erro1](https://user-images.githubusercontent.com/99360129/165418646-3983a2d4-cd5c-4c3b-bc88-13aa3750277b.png)
-        - (II) Caso somente o arquivo "base_scores.txt" não exista.
+        - (II) Caso somente o arquivo "base_scores.txt" não exista.  <br />
             Para testar o erro de "Arquivo Inexistente", execute o comando:
             ```
             ./program ../data/teste_EX_p.txt ../data/teste_EX_s.txt
             ```
             A saída esperada é:
             - ![erro2](https://user-images.githubusercontent.com/99360129/165418565-61f29b6b-aace-45ca-9f4f-4ffd04be28c7.png)
-        - (III) Caso os arquivos "base_formatada.txt" e "base_scores.txt" não existam.
+        - (III) Caso os arquivos "base_formatada.txt" e "base_scores.txt" não existam.  <br />
             Para testar o erro de "Arquivo Inexistente", execute o comando:
             ```
             ./program ../data/teste_EX_p.txt ../data/teste_EX_s.txt
