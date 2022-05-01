@@ -21,15 +21,20 @@ Para fazer a compilação (criação do executável) e executar o arquivo .exe c
             ```
             ./program ../data/teste_EX_p.txt ../data/base_scores.txt
             ```
-            A saída esperada é:
-            - ![erro1](https://user-images.githubusercontent.com/99360129/165418646-3983a2d4-cd5c-4c3b-bc88-13aa3750277b.png)
+            A saída esperada é
+            ```
+            Erro: Arquivo(s) Inexistente(s) Arquivo: ../data/teste_EX_p.txt
+            ```
+
         - (II) Caso em que o arquivo com os scores não exista.  <br />
             Para testar o erro de "Arquivo Inexistente", execute o comando:
             ```
             ./program ../data/base_formatada.txt ../data/teste_EX_s.txt
             ```
             A saída esperada é:
-            - ![erro2](https://user-images.githubusercontent.com/99360129/165418565-61f29b6b-aace-45ca-9f4f-4ffd04be28c7.png)
+            ```
+            Erro: Arquivo(s) Inexistente(s) Arquivo: ../data/teste_EX_s.txt
+            ```
        
 2. Arquivo de Palavras:
     - (a) ERRO DE CARACTERE ESPECIAL; <br />
@@ -38,7 +43,9 @@ Para fazer a compilação (criação do executável) e executar o arquivo .exe c
             ./program ../data/teste1_p.txt ../data/base_scores.txt
         ```
         A saída esperada é:
-        - ![erro4](https://user-images.githubusercontent.com/82531511/165169521-40e9aa40-c39d-4d5f-983d-4dcfed3ee9ad.jpeg)
+         ```
+         Erro: Caractere especial encontrado, na linha: 7, palavra/frequência: POPUL@CAO
+         ```
 
     - (b) ERRO DE ESPAÇO EM BRANCO; <br />
         Para testar o erro "Espaço em Branco", execute o comando:
@@ -46,7 +53,9 @@ Para fazer a compilação (criação do executável) e executar o arquivo .exe c
             ./program ../data/teste2_p.txt ../data/base_scores.txt
         ```
         A saída esperada é:
-        - ![erro3](https://user-images.githubusercontent.com/82531511/165169500-3a6e1d85-8c78-4fea-92a2-2001242befaf.jpeg)
+         ```
+         Erro: Espaço em branco encontrado, na linha: 3, palavra/frequência: POL ITICA
+         ```
 
     - (c) ERRO DE PALAVRA COM TAMANHO MENOR OU IGUAL A 4; <br />
         Para testar o erro "Palavra com Tamanho Menor ou Igual a 4", execute o comando:
@@ -54,7 +63,10 @@ Para fazer a compilação (criação do executável) e executar o arquivo .exe c
             ./program ../data/teste3_p.txt ../data/base_scores.txt
         ```
         A saída esperada é:
-        - ![erro8](https://user-images.githubusercontent.com/82531511/165169603-b6086557-c573-4507-bdff-b82436223fec.jpeg)
+        ```
+        Erro: Palavra com tamanho menor ou igual a 4, na linha: 7, palavra/frequência: PELO
+        ```
+
 
     - (d) ERRO DE FREQUÊNCIA NEGATIVA; <br />
         Para testar o erro "Frequência Negativa", execute o comando:
@@ -62,7 +74,9 @@ Para fazer a compilação (criação do executável) e executar o arquivo .exe c
             ./program ../data/teste4_p.txt ../data/base_scores.txt
         ```
         A saída esperada é:
-        - ![erro6](https://user-images.githubusercontent.com/82531511/165169564-f3a13eed-8bc0-4883-85d2-e176df4e1b0c.jpeg)
+        ```
+        Erro: Frequência Negativa, na linha: 6, palavra/frequência: -277336
+        ```
 
 3. Arquivo de Scores:  
     - (a) ERRO DE EXCESSO DE PONTO E VÍRGULA; <br />
@@ -71,8 +85,12 @@ Para fazer a compilação (criação do executável) e executar o arquivo .exe c
             ./program ../data/base_formatada.txt ../data/teste5_s.txt
         ```
         A saída esperada é:
-        - ![erro1](https://user-images.githubusercontent.com/99360129/165215289-7c4a7760-2541-4858-bf1d-fe2a0c626991.png)
-        - ![erro2](https://user-images.githubusercontent.com/99360129/165215384-ee4f1437-eacd-4535-a6d7-3e656bbf20ef.png)
+
+        ```
+        Erro: Excesso de ponto e vírgula na linha: 3
+        ```
+        ![erro1](https://user-images.githubusercontent.com/82531511/166151162-7e764e26-7b3b-45b8-9503-b02bc543c325.jpeg)
+
 
     - (b) ERRO DE FALTA DE PONTO E VÍRGULA; <br />
         Para testar o erro "Falta de Ponto e Vírgula", execute o comando:
@@ -80,8 +98,11 @@ Para fazer a compilação (criação do executável) e executar o arquivo .exe c
             ./program ../data/base_formatada.txt ../data/teste6_s.txt
         ```
         A saída esperada é:
-        - ![erro1](https://user-images.githubusercontent.com/99360129/165215523-3656898f-9f70-41f6-8a56-3bc1202f5f0b.png)
-        - ![erro2](https://user-images.githubusercontent.com/99360129/165215463-677bd4ff-fbbd-49d3-bb7d-7e8e1d727490.png)
+
+        ```
+        Erro: Falta de ponto e vírgula na linha: 2
+        ```
+        ![erro2](https://user-images.githubusercontent.com/82531511/166151195-82af3846-00ff-4f16-8969-10de2995e33b.jpeg)
 
     - (c) ERRO DE CAMPO VAZIO (DIFICULDADE); <br />
         Para testar o erro "Campo Vazio - DIFICULDADE", execute o comando:
@@ -89,17 +110,23 @@ Para fazer a compilação (criação do executável) e executar o arquivo .exe c
             ./program ../data/base_formatada.txt ../data/teste7_s.txt
         ```
         A saída esperada é:
-        - ![erro1](https://user-images.githubusercontent.com/99360129/165219697-b1227398-8713-46c4-ba2a-7cca647e72aa.png)
-        - ![erro2](https://user-images.githubusercontent.com/99360129/165219734-b3adb272-6fd5-4709-9099-b42b0a55e239.png)
+
+        ```
+        Erro: Campo DIFICULDADE vazio na linha: 2
+        ```
+        ![erro3](https://user-images.githubusercontent.com/82531511/166151236-d1260a54-53fd-4f90-854a-1d97e9e37ebf.jpg)
+        
 
     - (d) ERRO DE CAMPO VAZIO (NOME); <br />
-        Para testar o erro "Campo Vazio - NOME", execute o comando:
+        Para testar o erro "Campo Vazio - PONTUAÇÃO", execute o comando:
         ```
             ./program ../data/base_formatada.txt ../data/teste8_s.txt
         ```
         A saída esperada é:
-        - ![erro1](https://user-images.githubusercontent.com/99360129/165219812-0ed9b4d6-a3cc-4893-b08a-9678c62e3ddd.png)
-        - ![erro2](https://user-images.githubusercontent.com/99360129/165219857-94128ad2-b8e3-453b-86e7-57a4953a41b1.png)
+        ```
+        Erro: Campo NOME vazio na linha: 4
+        ```
+        ![erro4](https://user-images.githubusercontent.com/82531511/166151275-413c01f1-c989-4b1d-957f-781b5ebb0a13.jpg)
         
     - (e) ERRO DE CAMPO VAZIO (PONTUAÇÃO); <br />
         Para testar o erro "Campo Vazio - NOME", execute o comando:
@@ -107,8 +134,10 @@ Para fazer a compilação (criação do executável) e executar o arquivo .exe c
             ./program ../data/base_formatada.txt ../data/teste9_s.txt
         ```
         A saída esperada é:
-        - ![erro1](https://user-images.githubusercontent.com/99360129/165219909-c75f9269-404e-442e-a756-e2a4b1f423d1.png)
-        - ![erro2](https://user-images.githubusercontent.com/99360129/165219930-0502b43f-ea27-4530-9fb6-c66bdf173edc.png)
+        ```
+        Erro: Campo PONTUAÇÃO vazio na linha: 1
+        ```
+        ![erro5](https://user-images.githubusercontent.com/82531511/166151311-2cd6b73b-3c01-4477-89ce-e01d12bcf6a3.jpg)
 
 
 # Documento de Especificação
