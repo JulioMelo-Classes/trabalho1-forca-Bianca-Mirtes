@@ -89,7 +89,7 @@ Para fazer a compilação (criação do executável) e executar o arquivo .exe c
         ```
         Erro: Excesso de ponto e vírgula na linha: 3
         ```
-        ![erro1](https://user-images.githubusercontent.com/82531511/166151162-7e764e26-7b3b-45b8-9503-b02bc543c325.jpeg)
+        - ![erro1](https://user-images.githubusercontent.com/82531511/166151162-7e764e26-7b3b-45b8-9503-b02bc543c325.jpeg)
 
 
     - (b) ERRO DE FALTA DE PONTO E VÍRGULA; <br />
@@ -102,7 +102,7 @@ Para fazer a compilação (criação do executável) e executar o arquivo .exe c
         ```
         Erro: Falta de ponto e vírgula na linha: 2
         ```
-        ![erro2](https://user-images.githubusercontent.com/82531511/166151195-82af3846-00ff-4f16-8969-10de2995e33b.jpeg)
+        - ![erro2](https://user-images.githubusercontent.com/82531511/166151195-82af3846-00ff-4f16-8969-10de2995e33b.jpeg)
 
     - (c) ERRO DE CAMPO VAZIO (DIFICULDADE); <br />
         Para testar o erro "Campo Vazio - DIFICULDADE", execute o comando:
@@ -114,11 +114,11 @@ Para fazer a compilação (criação do executável) e executar o arquivo .exe c
         ```
         Erro: Campo DIFICULDADE vazio na linha: 2
         ```
-        ![erro3](https://user-images.githubusercontent.com/82531511/166151236-d1260a54-53fd-4f90-854a-1d97e9e37ebf.jpg)
+        - ![erro3](https://user-images.githubusercontent.com/82531511/166151236-d1260a54-53fd-4f90-854a-1d97e9e37ebf.jpg)
         
 
     - (d) ERRO DE CAMPO VAZIO (NOME); <br />
-        Para testar o erro "Campo Vazio - PONTUAÇÃO", execute o comando:
+        Para testar o erro "Campo Vazio - NOME", execute o comando:
         ```
             ./program ../data/base_formatada.txt ../data/teste8_s.txt
         ```
@@ -126,10 +126,10 @@ Para fazer a compilação (criação do executável) e executar o arquivo .exe c
         ```
         Erro: Campo NOME vazio na linha: 4
         ```
-        ![erro4](https://user-images.githubusercontent.com/82531511/166151275-413c01f1-c989-4b1d-957f-781b5ebb0a13.jpg)
+        - ![erro4](https://user-images.githubusercontent.com/82531511/166151275-413c01f1-c989-4b1d-957f-781b5ebb0a13.jpg)
         
     - (e) ERRO DE CAMPO VAZIO (PONTUAÇÃO); <br />
-        Para testar o erro "Campo Vazio - NOME", execute o comando:
+        Para testar o erro "Campo Vazio - PONTUAÇÃO", execute o comando:
         ```
             ./program ../data/base_formatada.txt ../data/teste9_s.txt
         ```
@@ -137,7 +137,7 @@ Para fazer a compilação (criação do executável) e executar o arquivo .exe c
         ```
         Erro: Campo PONTUAÇÃO vazio na linha: 1
         ```
-        ![erro5](https://user-images.githubusercontent.com/82531511/166151311-2cd6b73b-3c01-4477-89ce-e01d12bcf6a3.jpg)
+        - ![erro5](https://user-images.githubusercontent.com/82531511/166151311-2cd6b73b-3c01-4477-89ce-e01d12bcf6a3.jpg)
 
 
 # Documento de Especificação
