@@ -11,6 +11,7 @@
 #include <ctype.h>
 #include <iomanip>
 #include "Forca.hpp"
+#include <iterator>
 
 using namespace std;
 
@@ -85,7 +86,7 @@ pair<pair<bool, string>, pair<int, string>> Forca::eh_valido(){
                 return pair<pair<bool, string>, pair<int, string>>{{false, "Campo DIFICULDADE vazio"}, {count1, ""}};
             } else if(jogador.size() == 0){
                 return pair<pair<bool, string>, pair<int, string>>{{false, "Campo NOME vazio"}, {count1, ""}};
-            } else if(pont.size() == 0){
+            } else if(pont.size()-1 == 0 && find(pont.begin(), pont.end(), '\n') != pont.end()){
                 return pair<pair<bool, string>, pair<int, string>>{{false, "Campo PONTUAÇÃO vazio"}, {count1, ""}};
             }
             pos_pv.clear(); // LIMPA O VETOR QUE ARMAZENA AS POSIÇÕES DO ';' PARA SER USADO A CADA NOVA LINHA LIDA
@@ -371,6 +372,12 @@ bool Forca::rodada_terminada(){
 void Forca::reset_rodada(){
     m_tentativas_restantes = 6;
     m_letras_palpitadas.clear();
+};
+
+void Forca::reinicia_jogo(bool reinicia){
+    m_tentativas_restantes = 6;
+    m_letras_palpitadas.clear();
+    reinicia = false;
 };
  
         /** 

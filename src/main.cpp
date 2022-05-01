@@ -251,15 +251,16 @@ int main(int argc, char *argv[]){
                 }
                 
             }
-            atualiza_score << ";" << point;
-            atualiza_score.close();
             palavras_jogador.clear();
+            atualiza_score << ";" << point;
+            forca.reinicia_jogo(forca.rodada_terminada());
         }
         else if( choice == 2){
             /*MOSTRAR SCORE*/
             forca.score_tabela();
             cout << endl;
         } else{
+            atualiza_score.close();
             break;
             //QUALQUER OUTRO NÚMERO SAI DO JOGO 
         }   

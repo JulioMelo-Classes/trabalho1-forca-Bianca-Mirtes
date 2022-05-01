@@ -152,6 +152,8 @@ class Forca {
          * m_letras_palpitadas COMO SENDO UM VETOR VAZIO 
          */ 
         void reset_rodada();
+
+        void reinicia_jogo(bool reinicia);
  
         /** 
          * RETORNA A QUANTIDADE DE TENTATIVAS RESTANTES. 
