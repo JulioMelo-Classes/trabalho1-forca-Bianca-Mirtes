@@ -16,27 +16,20 @@ Para fazer a compilação (criação do executável) e executar o arquivo .exe c
 
 1. Arquivo de Palavras e de Scores:
     - (a) ERRO DE INEXISTÊNCIA;  <br />
-        - (I) Caso somente o arquivo "base_formatada.txt" não exista.  <br />
+        - (I) Caso em que o arquivo com a base de palavras não exista.  <br />
             Para testar o erro de "Arquivo Inexistente", execute o comando:
             ```
-            ./program ../data/teste_EX_p.txt ../data/teste_EX_s.txt
+            ./program ../data/teste_EX_p.txt ../data/base_scores.txt
             ```
             A saída esperada é:
             - ![erro1](https://user-images.githubusercontent.com/99360129/165418646-3983a2d4-cd5c-4c3b-bc88-13aa3750277b.png)
-        - (II) Caso somente o arquivo "base_scores.txt" não exista.  <br />
+        - (II) Caso em que o arquivo com os scores não exista.  <br />
             Para testar o erro de "Arquivo Inexistente", execute o comando:
             ```
-            ./program ../data/teste_EX_p.txt ../data/teste_EX_s.txt
+            ./program ../data/base_formatada.txt ../data/teste_EX_s.txt
             ```
             A saída esperada é:
             - ![erro2](https://user-images.githubusercontent.com/99360129/165418565-61f29b6b-aace-45ca-9f4f-4ffd04be28c7.png)
-        - (III) Caso os arquivos "base_formatada.txt" e "base_scores.txt" não existam.  <br />
-            Para testar o erro de "Arquivo Inexistente", execute o comando:
-            ```
-            ./program ../data/teste_EX_p.txt ../data/teste_EX_s.txt
-            ```
-            A saída esperada é:
-            - ![erro3](https://user-images.githubusercontent.com/99360129/165418661-a1d98534-de4a-40ef-a12b-b3f2d152f026.png)
        
 2. Arquivo de Palavras:
     - (a) ERRO DE CARACTERE ESPECIAL; <br />

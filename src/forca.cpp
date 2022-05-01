@@ -31,12 +31,10 @@ pair<pair<bool, string>, pair<int, string>> Forca::eh_valido(){
     // ABRE OS ARQUIVOS PARA LEITURA DOS DADOS
     arq_palavras.open(m_arquivo_palavras, ios::in);
     arq_scores.open(m_arquivo_scores, ios::in);
-    if(!arq_palavras.is_open() && (!arq_scores.is_open())){
-        return pair<pair<bool, string>, pair<int, string>> {{false, "Arquivo(s) Inexistente(s)"}, {0, ""}};
-    } else if(!arq_palavras.is_open()){
-        return pair<pair<bool, string>, pair<int, string>> {{false, "Arquivo(s) Inexistente(s)"}, {0, ""}};
+    if(!arq_palavras.is_open()){
+        return pair<pair<bool, string>, pair<int, string>> {{false, "Arquivo(s) Inexistente(s)"}, {0, m_arquivo_palavras}};
     } else if(!arq_scores.is_open()){
-        return pair<pair<bool, string>, pair<int, string>> {{false, "Arquivo(s) Inexistente(s)"}, {0, ""}};
+        return pair<pair<bool, string>, pair<int, string>> {{false, "Arquivo(s) Inexistente(s)"}, {0, m_arquivo_scores}};
     } else{
         // LER O CONTEÚDO DO ARQUIVO DE PALAVRAS LINHA A LINHA ENQUANDO NÃO CHEGAR AO FINAL DO ARQUIVO
         while(!arq_palavras.eof()){

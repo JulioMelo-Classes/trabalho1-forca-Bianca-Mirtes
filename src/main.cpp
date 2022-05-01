@@ -28,7 +28,7 @@ int main(int argc, char *argv[]){
     auto valid = forca.eh_valido();
     if(valid.second.first == 0){
         if(!valid.first.first){ /*SAI DO PROGRAMA AO ENCONTRAR UM ERRO*/
-            cout << "Erro: " << valid.first.second << endl; // IMPRIME O ERRO
+            cout << "Erro: " << valid.first.second << " Arquivo: "<< valid.second.second <<endl; // IMPRIME O ERRO
             exit(-1);
         } 
     } else if(valid.second.second == "" && (valid.second.first != 0)){
