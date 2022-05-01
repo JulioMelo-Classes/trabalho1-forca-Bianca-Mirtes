@@ -192,73 +192,73 @@ string Forca::proxima_palavra(){
     int count1=0;
     unsigned semente = time(NULL); // PARA AUMENTAR A ALEATORIEDADE DA FUNÇÃO rand(), ALTERANDO A SEMENTE A CADA COMPILAÇÃO
     srand(semente);
-    for(int i=0; i < (int)m_palavras.size(); i++){
-        if(m_palavras[i].second < media_p){ 
-            freq_menor.push_back(m_palavras[i].first);
+    for(int i=0; i < (int)m_palavras.size(); i++){// PERCORRE PELO VETOR m_palavras QUE CONTÉM AS PALAVRAS E SUAS FREQUENCIAS
+        if(m_palavras[i].second < media_p){ // ENQUANTO A FREQUÊNCIA FOR MENOR QUE A MÉDIA
+            freq_menor.push_back(m_palavras[i].first); // ARMAZENA NO VETOR DE FREQUENCIA MENOR
         }
-        if(m_palavras[i].second >= media_p){
-            freq_maior_igual.push_back(m_palavras[i].first);
+        if(m_palavras[i].second >= media_p){ // ENQUANTO A FREQUÊNCIA FOR MAIOR OU IGUAL A MÉDIA
+            freq_maior_igual.push_back(m_palavras[i].first);// ARMAZENA NO VETOR DE FREQUÊNCIA MAIOR/IGUAL
         }
-        if(m_palavras[i].second > media_p){
-            freq_maior.push_back(m_palavras[i].first);
+        if(m_palavras[i].second > media_p){// ENQUANTO A FREQUÊNCIA FOR MAIOR QUE A MÉDIA
+            freq_maior.push_back(m_palavras[i].first);// ARMAZENA NO VETOR DE FREQUÊNCIA MAIOR
         }
     }
-    if(m_dificuldade == 0){
-        while(count1 < 10){
-            sorteio = rand()%(freq_maior.size()-1);
-            if(m_palavras_do_jogo.empty()){
-                m_palavras_do_jogo.push_back(freq_maior[sorteio]);
+    if(m_dificuldade == 0){ // DIFICULDADE FÁCIL
+        while(count1 < 10){ // ENQUANTO NÃO CONTAR 10
+            sorteio = rand()%(freq_maior.size()-1); // SORTEIO DE PALAVRAS ENTRE AS COM FREQUÊNCIAS MAIOR QUE A MÉDIA
+            if(m_palavras_do_jogo.empty()){ // SE O VETOR ESTIVER VAZIO
+                m_palavras_do_jogo.push_back(freq_maior[sorteio]); // ARMAZENA A PALAVRA SORTEADA
             } else{
-                if(find(m_palavras_do_jogo.begin(), m_palavras_do_jogo.end(), freq_maior[sorteio]) == m_palavras_do_jogo.end()){
-                    m_palavras_do_jogo.push_back(freq_maior[sorteio]);
-                    count1++;
+                if(find(m_palavras_do_jogo.begin(), m_palavras_do_jogo.end(), freq_maior[sorteio]) == m_palavras_do_jogo.end()){ // BUSCA
+                    m_palavras_do_jogo.push_back(freq_maior[sorteio]); // ARMAZENA A PALAVRA SORTEADA
+                    count1++; // CONTA PARA SORTEAR NOVAMENTE, OU NÃO
                 }
             }
         }
-    } else if (m_dificuldade == 1){
-        while(count1 < 20){
-            if(count1 <= (int)(20/3)){
-                sorteio = rand()%(freq_menor.size()-1);
-                if(m_palavras_do_jogo.empty()){
-                    m_palavras_do_jogo.push_back(freq_menor[sorteio]);
+    } else if (m_dificuldade == 1){// DIFICULDADE MÉDIA
+        while(count1 < 20){ // ENQUANTO NÃO CONTAR 20
+            if(count1 <= (int)(20/3)){ // ENQUANTO NÃO CONTAR UM TERÇO
+                sorteio = rand()%(freq_menor.size()-1); // SORTEIO DE PALAVRAS ENTRE AS COM FREQUÊNCIAS MENOR QUE A MÉDIA
+                if(m_palavras_do_jogo.empty()){ // SE O VETOR ESTIVER VAZIO
+                    m_palavras_do_jogo.push_back(freq_menor[sorteio]);// ARMAZENA A PALAVRA SORTEADA
                 } else{
-                    if(find(m_palavras_do_jogo.begin(), m_palavras_do_jogo.end(), freq_menor[sorteio]) == m_palavras_do_jogo.end()){
-                        m_palavras_do_jogo.push_back(freq_menor[sorteio]);
-                        count1++;
+                    if(find(m_palavras_do_jogo.begin(), m_palavras_do_jogo.end(), freq_menor[sorteio]) == m_palavras_do_jogo.end()){ // BUSCA
+                        m_palavras_do_jogo.push_back(freq_menor[sorteio]); // ARMAZENA A PALAVRA SORTEADA
+                        count1++; // CONTA PARA SORTEAR NOVAMENTE, OU NÃO
                     }
                 }
             } else{
-                sorteio = rand()%(freq_maior_igual.size()-1);
-                if(m_palavras_do_jogo.empty()){
-                    m_palavras_do_jogo.push_back(freq_maior_igual[sorteio]);
+                sorteio = rand()%(freq_maior_igual.size()-1);// SORTEIO DE PALAVRAS ENTRE AS COM FREQUÊNCIAS MAIOR/IGUAL A MÉDIA
+                if(m_palavras_do_jogo.empty()){ // SE O VETOR ESTIVER VAZIO
+                    m_palavras_do_jogo.push_back(freq_maior_igual[sorteio]); // ARMAZENA A PALAVRA NO VETOR
                 } else{
-                    if(find(m_palavras_do_jogo.begin(), m_palavras_do_jogo.end(), freq_menor[sorteio]) == m_palavras_do_jogo.end()){
-                        m_palavras_do_jogo.push_back(freq_maior_igual[sorteio]);
-                        count1++;
+                    if(find(m_palavras_do_jogo.begin(), m_palavras_do_jogo.end(), freq_menor[sorteio]) == m_palavras_do_jogo.end()){ // BUSCA
+                        m_palavras_do_jogo.push_back(freq_maior_igual[sorteio]); // ARMAZENA A PALAVRA SORTEADA
+                        count1++; // CONTA PARA SORTEAR NOVAMENTE, OU NÃO
                     }
                 }
             }
         }
-    } else if(m_dificuldade == 2){
-        while(count1 < 30){
-            if(count1 <= 22){
-                sorteio = rand()%(freq_menor.size()-1);
-                if(m_palavras_do_jogo.empty()){
-                    m_palavras_do_jogo.push_back(freq_menor[sorteio]);
+    } else if(m_dificuldade == 2){ // DIFICULDADE DIFÍCIL
+        while(count1 < 30){ // ENQUANTO NÃO CONTAR 20
+            if(count1 <= 22){ // ENQUANTO NÃO CONTAR 22
+                sorteio = rand()%(freq_menor.size()-1); // SORTEIO DE PALAVRAS ENTRE AS COM FREQUÊNCIAS MAIOR QUE A MÉDIA
+                if(m_palavras_do_jogo.empty()){ // SE O VETOR ESTIVER VAZIO
+                    m_palavras_do_jogo.push_back(freq_menor[sorteio]); // ARMAZENA NO VETOR
                 } else{
-                    if(find(m_palavras_do_jogo.begin(), m_palavras_do_jogo.end(), freq_menor[sorteio]) == m_palavras_do_jogo.end()){
-                        m_palavras_do_jogo.push_back(freq_menor[sorteio]);
-                            count1++;
+                    if(find(m_palavras_do_jogo.begin(), m_palavras_do_jogo.end(), freq_menor[sorteio]) == m_palavras_do_jogo.end()){ // BUSCA
+                        m_palavras_do_jogo.push_back(freq_menor[sorteio]);// ARMAZENA A PALAVRA SORTEADA
+                            count1++; // CONTA PARA SORTEAR NOVAMENTE, OU NÃO
                     }
                 }
             } else{
-                sorteio = rand()%(freq_maior_igual.size()-1);
-                if(m_palavras_do_jogo.empty()){
-                    m_palavras_do_jogo.push_back(freq_maior_igual[sorteio]);
+                sorteio = rand()%(freq_maior_igual.size()-1);// SORTEIO DE PALAVRAS ENTRE AS COM FREQUÊNCIAS MAIOR/IGUAL A MÉDIA
+                if(m_palavras_do_jogo.empty()){ // SE O VETOR ESTIVER VAZIO
+                    m_palavras_do_jogo.push_back(freq_maior_igual[sorteio]); // ARMAZENA A PALAVRA SORTEADA
                 } else{
-                    if(find(m_palavras_do_jogo.begin(), m_palavras_do_jogo.end(), freq_menor[sorteio]) == m_palavras_do_jogo.end()){
-                        m_palavras_do_jogo.push_back(freq_maior_igual[sorteio]);
-                        count1++;
+                    if(find(m_palavras_do_jogo.begin(), m_palavras_do_jogo.end(), freq_menor[sorteio]) == m_palavras_do_jogo.end()){ // BUSCA
+                        m_palavras_do_jogo.push_back(freq_maior_igual[sorteio]);// ARMAZENA A PALAVRA SORTEADA
+                        count1++; // CONTA PARA SORTEAR NOVAMENTE, OU NÃO
                     }
                 }
             }

@@ -1,4 +1,4 @@
-# Install script for directory: /mnt/c/Users/alice/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes
+# Install script for directory: /mnt/c/Users/polya/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/mnt/c/Users/alice/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/mnt/c/Users/polya/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

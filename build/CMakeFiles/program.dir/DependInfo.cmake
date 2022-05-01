@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/mnt/c/Users/alice/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/src/forca.cpp" "/mnt/c/Users/alice/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/build/CMakeFiles/program.dir/src/forca.cpp.o"
-  "/mnt/c/Users/alice/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/src/main.cpp" "/mnt/c/Users/alice/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/build/CMakeFiles/program.dir/src/main.cpp.o"
+  "/mnt/c/Users/polya/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/src/forca.cpp" "/mnt/c/Users/polya/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/build/CMakeFiles/program.dir/src/forca.cpp.o"
+  "/mnt/c/Users/polya/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/src/main.cpp" "/mnt/c/Users/polya/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/build/CMakeFiles/program.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
