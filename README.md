@@ -3,7 +3,7 @@
 # Introdução ao Jogo da Forca
 * O Jogo da Forca consiste no sorteio de uma palavra que aparece para o jogador na forma "_ _ _ _ ... _" e o objetivo do jogo é o jogador ir palpitando letras até formar a palavra e vencer :) ou esgotar suas tentativas e perder :(
 * Normalmente há níveis de dificuldade que interferem no quão frequênte a palavra sorteada é no dia a dia. Por exemplo, as palavras do nível fácil são extremamente frequêntes como: ÁRVORE, COMIDA, SAÚDE. Enquanto que no nível dificil, poderá surgir palavras como: GRANDILOQUENTE, ESTEREOTIPICO, FILOGEOGRAFICOS.
-* Além disso, há o boneco que é o que dá de fato sentido ao nome do jogo. A cada palpite errado, esse boneco vai sendo formado e se o jogador não acertar a palavra até ele ficar completo há o GAMEOVER:
+* Além disso, há o boneco que é o que dá sentido ao nome do jogo. A cada palpite errado, esse boneco vai sendo formado e se o jogador não acertar a palavra até ele ficar completo, ele é enforcado (GAMEOVER):
 ```
                   O <- 1°
   2º, 3º e 4º -> /|\
