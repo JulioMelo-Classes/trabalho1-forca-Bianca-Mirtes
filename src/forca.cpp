@@ -131,7 +131,7 @@ void Forca::carregar_arquivos(){
         string line3 = line1;
         dificuldade_jogador.push_back(make_pair(line2, line3)); // ARMAZENA A DIFICULDADE E O NOME DO JOGADOR(A) NO VETOR DE PARES dificuldade_jogador 
         getline(arquivo_scores, line1, ';'); // PARTINDO DA POSIÇÃO DO SEGUNDO getline() LÊ ATÉ ENCONTRAR O ';'
-        if(line1.size() == 1){               // SE O JOGADOR NÃO ACERTAR NENHUMA PALAVRA, SUBSTITUI O ESPAÇO EM BRANCO POR <nenhuma>
+        if(line1.size() == 1){               // SE O JOGADOR NÃO TIVER PALAVRAS ACERTADAS, SUBSTITUI O ESPAÇO EM BRANCO POR <nenhuma>
             line1 = " <nenhuma>";
             palavras.push_back(line1);
         } else{
@@ -419,7 +419,7 @@ string Forca::dica_jogador(){
         }
     }
     if (m_dificuldade == 0){   // CASO O NÍVEL SEJA FÁCIL, SORTEIA UMA CONSOANTE COMO DICA PARA O(A) JOGADOR(A)
-        qnt_dicas = (int)(m_palavra_atual.size()/5); // A CADA 5 LETRAS DA PALAVRA SORTEIA-SE UMA CONSOANTE COMO DICA
+        qnt_dicas = (int)(m_palavra_atual.size()/5); // A CADA 5 LETRAS DA PALAVRA SORTEIA UMA CONSOANTE COMO DICA
         while(count1 < qnt_dicas){                   
             dica = rand()%(consoantes.size()-1);   
             if(find(m_letras_palpitadas.begin(), m_letras_palpitadas.end(), consoantes[dica]) == m_letras_palpitadas.end()){

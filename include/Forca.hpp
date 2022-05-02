@@ -11,15 +11,10 @@
 #include <ctype.h>
 #include <iomanip>
 
-/*using cout;
-using endl;
-using vector;
-using string;
-using pair;
-using fstream;
-using ios;*/
+using std::vector;
+using std::string;
+using std::pair;
 
-using namespace std;
 
 class Forca {
     public:
@@ -27,26 +22,26 @@ class Forca {
             FACIL, MEDIO, DIFICIL
         };
     private:
-        vector< pair<string, int> > m_palavras; //<! VETOR CONTENDO AS PALAVRAS E SUA OCORRÊNCIA NO CORPUS 
+        std::vector< std::pair<std::string, int> > m_palavras; //<! VETOR CONTENDO AS PALAVRAS E SUA OCORRÊNCIA NO CORPUS 
 
-        string m_arquivo_scores; //<! NOME DO ARQUIVO CONTENDO OS SCORES 
+        std::string m_arquivo_scores; //<! NOME DO ARQUIVO CONTENDO OS SCORES 
  
-        string m_arquivo_palavras; //<! NOME DO ARQUIVO CONTENDO AS PALAVRAS 
+        std::string m_arquivo_palavras; //<! NOME DO ARQUIVO CONTENDO AS PALAVRAS 
  
         Dificuldade m_dificuldade; //<! DIFICULDADE ATUAL DO JOGO 
  
-        vector< string > m_palavras_do_jogo; //<! CONTAINER “PALAVRAS DO JOGO”
-        vector< char > m_letras_palpitadas; //<! CONTEM AS LETRAS PALPITADAS PELO JOGADOR
-        string m_palavra_atual; //<! PALAVRA SENDO JOGADA “ATUALMENTE”
-        string m_palavra_jogada; //<! PALAVRA SENDO JOGADA “ATUALMENTE” NO FORMATO “_ _ _ ... _ “ 
+        std::vector< std::string > m_palavras_do_jogo; //<! CONTAINER “PALAVRAS DO JOGO”
+        std::vector< char > m_letras_palpitadas; //<! CONTEM AS LETRAS PALPITADAS PELO JOGADOR
+        std::string m_palavra_atual; //<! PALAVRA SENDO JOGADA “ATUALMENTE”
+        std::string m_palavra_jogada; //<! PALAVRA SENDO JOGADA “ATUALMENTE” NO FORMATO “_ _ _ ... _ “ 
         
         int m_tentativas_restantes=6; // ARMAZENA AS TENTATIVAS RESTANTES
         int qnt_palavras; // A QUANTIDADE DE PALAVRAS DO ARQUIVO base_formatada.txt
         int media_p; // MÉDIA DAS FREQUÊNCIAS DAS PALAVRAS DO ARQUIVO base_formatada.txt
         int soma_freq=0; // SOMA DAS FREQUÊNCIAS DAS PALAVRAS DO ARQUIVO base_formatada.txt
-        vector<pair<string, string>> dificuldade_jogador; // ARMAZENA A DIFICULDADE E O NOME DO JOGADOR(A)
-        vector<string> palavras; // ARMAZENA AS PALAVRAS ACERTADAS PELO JOGADOR
-        vector<int> pont; // ARMAZENA A PONTUAÇÃO FEITA NA(S) RODADA(S) JOGADA(S)
+        std::vector<std::pair<std::string, std::string>> dificuldade_jogador; // ARMAZENA A DIFICULDADE E O NOME DO JOGADOR(A)
+        std::vector<std::string> palavras; // ARMAZENA AS PALAVRAS ACERTADAS PELO JOGADOR
+        std::vector<int> pont; // ARMAZENA A PONTUAÇÃO FEITA NA(S) RODADA(S) JOGADA(S)
    
     public:
         /** 
@@ -58,7 +53,7 @@ class Forca {
          * @param SCORES O NOME DO ARQUIVO QUE CONTÉM OS SCORES 
          * @see eh_valido 
          */
-        Forca( string palavras, string scores );
+        Forca( std::string palavras, std::string scores );
        
  
         /**
@@ -68,7 +63,7 @@ class Forca {
          * @return {T,""} SE OS ARQUIVOS ESTIVEREM VÁLIDOS, {F,"RAZÃO"} CASO CONTRÁRIO.
          * @see carregar_arquivos
          */
-        pair<pair<bool, string>, pair<int, string>> eh_valido();
+        std::pair<std::pair<bool, std::string>, std::pair<int, std::string>> eh_valido();
  
         /** 
          * CARREGA OS ARQUIVOS DE SCORES E PALAVRAS PREENCHENDO **AO MENOS** A ESTRUTURA m_palavras
@@ -99,7 +94,7 @@ class Forca {
          * @return O VALOR DO ATRIBUTO m_palavra_jogada.
          * @see dica_jogador
          */
-        string proxima_palavra();
+        std::string proxima_palavra();
 
 
         /**
@@ -110,7 +105,7 @@ class Forca {
          * @return m_palavra_jogada ATUALIZADA COM A DICA
          * @see get_palavra_jogada
          */
-        string dica_jogador();
+        std::string dica_jogador();
 
 
          /** 
@@ -121,14 +116,14 @@ class Forca {
          * JÁ ACERTADAS/SORTEADAS AO INVÉS DE “_”. 
          * @return A PALAVRA ATUALMENTE SENDO JOGADA. 
          */ 
-        string get_palavra_jogada(char palp);
+        std::string get_palavra_jogada(char palp);
 
         /** 
          * RETORNA O VALOR DA PALAVRA ATUAL, ÚTIL NO CASO DE UM GAME OVER, PARA MOSTRAR A PALAVRA QUE ESTAVA 
          * SENDO JOGADA 
          * @return O VALOR DO ATRIBUTO m_palavra_atual 
          **/ 
-        string get_palavra_atual();
+        std::string get_palavra_atual();
  
         /** 
 
@@ -143,7 +138,7 @@ class Forca {
          * @return {T,T} SE O PALPITE PERTENCE À PALAVRA E É UM PALPITE NOVO, {F,T} CASO NÃO PERTENÇA E É NOVO. 
          *         {T,F} OU {F,F} NO CASO DO PALPITE PERTENCER/NÃO PERTENCER À PALAVRA, MAS NÃO É NOVO. 
          */
-        pair<bool, bool> palpite(char palp);
+        std::pair<bool, bool> palpite(char palp);
  
         /** 
          * EM CASO DE GAME OVER OU DO JOGADOR TER ACERTADO A PALAVRA ESTE MÉTODO DEVE RETORNAR T. 
@@ -180,11 +175,11 @@ class Forca {
 
 
         /**
-         * SEPARA A STRING CONTENDO AS PALAVRAS ACERTADAS PELO JOGADOR
+         * SEPARA A std::string CONTENDO AS PALAVRAS ACERTADAS PELO JOGADOR
          * @return VETOR CONTENDO AS PALAVRAS QUE O JOGADOR ACERTOU
          * @see score_tabela
          */
-        vector<string> fatiamento(string pa);
+        std::vector<std::string> fatiamento(std::string pa);
 
         /**
          * FORMA A TABELA CONTENDO OS SCORES DOS JOGADORES, OGANIZADA NA ORDEM : 
