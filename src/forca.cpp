@@ -408,7 +408,7 @@ vector<string> Forca::fatiamento(string pa){
 string Forca::dica_jogador(){
     vector<char> consoantes;
     vector<char> vogais;
-    int dica;
+    int dica, qnt_dicas, count1=0;
     for(int i=0; i < (int)get_palavra_atual().size(); i++){ // PERCORRE m_palavra_atual
         // CASO O CARACTERE SEJA DIFERENTE (A, E, I, O E U) ARMAZENA ELE NO VETOR DAS CONSOANTES
         // CASO O CARACTE SEJA IGUAL A (A, E, I, O OU U) ARMAZENA ELE NO VETOR DAS VOGAIS
@@ -419,11 +419,17 @@ string Forca::dica_jogador(){
         }
     }
     if (m_dificuldade == 0){   // CASO O NÍVEL SEJA FÁCIL, SORTEIA UMA CONSOANTE COMO DICA PARA O(A) JOGADOR(A)
-        dica = rand()%(consoantes.size()-1);
-        m_letras_palpitadas.push_back(consoantes[dica]);
-        for(int i=0; i < (int)m_palavra_jogada.size(); i++){
-            if(get_palavra_atual()[i] == consoantes[dica]){
-                m_palavra_jogada[i] = consoantes[dica];
+        qnt_dicas = (int)(m_palavra_atual.size()/5); // A CADA 5 LETRAS DA PALAVRA SORTEIA-SE UMA CONSOANTE COMO DICA
+        while(count1 < qnt_dicas){                   
+            dica = rand()%(consoantes.size()-1);   
+            if(find(m_letras_palpitadas.begin(), m_letras_palpitadas.end(), consoantes[dica]) == m_letras_palpitadas.end()){
+                m_letras_palpitadas.push_back(consoantes[dica]);
+                for(int i=0; i < (int)m_palavra_jogada.size(); i++){
+                    if(get_palavra_atual()[i] == consoantes[dica]){
+                        m_palavra_jogada[i] = consoantes[dica];
+                    }
+                }
+                count1++;  
             }
         }
     } else if(m_dificuldade == 1){  // CASO O NÍVEL SEJA MEDIO, SORTEIA UMA VOGAL COMO DICA PARA O(A) JOGADOR(A)
@@ -435,6 +441,7 @@ string Forca::dica_jogador(){
             }
         }
     }
+    count1=0; 
     return m_palavra_jogada;    // RETORNA m_palavra_jogada ATUALIZADA COM A DICA
 };
 

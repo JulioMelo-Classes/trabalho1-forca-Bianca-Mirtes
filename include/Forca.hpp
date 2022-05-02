@@ -78,7 +78,6 @@ class Forca {
         /**
          * DETERMINA A SOMA DE TODAS AS FREQUÊNCIAS DO VETOR DE PARES m_palavras;
          * A QUANTIDADE DE PALAVRAS PRESENTES NO VETOR DE PARES m_palavras E A MÉDIA DAS FREQUÊNCIAS DAS PALAVRAS;
-         * @see proxima_palavra
          */
         void dados();
 
@@ -97,9 +96,21 @@ class Forca {
          * DO ATRIBUTO m_palavra_jogada COM UM TEXTO NO FORMATO "_ _ _ _ ... _". 
          * O MÉTODO TAMBÉM DEVE SORTEAR AS LETRAS QUE DEVEM APARECER DEPENDENDO DO NÍVEL DE DIFICULDADE, 
          * ALTERANDO O VALOR DE m_palavra_jogada DE ACORDO. 
-         * @return O VALOR DO ATRIBUTO m_palavra_jogada. 
+         * @return O VALOR DO ATRIBUTO m_palavra_jogada.
+         * @see dica_jogador
          */
         string proxima_palavra();
+
+
+        /**
+         * SORTEIA UMA CONSOANTE OU VOGAL DE m_palvra_atual COMO DICA PARA O JOGADOR
+         * DIFICULDADE FÁCIL - SORTEIA UMA CONSOANTE
+         * DIFICULDADE MEDIO - SORTEIA UMA VOGAL
+         * DIFICULDADE DÍFICIL - NÃO POSSUI DICA
+         * @return m_palavra_jogada ATUALIZADA COM A DICA
+         * @see get_palavra_jogada
+         */
+        string dica_jogador();
 
 
          /** 
@@ -167,14 +178,6 @@ class Forca {
          */
         void boneco();
 
-        /**
-         * SORTEIA UMA CONSOANTE OU VOGAL DE m_palvra_atual COMO DICA PARA O JOGADOR
-         * DIFICULDADE FÁCIL - SORTEIA UMA CONSOANTE
-         * DIFICULDADE MEDIO - SORTEIA UMA VOGAL
-         * DIFICULDADE DÍFICIL - NÃO POSSUI DICA
-         * @return m_palavra_jogada ATUALIZADA COM A DICA
-         */
-        string dica_jogador();
 
         /**
          * SEPARA A STRING CONTENDO AS PALAVRAS ACERTADAS PELO JOGADOR
