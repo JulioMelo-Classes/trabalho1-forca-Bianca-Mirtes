@@ -252,7 +252,7 @@ string Forca::proxima_palavra(){
     }
     random_shuffle(m_palavras_do_jogo.begin(), m_palavras_do_jogo.end());   // EMBARALHA A ORDEM DAS PALAVRAS
     sorteio2 = rand()%((int)m_palavras_do_jogo.size()-1);                   // SORTEIA UM NÚMERO no intervalo [0, m_palavras_do_jogo.size()[
-    // GARANTE QUE A PALAVRA JOGADA NA RODADA SEGUINTE NÃO SEJA IGUAL A DA RODADA ANTERIOR
+    // GARANTE QUE A PALAVRA JOGADA NA RODADA SEGUINTE NÃO SERÁ IGUAL A DA RODADA ANTERIOR
     for(int k=0; k < m_palavras_do_jogo.size(); k++){
         if(m_palavras_do_jogo[k] == m_palavra_atual){
             sorteio2 = rand()%((int)m_palavras_do_jogo.size()-1);
