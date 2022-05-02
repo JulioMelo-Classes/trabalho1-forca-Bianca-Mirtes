@@ -239,8 +239,8 @@ int main(int argc, char *argv[]){
             cout << "Apelido: ";
             cin >> nome; // LÊ O NOME DO(A) JOGADOR(A)
             cout << endl;
-            atualiza_score << "\n" << dificuldade_score << "; " << nome << "; ";
-            for(int i=0; i < (int)palavras_jogador.size(); i++){
+            atualiza_score << "\n" << dificuldade_score << "; " << nome << "; "; // ARMAZENA A DIFICULDADE E O NOME SEPARADOS POR PONTO E VÍRGULA
+            for(int i=0; i < (int)palavras_jogador.size(); i++){ // ARMAZENAR AS PALAVRAS ACERTADAS PELO(A) JOGADOR(A) SEPARADAS POR VÍRGULA
                 if(palavras_jogador.size() <= 1){
                     atualiza_score << palavras_jogador[i];
                 } else{
@@ -249,8 +249,7 @@ int main(int argc, char *argv[]){
                     } else{
                       atualiza_score << palavras_jogador[i] << ", ";  
                     }
-                }
-                
+                } 
             }
             palavras_jogador.clear(); // LIMPA O VETOR COM AS PALAVRAS ACERTADAS PELO(A) JOGADOR(A)
             atualiza_score << ";" << point;
