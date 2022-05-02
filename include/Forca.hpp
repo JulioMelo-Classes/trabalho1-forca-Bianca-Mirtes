@@ -27,7 +27,6 @@ class Forca {
             FACIL, MEDIO, DIFICIL
         };
     private:
-        //TODO: armazenar os scores?
         vector< pair<string, int> > m_palavras; //<! VETOR CONTENDO AS PALAVRAS E SUA OCORRÊNCIA NO CORPUS 
 
         string m_arquivo_scores; //<! NOME DO ARQUIVO CONTENDO OS SCORES 
@@ -45,9 +44,9 @@ class Forca {
         int qnt_palavras; // A QUANTIDADE DE PALAVRAS DO ARQUIVO base_formatada.txt
         int media_p; // MÉDIA DAS FREQUÊNCIAS DAS PALAVRAS DO ARQUIVO base_formatada.txt
         int soma_freq=0; // SOMA DAS FREQUÊNCIAS DAS PALAVRAS DO ARQUIVO base_formatada.txt
-        vector<pair<string, string>> dificuldade_jogador;
-        vector<string> palavras;
-        vector<int> pont;
+        vector<pair<string, string>> dificuldade_jogador; // ARMAZENA A DIFICULDADE E O NOME DO JOGADOR(A)
+        vector<string> palavras; // ARMAZENA AS PALAVRAS ACERTADAS PELO JOGADOR
+        vector<int> pont; // ARMAZENA A PONTUAÇÃO FEITA NA(S) RODADA(S) JOGADA(S)
    
     public:
         /** 
@@ -66,19 +65,21 @@ class Forca {
          * VALIDA OS ARQUIVOS DE ENTRADA DE ACORDO COM AS ESPECIFICAÇÕES.
          * AO VALIDAR OS ARQUIVOS, NO CASO DE ARQUIVOS INVÁLIDOS, ESTE MÉTODO DEVE RETORNAR A  
          * RAZÃO CORRESPONDENTE DE ACORDO COM AS ESPECIFICAÇÕES. 
-         * @return {T,""} SE OS ARQUIVOS ESTIVEREM VÁLIDOS, {F,"RAZÃO"} CASO CONTRÁRIO. 
+         * @return {T,""} SE OS ARQUIVOS ESTIVEREM VÁLIDOS, {F,"RAZÃO"} CASO CONTRÁRIO.
+         * @see carregar_arquivos
          */
         pair<pair<bool, string>, pair<int, string>> eh_valido();
  
         /** 
-         * CARREGA OS ARQUIVOS DE SCORES E PALAVRAS PREENCHENDO **AO MENOS** A ESTRUTURA m_palavras 
+         * CARREGA OS ARQUIVOS DE SCORES E PALAVRAS PREENCHENDO **AO MENOS** A ESTRUTURA m_palavras
          */ 
         void carregar_arquivos();
 
-        /*DETERMINA:
-            # A SOMA DE TODAS AS FREQUÊNCIAS DO VETOR DE PARES m_palavras
-            # A QUANTIDADE DE PALAVRAS PRESENTES NO VETOR DE PARES m_palavras
-            # A MÉDIA DAS FREQUÊNCIAS DAS PALAVRAS*/
+        /**
+         * DETERMINA A SOMA DE TODAS AS FREQUÊNCIAS DO VETOR DE PARES m_palavras;
+         * A QUANTIDADE DE PALAVRAS PRESENTES NO VETOR DE PARES m_palavras E A MÉDIA DAS FREQUÊNCIAS DAS PALAVRAS;
+         * @see proxima_palavra
+         */
         void dados();
 
         /** 
@@ -98,7 +99,6 @@ class Forca {
          * ALTERANDO O VALOR DE m_palavra_jogada DE ACORDO. 
          * @return O VALOR DO ATRIBUTO m_palavra_jogada. 
          */
-
         string proxima_palavra();
 
 
@@ -132,10 +132,6 @@ class Forca {
          * @return {T,T} SE O PALPITE PERTENCE À PALAVRA E É UM PALPITE NOVO, {F,T} CASO NÃO PERTENÇA E É NOVO. 
          *         {T,F} OU {F,F} NO CASO DO PALPITE PERTENCER/NÃO PERTENCER À PALAVRA, MAS NÃO É NOVO. 
          */
-        // letra pertence a palavra e letra nova (T, T)
-        // letra não pertence e letra nova (F, T)
-        // letra pertence e letra repetida (T, F)
-        // letra não pertence e letra repetida (F, F) 
         pair<bool, bool> palpite(char palp);
  
         /** 
@@ -153,6 +149,11 @@ class Forca {
          */ 
         void reset_rodada();
 
+
+        /**
+         * REINICIA O JOGO RESETANDO AS TENTATIVAS RESTANTES, LIMPANDO O VETOR m_letras_palpitadas
+         * E ALTERANDO O VALOR LÓGICO DE rodada_terminada PARA FALSE
+         */
         void reinicia_jogo(bool reinicia);
  
         /** 
@@ -161,13 +162,30 @@ class Forca {
          */ 
         int get_tentativas_restantes();
 
-        /*CRIA O BONECO DE ACORDO COM AS TENTATIVAS RESTANTES*/
+        /**
+         * CRIA O BONECO DE ACORDO COM AS TENTATIVAS RESTANTES
+         */
         void boneco();
 
-        vector<string> fatiamento(string pa);
-
-
+        /**
+         * SORTEIA UMA CONSOANTE OU VOGAL DE m_palvra_atual COMO DICA PARA O JOGADOR
+         * DIFICULDADE FÁCIL - SORTEIA UMA CONSOANTE
+         * DIFICULDADE MEDIO - SORTEIA UMA VOGAL
+         * DIFICULDADE DÍFICIL - NÃO POSSUI DICA
+         * @return m_palavra_jogada ATUALIZADA COM A DICA
+         */
         string dica_jogador();
 
+        /**
+         * SEPARA A STRING CONTENDO AS PALAVRAS ACERTADAS PELO JOGADOR
+         * @return VETOR CONTENDO AS PALAVRAS QUE O JOGADOR ACERTOU
+         * @see score_tabela
+         */
+        vector<string> fatiamento(string pa);
+
+        /**
+         * FORMA A TABELA CONTENDO OS SCORES DOS JOGADORES, OGANIZADA NA ORDEM : 
+         * DIFICULDADE | NOME DO JOGADOR | PALAVRAS ACERTADAS | PONTOS
+         */
         void score_tabela();
 };

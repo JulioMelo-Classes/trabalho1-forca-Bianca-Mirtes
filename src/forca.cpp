@@ -99,9 +99,7 @@ pair<pair<bool, string>, pair<int, string>> Forca::eh_valido(){
     return pair<pair<bool, string>, pair<int, string>> {{true, "Válido"}, {0, ""}};
 };
  
-    /** 
-     * CARREGA OS ARQUIVOS DE SCORES E PALAVRAS PREENCHENDO **AO MENOS** A ESTRUTURA m_palavras 
-     */ 
+
 void Forca::carregar_arquivos(){
     fstream arquivo_palavras;
     fstream arquivo_scores;
@@ -148,10 +146,7 @@ void Forca::carregar_arquivos(){
     arquivo_scores.close();
 };
 
-    /*DETERMINA:
-        # A SOMA DE TODAS AS FREQUÊNCIAS DO VETOR DE PARES m_palavras
-        # A QUANTIDADE DE PALAVRAS PRESENTES NO VETOR DE PARES m_palavras
-        # A MÉDIA DAS FREQUÊNCIAS DAS PALAVRAS*/
+
 void Forca::dados(){
     for(int i=0; i < (int)m_palavras.size(); i++){
         soma_freq += m_palavras[i].second;
@@ -160,13 +155,7 @@ void Forca::dados(){
     qnt_palavras = (int)m_palavras.size();
 };
 
-    /** 
-     * MODIFICA A DIFICULDADE DO JOGO. 
-     * ESTE MÉTODO MODIFICA A DIFICULDADE DO JOGO GERANDO UM NOVO VETOR m_palavras_do_jogo
-     * TODA VEZ QUE É CHAMADO. 
-     * @param d A DIFICULDADE DESEJADA 
-     * @see proxima_palavra 
-     */ 
+
 void Forca::set_dificuldade(int d){
     if (d == 0){
         m_dificuldade = FACIL;
@@ -177,19 +166,12 @@ void Forca::set_dificuldade(int d){
     }
 };
  
-    /** 
-     * RETORNA A PRÓXIMA PALAVRA DE ACORDO COM A DIFICULDADE ATUAL. 
-     * ESTE MÉTODO DEVE ATUALIZAR O VALOR DOS ATRIBUTOS m_palavra_atual, COM A PALAVRA ATUAL, 
-     * DO ATRIBUTO m_palavra_jogada COM UM TEXTO NO FORMATO "_ _ _ _ ... _". 
-     * O MÉTODO TAMBÉM DEVE SORTEAR AS LETRAS QUE DEVEM APARECER DEPENDENDO DO NÍVEL DE DIFICULDADE, 
-     * ALTERANDO O VALOR DE m_palavra_jogada DE ACORDO. 
-     * @return O VALOR DO ATRIBUTO m_palavra_jogada. 
-     */
+
 string Forca::proxima_palavra(){
     vector<string> freq_maior_igual;
     vector<string> freq_menor;
     vector<string> freq_maior;
-    int sorteio;
+    int sorteio, sorteio2;
     int count1=0;
     unsigned semente = time(NULL); // PARA AUMENTAR A ALEATORIEDADE DA FUNÇÃO rand(), ALTERANDO A SEMENTE A CADA COMPILAÇÃO
     srand(semente);
@@ -266,7 +248,17 @@ string Forca::proxima_palavra(){
         }
     }
     random_shuffle(m_palavras_do_jogo.begin(), m_palavras_do_jogo.end()); //EMBARALHA A ORDEM DAS PALAVRAS
-    m_palavra_atual = m_palavras_do_jogo[rand()%((int)m_palavras_do_jogo.size()-1)]; // SORTEIA UMA PALAVRA PARA SER USADA NA PARTIDA
+    sorteio2 = rand()%((int)m_palavras_do_jogo.size()-1);
+    for(int k=0; k < m_palavras_do_jogo.size(); k++){
+        if(m_palavras_do_jogo[k] == m_palavra_atual){
+            sorteio2 = rand()%((int)m_palavras_do_jogo.size()-1);
+            while(m_palavra_atual == m_palavras_do_jogo[sorteio2]){
+                sorteio2 = rand()%((int)m_palavras_do_jogo.size()-1);
+            }
+            break;
+        }
+    }
+    m_palavra_atual = m_palavras_do_jogo[sorteio2]; // SORTEIA UMA PALAVRA PARA SER USADA NA PARTIDA
     m_palavra_jogada = m_palavra_atual;
     for(int i=0; i < (int)m_palavra_atual.size(); i++){ // PERCORRE m_palavra_atual E ALTERA CADA CARACTERE POR UM UNDERLINE('_')
         m_palavra_jogada[i] = '_';
@@ -274,14 +266,7 @@ string Forca::proxima_palavra(){
     return m_palavra_jogada; // RETORNA A PALAVRA SORTEADA NO FORMATO “_ _ _ ... _ “
 };
  
-     /** 
-     * RETORNA A PALAVRA ATUAL QUE ESTÁ SENDO JOGADA. 
-     * DIFERENTE DO MÉTODO proxima_palavra(), ESTE MÉTODO __NÃO ATUALIZA__ O ATRIBUTO 
-     * m_palavra_atual, APENAS RETORNA O ATRIBUTO m_palavra_jogada QUE É A PALAVRA NO 
-     * FORMATO  "_ _ _ _ ... _" CONTENDO TODAS AS LETRAS 
-     * JÁ ACERTADAS/SORTEADAS AO INVÉS DE “_”. 
-     * @return A PALAVRA ATUALMENTE SENDO JOGADA. 
-     */ 
+
 string Forca::get_palavra_jogada(char palp){
     for(int i=0; i < (int)m_palavra_atual.size(); i++){ // PERCORRE m_palavra_atual
         if (m_palavra_atual[i] == palp){ // SE ALGUM CARACTERE COINCIDIR COM O PALPITE DO JOGADOR(A) SUBSTUI-O EM m_palavra_jogada
@@ -291,32 +276,12 @@ string Forca::get_palavra_jogada(char palp){
     return m_palavra_jogada; // RETORNA m_palavra_jogada ATUALIZADA
 };
 
-    /** 
-     * RETORNA O VALOR DA PALAVRA ATUAL, ÚTIL NO CASO DE UM GAME OVER, PARA MOSTRAR A PALAVRA QUE ESTAVA 
-     * SENDO JOGADA 
-     * @return O VALOR DO ATRIBUTO m_palavra_atual 
-     **/ 
+
 string Forca::get_palavra_atual(){
     return m_palavra_atual;
 };
  
-        /** 
 
-         * TESTA SE UMA LETRA PERTENCE Á PALAVRA ATUAL E SE JÁ FOI JOGADA PELO JOGADOR. 
-         * ESTE MÉTODO TESTA SE UMA LETRA PERTENCE À PALAVRA ATUAL, CASO A LETRA PERTENÇA A PALAVRA 
-         * E AINDA NÃO FOI JOGADA O MÉTODO RETORNA {T, T}, CASO A LETRA NÃO PERTENÇA À PALAVRA O MÉTODO RETORNA {F,T};  
-         * CASO A LETRA JÁ TENHA SIDO JOGADA O MÉTODO RETORNA {T, F}, QUANDO A LETRA PERTENCE À PALAVRA E {F, F}, QUANDO 
-         * NÃO PERTENCE. 
-         * ESTE MÉTODO DEVE ATUALIZAR OS ATRIBUTOS m_tentativas_restantes, m_palavra_jogada E m_letras_palpitadas, PARA REFLETIR 
-         * AS SITUAÇÕES CITADAS. NO CASO DA LETRA JÁ TER SIDO ESCOLHIDA, O MÉTODO NÃO DEVE ATUALIZAR m_tentativas_restantes. 
-         * @param palpite UMA LETRA, QUE DEVE SER TESTADA SE PERTENCE À PALAVRA. 
-         * @return {T,T} SE O PALPITE PERTENCE À PALAVRA E É UM PALPITE NOVO, {F,T} CASO NÃO PERTENÇA E É NOVO. 
-         *         {T,F} OU {F,F} NO CASO DO PALPITE PERTENCER/NÃO PERTENCER À PALAVRA, MAS NÃO É NOVO. 
-         */
-        // letra pertence a palavra e letra nova (T, T)
-        // letra não pertence e letra nova (F, T)
-        // letra pertence e letra repetida (T, F)
-        // letra não pertence e letra repetida (F, F) 
 pair<bool, bool> Forca::palpite(char palp){
     int exist=0;
     if(m_letras_palpitadas.size() == 0){ // CASO SEJA O PRIMEIRO PALPITE DO JOGADOR(A)
@@ -349,11 +314,7 @@ pair<bool, bool> Forca::palpite(char palp){
     exist = 0; // ZERA A VARIÁVEL exist PARA SER USADA A CADA NOVO PALPITE
 };
  
-    /** 
-     * EM CASO DE GAME OVER OU DO JOGADOR TER ACERTADO A PALAVRA ESTE MÉTODO DEVE RETORNAR T. 
-     * @return T CASO O m_tentativas_restantes DO JOGO ESTEJA IGUAL A 0 OU SE O USUÁRIO  
-     *         ACERTOU TODA A PALAVRA, F CASO CONTRÁRIO. 
-     */ 
+
 bool Forca::rodada_terminada(){
     if(get_tentativas_restantes() == 0 || m_palavra_jogada == m_palavra_atual){
         return true;
@@ -363,12 +324,7 @@ bool Forca::rodada_terminada(){
     }
 };
  
-    /** 
-     * RESETA O VALOR DE TENTATIVAS RESTANTES PARA 6 E DO ATRIBUTO m_letras_palpitadas PARA VAZIO 
-     * ESTE MÉTODO É ÚTIL NO CASO DO JOGADOR ESCOLHER CONTINUAR O JOGO, OU NO INÍCIO 
-     * DE CADA RODADA, RESETANDO O VALOR DE TENTATIVAS RESTANTES PARA 6 E DO ATRIBUTO 
-     * m_letras_palpitadas COMO SENDO UM VETOR VAZIO 
-     */ 
+
 void Forca::reset_rodada(){
     m_tentativas_restantes = 6;
     m_letras_palpitadas.clear();
@@ -380,15 +336,12 @@ void Forca::reinicia_jogo(bool reinicia){
     reinicia = false;
 };
  
-        /** 
-         * RETORNA A QUANTIDADE DE TENTATIVAS RESTANTES. 
-         * @return A QUANTIDADE DE TENTATIVAS RESTANTES. 
-         */ 
+
 int Forca::get_tentativas_restantes(){
     return m_tentativas_restantes;
 };
 
-        /*CRIA O BONECO DE ACORDO COM AS TENTATIVAS RESTANTES*/
+
 void Forca::boneco(){
     //SE AS TENTATIVAS RESTANTES FOREM <=5 IMPRIME A CABEÇA DO BONECO
     if(get_tentativas_restantes() <= 5){

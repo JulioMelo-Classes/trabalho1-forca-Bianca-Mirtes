@@ -28,7 +28,7 @@ int main(int argc, char *argv[]){
     auto valid = forca.eh_valido();
     if(valid.second.first == 0){
         if(!valid.first.first){ /*SAI DO PROGRAMA AO ENCONTRAR UM ERRO*/
-            cout << "Erro: " << valid.first.second << " Arquivo: "<< valid.second.second <<endl; // IMPRIME O ERRO
+            cout << "Erro: " << valid.first.second << " Arquivo: "<< valid.second.second <<endl; // IMPRIME O ERRO E O ARQUIVO QUE GEROU O ERRO
             exit(-1);
         } 
     } else if(valid.second.second == "" && (valid.second.first != 0)){
@@ -39,16 +39,15 @@ int main(int argc, char *argv[]){
         } 
     } else{
         if(!valid.first.first){ /*SAI DO PROGRAMA AO ENCONTRAR UM ERRO*/
-            /*IMPRIME O ERRO, A LINHA EM QUE OCORREU O ERRO E A PALAVRA OU FREQUÊNCIA*/
+            /*IMPRIME O ERRO, A LINHA EM QUE OCORREU O ERRO E A PALAVRA OU FREQUÊNCIA QUE GEROU O ERRO*/
             cout << "Erro: " << valid.first.second << ", na linha: " << valid.second.first << ", palavra/frequência: " << valid.second.second << endl;
             exit(-1);
         }
     }
     // FAZ A LEITURA DOS ARQUIVOS CONTENDO AS PALAVRAS E OS SCORES PARA, RESPECTIVAMENTE EXTRAIR AS PALAVRAS E FREQUÊNCIAS E EXTRAIR AS INFORMAÇÕES DAS PARTIDAS
     forca.carregar_arquivos();
+    // ABRE O ARQUIVO QUE CONTÉM OS SCORES PARA ATUALIZÁ-LO COM AS INFORMAÇÕES DA PARTIDA DO JOGADOR(A)
     fstream atualiza_score;
-    vector<string> palavras_jogador;
-    string dificuldade_score;
     atualiza_score.open(argv[2], ios::app);
     forca.dados();  // CALCULA A FRÊQUENCIA MÉDIA DAS PALAVRAS
     cout << "-----------------------------------------------------------" << endl;
@@ -62,8 +61,10 @@ int main(int argc, char *argv[]){
         cout << "3 - Sair do Jogo" << endl;
         int choice;
         cout << "Sua escolha: ";
-        cin >> choice;
+        cin >> choice; // LÊ A ESCOLHA DO(A) JOGADOR(A)
         string nome;
+        vector<string> palavras_jogador;
+        string dificuldade_score;
         if(choice == 1){
             /*SELECIONA A DIFICULDADE*/ 
             cout << "Vamos iniciar o jogo! Por favor escolha o nivel de dificuldade:" << endl;
@@ -72,7 +73,7 @@ int main(int argc, char *argv[]){
             cout << "3 - DIFICIL" << endl;
             int dificuldade, d;
             cout << "Sua escolha: ";
-            cin >> dificuldade;
+            cin >> dificuldade; // LÊ A DIFICULDADE ESCOLHIDA PELO(A) JOGADOR(A)
             if (dificuldade == 1){
                 d = 0; 
             } else if(dificuldade == 2){
@@ -80,7 +81,7 @@ int main(int argc, char *argv[]){
             } else if(dificuldade == 3){
                 d = 2;
             }
-            forca.set_dificuldade(d);
+            forca.set_dificuldade(d); // ALTERA A DIFICULDADE DENTRO DA CLASSE FORCA
             int point=0;
             while(true){
                 /*EXIBE A INTERFACE INICIAL DO JOGO (ANTES DE LER O PRIMEIRO PALPITE)*/
@@ -91,11 +92,11 @@ int main(int argc, char *argv[]){
                 } else if(dificuldade == 3){
                     cout << "Iniciando o jogo no nível DIFÍCIL, será que você conhece essa palavra?" << endl;
                 }
-                string p = forca.proxima_palavra();
+                string p = forca.proxima_palavra(); // PALAVRA JOGADA ATUALMENTE NA FORMA "_ _ _ _ ... _"
                 cout << endl;
                 cout << endl;
                 cout << endl;
-                p = forca.dica_jogador();
+                p = forca.dica_jogador(); // ATUALIZA p COM A DICA DO JOGADOR CASO O NÍVEL SEJA FÁCIL OU MÉDIO
                 for(int i=0; i < (int)p.size(); i++){
                     cout << p[i] << " ";
                 }
@@ -105,8 +106,8 @@ int main(int argc, char *argv[]){
                 while (!forca.rodada_terminada()){ /*LOOP DA RODADA*/
                     /*LER PALPITE*/
                     char palpite;
-                    cin >> palpite;
-                    palpite = toupper(palpite);
+                    cin >> palpite; // LÊ O PALPITE DO(A) JOGADOR(A)
+                    palpite = toupper(palpite); // ALTERA O PALPITE PARA MAIÚSCULO 
                     auto result = forca.palpite(palpite);
                     if(result.first == true && (result.second == true)){
                         // ATUALIZA A VARIAVEL "p"
@@ -126,25 +127,25 @@ int main(int argc, char *argv[]){
                         // COMPUTA OS PONTOS DE ACORDO COM A OCORRÊNCIA DA LETRA NA PALAVRA
                         for(int i=0; i < (int)forca.get_palavra_atual().size(); i++){
                             if (forca.get_palavra_atual()[i] == palpite){
-                                // CASO O JOGADOR TENHA ACERTADO A ÚLTIMA LETRA DA PALAVRA SOMA +2 PONTOS AO INVES DE +1 
+                                // CASO O JOGADOR TENHA ACERTADO A ÚLTIMA LETRA QUE FALTAVA DA PALAVRA SOMA +2 PONTOS 
                                 if(p == forca.get_palavra_atual()){
                                     point += 2;
                                 }
-                                point++;  
+                                point++; // SOMA +1 PONTO PARA CADA OCORRÊNCIA NA PALAVRA DA LETRA ACERTADA PELO JOGADOR
                             }
                         }
-                        // FORMAÇÃO DO BONECO DE ACORDO COM AS TENTATIVAS RESTANTES
+                        // FORMA O BONECO DE ACORDO COM AS TENTATIVAS RESTANTES
                         forca.boneco();
-                        // IMPRIME A PALAVRA ATUALIZADA
+                        // IMPRIME A PALAVRA NA FORMA "_ _ _ _ ... _" ATUALIZADA
                         for(int i=0; i < (int)p.size(); i++){
                             cout << p[i] << " ";
                         }
                         cout << endl;
                         if(forca.get_tentativas_restantes() == 0 || p == forca.get_palavra_atual()){
-                            //PARA QUANDO A PARTIDA FINALIZAR (GAMEOVER OU VITÓRIA)
+                            //  PARA QUANDO A PARTIDA FINALIZAR (GAMEOVER OU VITÓRIA) IMPRIME SOMENTE A PONTUAÇÃO
                             cout << "Pontos: " << point << endl;
                         }else{
-                            //AO LONGO DA PARTIDA
+                            //  AO LONGO DA PARTIDA IMPRIME A PONTUAÇÃO E O PALPITE
                             cout << "Pontos: " << point << endl;
                             cout << "Palpite: ";
                         }
@@ -156,19 +157,19 @@ int main(int argc, char *argv[]){
                             //IMPRIME O PALPITE
                             cout << "Não há a letra " << palpite << " na palavra :(" << endl;  
                         }
-                        point--;
+                        point--; // SUBTRAI A PONTUAÇÃO DO(A) JOGADOR(A)
                         // FORMAÇÃO DO BONECO DE ACORDO COM AS TENTATIVAS RESTANTES
                         forca.boneco();
-                        // IMPRIME A PALAVRA ATUALIZADA
+                        // IMPRIME A VARIÁVEL "p" ATUALIZADA NA FORMA "_ _ _ _ ... _" 
                         for(int i=0; i < (int)p.size(); i++){
                             cout << p[i] << " ";
                         }
                         cout << endl;
                         if(forca.get_tentativas_restantes() == 0 || p == forca.get_palavra_atual()){
-                            //PARA QUANDO A PARTIDA FINALIZAR (GAMEOVER OU VITÓRIA)
+                            //PARA QUANDO A PARTIDA FINALIZAR (GAMEOVER OU VITÓRIA) IMPRIME SOMENTE A PONTUAÇÃO
                             cout << "Pontos: " << point << endl;
                         }else{
-                            //AO LONGO DA PARTIDA
+                            //AO LONGO DA PARTIDA IMPRIME A PONTUAÇÃO E O PALPITE
                             cout << "Pontos: " << point << endl;
                             cout << "Palpite: ";
                         }
@@ -182,7 +183,7 @@ int main(int argc, char *argv[]){
                         }
                         // FORMAÇÃO DO BONECO DE ACORDO COM AS TENTATIVAS RESTANTES
                         forca.boneco();
-                        // IMPRIME A PALAVRA ATUALIZADA
+                        // IMPRIME A VARIÁVEL "p" NA FORMA "_ _ _ _ ... _"
                         for(int i=0; i < (int)p.size(); i++){
                             cout << p[i] << " ";
                         }
@@ -200,7 +201,8 @@ int main(int argc, char *argv[]){
                 if(p.find('_') > p.size()){
                     /*IMPRIME A INTERFACE DE CONTINUAR OU PARAR*/
                     int choice2;
-                    palavras_jogador.push_back(forca.get_palavra_atual());
+                    palavras_jogador.push_back(forca.get_palavra_atual()); // ARMAZENAR A PALAVRA QUE O(A) JOGADOR(A) ACERTOU
+                    // ARMANEZA A DIFICULDADE DA PARTIDA
                     if(dificuldade == 1){
                         dificuldade_score = "FACIL";
                     } else if(dificuldade == 2){
@@ -212,15 +214,15 @@ int main(int argc, char *argv[]){
                     cout << "1 - Nova Partida" << endl;
                     cout << "2 - Menu Inicial" << endl;
                     cout << "Sua escolha: ";
-                    cin >> choice2;
-                    if (choice2 == 2){
+                    cin >> choice2; // LÊ A ESCOLHA DO JOGADOR
+                    if (choice2 == 2){ // VAI PARA A INTERFACE INICIAL DO JOGO
                         break;
-                    } else{
-                        /*INICIA OUTRA RODADA COM O MESMO NÍVEL DE DIFICULDADE*/
+                    } else{ // INICIA OUTRA RODADA COM O MESMO NÍVEL DE DIFICULDADE
                         forca.reset_rodada();
                     }
                 } else{ /*PERDEU*/
-                    /*IMPRIME O GAMEOVER E A PALAVRA QUE ESTAVA SENDO JOGADA*/ 
+                    /*IMPRIME O GAMEOVER E A PALAVRA QUE ESTAVA SENDO JOGADA*/
+                    // ARMANEZA A DIFICULDADE DA PARTIDA
                     if(dificuldade == 1){
                         dificuldade_score = "FACIL";
                     } else if(dificuldade == 2){
@@ -233,10 +235,9 @@ int main(int argc, char *argv[]){
                     break;
                 }
             }
-            /*LER INFORMAÇÕES DO JOGADOR PARA O SCORE E GRAVAR NO ARQUIVO*/ 
-            /*PEDE O NOME DO JOGADOR PARA ARMAZENAR OS DADOS DA PARTIDA NO ARQUIVO DE SCORES*/
+            /*GRAVAÇÃO DAS INFORMAÇÕES DO(A) JOGADOR(A) NO ARQUIVO DE SCORES*/ 
             cout << "Apelido: ";
-            cin >> nome;
+            cin >> nome; // LÊ O NOME DO(A) JOGADOR(A)
             cout << endl;
             atualiza_score << "\n" << dificuldade_score << "; " << nome << "; ";
             for(int i=0; i < (int)palavras_jogador.size(); i++){
@@ -251,20 +252,17 @@ int main(int argc, char *argv[]){
                 }
                 
             }
-            palavras_jogador.clear();
+            palavras_jogador.clear(); // LIMPA O VETOR COM AS PALAVRAS ACERTADAS PELO(A) JOGADOR(A)
             atualiza_score << ";" << point;
-            forca.reinicia_jogo(forca.rodada_terminada());
+            forca.reinicia_jogo(forca.rodada_terminada()); // REINICIA O JOGO
         }
-        else if( choice == 2){
-            /*MOSTRAR SCORE*/
+        else if( choice == 2){  /*MOSTRAR SCORE*/
             forca.score_tabela();
             cout << endl;
-        } else{
-            atualiza_score.close();
-            break;
-            //QUALQUER OUTRO NÚMERO SAI DO JOGO 
+        } else{ /*SAI DO JOGO*/
+            break; 
         }   
     }
-    atualiza_score.close();
+    atualiza_score.close(); // FECHA O ARQUIVO DE SCORES JÁ QUE O JOGO FINALIZOU E ELE NÃO PRECISARÁ MAIS SER ATUALIZADO
     return 0;
 }
