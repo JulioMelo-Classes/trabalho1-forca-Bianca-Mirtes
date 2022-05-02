@@ -1,3 +1,0 @@
-/mnt/c/Users/alice/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/build/CMakeFiles/rebuild_cache.dir
-/mnt/c/Users/alice/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/build/CMakeFiles/edit_cache.dir
-/mnt/c/Users/alice/OneDrive/Documentos/GitHub/trabalho1-forca-Bianca-Mirtes/build/CMakeFiles/program.dir
