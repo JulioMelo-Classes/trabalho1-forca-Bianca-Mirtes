@@ -198,7 +198,7 @@ int main(int argc, char *argv[]){
                         }
                     }
                 }
-                if(p.find('_') > p.size()){
+                if(find(p.begin(), p.end(), '_') == p.end()){
                     /*IMPRIME A INTERFACE DE CONTINUAR OU PARAR*/
                     int choice2;
                     palavras_jogador.push_back(forca.get_palavra_atual()); // ARMAZENAR A PALAVRA QUE O(A) JOGADOR(A) ACERTOU

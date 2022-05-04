@@ -1,0 +1,1 @@
+/usr/bin/c++  -Wall   CMakeFiles/program.dir/src/main.cpp.o CMakeFiles/program.dir/src/forca.cpp.o  -o program 
