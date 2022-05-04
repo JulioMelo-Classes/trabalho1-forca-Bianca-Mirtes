@@ -24,24 +24,24 @@ class Forca {
     private:
         std::vector< std::pair<std::string, int> > m_palavras; //<! VETOR CONTENDO AS PALAVRAS E SUA OCORRÊNCIA NO CORPUS 
 
-        std::string m_arquivo_scores; //<! NOME DO ARQUIVO CONTENDO OS SCORES 
+        std::string m_arquivo_scores;   //<! NOME DO ARQUIVO CONTENDO OS SCORES 
  
         std::string m_arquivo_palavras; //<! NOME DO ARQUIVO CONTENDO AS PALAVRAS 
  
-        Dificuldade m_dificuldade; //<! DIFICULDADE ATUAL DO JOGO 
+        Dificuldade m_dificuldade;      //<! DIFICULDADE ATUAL DO JOGO 
  
-        std::vector< std::string > m_palavras_do_jogo; //<! CONTAINER “PALAVRAS DO JOGO”
-        std::vector< char > m_letras_palpitadas; //<! CONTEM AS LETRAS PALPITADAS PELO JOGADOR
-        std::string m_palavra_atual; //<! PALAVRA SENDO JOGADA “ATUALMENTE”
-        std::string m_palavra_jogada; //<! PALAVRA SENDO JOGADA “ATUALMENTE” NO FORMATO “_ _ _ ... _ “ 
+        std::vector< std::string > m_palavras_do_jogo;  //<! CONTAINER “PALAVRAS DO JOGO”
+        std::vector< char > m_letras_palpitadas;        //<! CONTEM AS LETRAS PALPITADAS PELO JOGADOR
+        std::string m_palavra_atual;                    //<! PALAVRA SENDO JOGADA “ATUALMENTE”
+        std::string m_palavra_jogada;                   //<! PALAVRA SENDO JOGADA “ATUALMENTE” NO FORMATO “_ _ _ ... _ “ 
         
-        int m_tentativas_restantes=6; // ARMAZENA AS TENTATIVAS RESTANTES
-        int qnt_palavras; // A QUANTIDADE DE PALAVRAS DO ARQUIVO base_formatada.txt
-        int media_p; // MÉDIA DAS FREQUÊNCIAS DAS PALAVRAS DO ARQUIVO base_formatada.txt
-        int soma_freq=0; // SOMA DAS FREQUÊNCIAS DAS PALAVRAS DO ARQUIVO base_formatada.txt
-        std::vector<std::pair<std::string, std::string>> dificuldade_jogador; // ARMAZENA A DIFICULDADE E O NOME DO JOGADOR(A)
-        std::vector<std::string> palavras; // ARMAZENA AS PALAVRAS ACERTADAS PELO JOGADOR
-        std::vector<int> pont; // ARMAZENA A PONTUAÇÃO FEITA NA(S) RODADA(S) JOGADA(S)
+        int m_tentativas_restantes=6;   // ARMAZENA AS TENTATIVAS RESTANTES
+        int qnt_palavras;               // A QUANTIDADE DE PALAVRAS DO ARQUIVO base_formatada.txt
+        int media_p;                    // MÉDIA DAS FREQUÊNCIAS DAS PALAVRAS DO ARQUIVO base_formatada.txt
+        int soma_freq=0;                // SOMA DAS FREQUÊNCIAS DAS PALAVRAS DO ARQUIVO base_formatada.txt
+        std::vector<std::pair<std::string, std::string>> dificuldade_jogador;   // ARMAZENA A DIFICULDADE E O NOME DO JOGADOR(A)
+        std::vector<std::string> palavras;                                      // ARMAZENA AS PALAVRAS ACERTADAS PELO JOGADOR
+        std::vector<int> pont;                                                  // ARMAZENA A PONTUAÇÃO FEITA NA(S) RODADA(S) JOGADA(S)
    
     public:
         /** 
@@ -65,17 +65,20 @@ class Forca {
          */
         std::pair<std::pair<bool, std::string>, std::pair<int, std::string>> eh_valido();
  
+
         /** 
          * CARREGA OS ARQUIVOS DE SCORES E PALAVRAS PREENCHENDO A ESTRUTURA m_palavras (PALAVRAS E SUAS RESPECTIVAS FREQUÊNCIAS)
          * E PREENCHE AS ESTRUTURAS dificuldade_jogador (NÍVEL, NOME), palavras (PALAVRAS ACERTADAS) E pont (PONTUAÇÃO)
          */ 
         void carregar_arquivos();
 
+
         /**
          * DETERMINA A SOMA DE TODAS AS FREQUÊNCIAS DO VETOR DE PARES m_palavras;
          * A QUANTIDADE DE PALAVRAS PRESENTES NO VETOR DE PARES m_palavras E A MÉDIA DAS FREQUÊNCIAS DAS PALAVRAS;
          */
         void dados();
+
 
         /** 
          * MODIFICA A DIFICULDADE DO JOGO. 
@@ -86,6 +89,7 @@ class Forca {
          */ 
         void set_dificuldade(int d);
  
+
         /** 
          * RETORNA A PRÓXIMA PALAVRA DE ACORDO COM A DIFICULDADE ATUAL. 
          * ESTE MÉTODO DEVE ATUALIZAR O VALOR DOS ATRIBUTOS m_palavra_atual, COM A PALAVRA ATUAL, 
@@ -119,6 +123,7 @@ class Forca {
          */ 
         std::string get_palavra_jogada(char palp);
 
+
         /** 
          * RETORNA O VALOR DA PALAVRA ATUAL, ÚTIL NO CASO DE UM GAME OVER, PARA MOSTRAR A PALAVRA QUE ESTAVA 
          * SENDO JOGADA 
@@ -126,8 +131,8 @@ class Forca {
          **/ 
         std::string get_palavra_atual();
  
-        /** 
 
+        /** 
          * TESTA SE UMA LETRA PERTENCE Á PALAVRA ATUAL E SE JÁ FOI JOGADA PELO JOGADOR. 
          * ESTE MÉTODO TESTA SE UMA LETRA PERTENCE À PALAVRA ATUAL, CASO A LETRA PERTENÇA A PALAVRA 
          * E AINDA NÃO FOI JOGADA O MÉTODO RETORNA {T, T}, CASO A LETRA NÃO PERTENÇA À PALAVRA O MÉTODO RETORNA {F,T};  
@@ -141,6 +146,7 @@ class Forca {
          */
         std::pair<bool, bool> palpite(char palp);
  
+
         /** 
          * EM CASO DE GAME OVER OU DO JOGADOR TER ACERTADO A PALAVRA ESTE MÉTODO DEVE RETORNAR T. 
          * @return T CASO O m_tentativas_restantes DO JOGO ESTEJA IGUAL A 0 OU SE O USUÁRIO  
@@ -148,6 +154,7 @@ class Forca {
          */ 
         bool rodada_terminada();
  
+
         /** 
          * RESETA O VALOR DE TENTATIVAS RESTANTES PARA 6 E DO ATRIBUTO m_letras_palpitadas PARA VAZIO 
          * ESTE MÉTODO É ÚTIL NO CASO DO JOGADOR ESCOLHER CONTINUAR O JOGO, OU NO INÍCIO 
@@ -163,11 +170,13 @@ class Forca {
          */
         void reinicia_jogo(bool reinicia);
  
+
         /** 
          * RETORNA A QUANTIDADE DE TENTATIVAS RESTANTES. 
          * @return A QUANTIDADE DE TENTATIVAS RESTANTES. 
          */ 
         int get_tentativas_restantes();
+
 
         /**
          * CRIA O BONECO DE ACORDO COM AS TENTATIVAS RESTANTES :
@@ -187,6 +196,7 @@ class Forca {
          * @see score_tabela
          */
         std::vector<std::string> fatiamento(std::string pa);
+
 
         /**
          * FORMA A TABELA CONTENDO OS SCORES DOS JOGADORES, OGANIZADA NA ORDEM : 

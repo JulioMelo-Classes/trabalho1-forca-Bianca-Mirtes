@@ -20,6 +20,7 @@ Forca::Forca( string palavras, string scores ){
     m_arquivo_scores = scores;      // NOME DO ARQUIVO QUE CONTÉM OS SCORES
 };
 
+
 pair<pair<bool, string>, pair<int, string>> Forca::eh_valido(){
     fstream arq_palavras;
     fstream arq_scores;
@@ -32,9 +33,9 @@ pair<pair<bool, string>, pair<int, string>> Forca::eh_valido(){
     // ABRE OS ARQUIVOS PARA LEITURA DOS DADOS
     arq_palavras.open(m_arquivo_palavras, ios::in);
     arq_scores.open(m_arquivo_scores, ios::in);
-    if(!arq_palavras.is_open()){ // CASO O ARQUIVO COM A BASE DE PALAVRAS DO JOGO NÃO EXISTA, A FUNÇÃO open() NÃO CONSEGUE ABRI-LO E RETORNA FALSE 
+    if(!arq_palavras.is_open()){        // CASO O ARQUIVO COM A BASE DE PALAVRAS DO JOGO NÃO EXISTA, A FUNÇÃO open() NÃO CONSEGUE ABRI-LO E RETORNA FALSE 
         return pair<pair<bool, string>, pair<int, string>> {{false, "Arquivo(s) Inexistente(s)"}, {0, m_arquivo_palavras}};
-    } else if(!arq_scores.is_open()){ // CASO O ARQUIVO COM OS SCORES NÃO EXISTA, A FUNÇÃO open() NÃO CONSEGUE ABRI-LO E RETORNA FALSE
+    } else if(!arq_scores.is_open()){   // CASO O ARQUIVO COM OS SCORES NÃO EXISTA, A FUNÇÃO open() NÃO CONSEGUE ABRI-LO E RETORNA FALSE
         return pair<pair<bool, string>, pair<int, string>> {{false, "Arquivo(s) Inexistente(s)"}, {0, m_arquivo_scores}};
     } else{
         // LER O CONTEÚDO DO ARQUIVO DE PALAVRAS LINHA A LINHA ENQUANDO NÃO CHEGAR AO FINAL DO ARQUIVO
@@ -49,15 +50,15 @@ pair<pair<bool, string>, pair<int, string>> Forca::eh_valido(){
                     break;
                 }
             }
-            freq = linha.substr(pos, linha.size()-1); // UTILIZA A POSIÇÃO DO ESPAÇO EM BRANCO PARA ARMAZENAR A PARTE DA LINHA QUE CONTÉM A FREQUÊNCIA
+            freq = linha.substr(pos, linha.size()-1);   // UTILIZA A POSIÇÃO DO ESPAÇO EM BRANCO PARA ARMAZENAR A PARTE DA LINHA QUE CONTÉM A FREQUÊNCIA
             for(int i=0; i < (int)palavra.size(); i++){ // PERCORRE A PALAVRA PARA ANALISAR OS POSSÍVEIS ERROS
-                if(ispunct(palavra[i]) && (palavra[i] != '-')){  //CASO ENCONTRE ALGUM CARACTERE ESPECIAL NA PALAVRA, EXCETO O HÍFEN, RETORNA O ERRO DO TIPO CARACTERE ESPECIAL
+                if(ispunct(palavra[i]) && (palavra[i] != '-')){  // CASO ENCONTRE ALGUM CARACTERE ESPECIAL NA PALAVRA, EXCETO O HÍFEN, RETORNA O ERRO DO TIPO CARACTERE ESPECIAL
                     return pair<pair<bool, string>, pair<int, string>>{{false, "Caractere especial encontrado"}, {count, palavra}};
-                } else if(isspace(palavra[i])){  //CASO ENCONTRE ALGUM ESPAÇO EM BRANCO NA PALAVRA, RETORNA O ERRO DO TIPO ESPAÇO EM BRANCO
+                } else if(isspace(palavra[i])){     // CASO ENCONTRE ALGUM ESPAÇO EM BRANCO NA PALAVRA, RETORNA O ERRO DO TIPO ESPAÇO EM BRANCO
                     return pair<pair<bool, string>, pair<int, string>>{{false, "Espaço em branco encontrado"}, {count, palavra}};
-                } else if(palavra.size() <= 4){  //CASO ENCONTRE ALGUMA PALAVRA COM TAMANHO <=4, RETORNA O ERRO DO TIPO TAMANHO DA PALAVRA <=4
+                } else if(palavra.size() <= 4){     // CASO ENCONTRE ALGUMA PALAVRA COM TAMANHO <=4, RETORNA O ERRO DO TIPO TAMANHO DA PALAVRA <=4
                     return pair<pair<bool, string>, pair<int, string>>{{false, "Palavra com tamanho menor ou igual a 4"}, {count, palavra}};
-                } else if(stoi(freq) < 0){   //CASO ENCONTRE ALGUMA FREQUÊNCIA NEGATIVA, RETORNA O ERRO DO TIPO FREQUÊNCIA NEGATIVA
+                } else if(stoi(freq) < 0){          // CASO ENCONTRE ALGUMA FREQUÊNCIA NEGATIVA, RETORNA O ERRO DO TIPO FREQUÊNCIA NEGATIVA
                     return pair<pair<bool, string>, pair<int, string>>{{false, "Frequência Negativa"}, {count, freq}};
                 }
             }  
@@ -269,7 +270,48 @@ string Forca::proxima_palavra(){
     }
     return m_palavra_jogada; // RETORNA A PALAVRA SORTEADA NO FORMATO “_ _ _ ... _ “
 };
- 
+
+
+string Forca::dica_jogador(){
+    vector<char> consoantes;
+    vector<char> vogais;
+    int dica, qnt_dicas, count1=0;
+    for(int i=0; i < (int)get_palavra_atual().size(); i++){ // PERCORRE m_palavra_atual
+        // CASO O CARACTERE SEJA DIFERENTE (A, E, I, O E U) ARMAZENA ELE NO VETOR DAS CONSOANTES
+        // CASO O CARACTE SEJA IGUAL A (A, E, I, O OU U) ARMAZENA ELE NO VETOR DAS VOGAIS
+        if((get_palavra_atual()[i] != 'A') && (get_palavra_atual()[i] != 'E') && (get_palavra_atual()[i] != 'I') && (get_palavra_atual()[i] != 'O') && (get_palavra_atual()[i] != 'U')){
+            consoantes.push_back(get_palavra_atual()[i]);
+        } else if(get_palavra_atual()[i] == 'A' || get_palavra_atual()[i] == 'E' || get_palavra_atual()[i] == 'I' || get_palavra_atual()[i] == 'O' || get_palavra_atual()[i] == 'U'){
+            vogais.push_back(get_palavra_atual()[i]);
+        }
+    }
+    if (m_dificuldade == 0){   // CASO O NÍVEL SEJA FÁCIL, SORTEIA UMA CONSOANTE COMO DICA PARA O(A) JOGADOR(A)
+        qnt_dicas = (int)(m_palavra_atual.size()/5); // A CADA 5 LETRAS DA PALAVRA SORTEIA UMA CONSOANTE COMO DICA
+        while(count1 < qnt_dicas){                   
+            dica = rand()%(consoantes.size()-1);   
+            if(find(m_letras_palpitadas.begin(), m_letras_palpitadas.end(), consoantes[dica]) == m_letras_palpitadas.end()){
+                m_letras_palpitadas.push_back(consoantes[dica]);
+                for(int i=0; i < (int)m_palavra_jogada.size(); i++){
+                    if(get_palavra_atual()[i] == consoantes[dica]){
+                        m_palavra_jogada[i] = consoantes[dica];
+                    }
+                }
+                count1++;  
+            }
+        }
+    } else if(m_dificuldade == 1){  // CASO O NÍVEL SEJA MEDIO, SORTEIA UMA VOGAL COMO DICA PARA O(A) JOGADOR(A)
+        dica = rand()%(vogais.size()-1);
+        m_letras_palpitadas.push_back(vogais[dica]);
+        for(int i=0; i < (int)m_palavra_jogada.size(); i++){
+            if(get_palavra_atual()[i] == vogais[dica]){
+                m_palavra_jogada[i] = vogais[dica];
+            }
+        }
+    }
+    count1=0; 
+    return m_palavra_jogada;    // RETORNA m_palavra_jogada ATUALIZADA COM A DICA
+};
+
 
 string Forca::get_palavra_jogada(char palp){
     for(int i=0; i < (int)m_palavra_atual.size(); i++){ // PERCORRE m_palavra_atual
@@ -328,13 +370,14 @@ bool Forca::rodada_terminada(){
         return false;
     }
 };
- 
+
 
 void Forca::reset_rodada(){ 
     // RESTAURA AS TENTATIVAS RESTANTES E LIMPA O VETOR QUE CONTÉM AS LETRAS PALPITADAS PARA INICIAR UMA NOVA RODADA
     m_tentativas_restantes = 6;
     m_letras_palpitadas.clear();
 };
+
 
 void Forca::reinicia_jogo(bool reinicia){
     /* REINICIA O JOGO:
@@ -354,7 +397,7 @@ int Forca::get_tentativas_restantes(){
 
 
 void Forca::boneco(){
-    //SE AS TENTATIVAS RESTANTES FOREM <=5 IMPRIME A CABEÇA DO BONECO
+    // SE AS TENTATIVAS RESTANTES FOREM <=5 IMPRIME A CABEÇA DO BONECO
     if(get_tentativas_restantes() <= 5){
         cout << " O " << endl;
     } else{
@@ -392,6 +435,7 @@ void Forca::boneco(){
     }
 };
 
+
 vector<string> Forca::fatiamento(string pa){
     // DIVIDE A STRING CONTENDO TODAS AS PALAVRAS ACERTADAS PELO(A) JOGADOR(A) E ARMAZENA AS PALAVRAS SEPARADAMENTE EM UM VETOR 
     stringstream sstream(pa);
@@ -404,46 +448,6 @@ vector<string> Forca::fatiamento(string pa){
     return str_sep; // RETORNA O VETOR CONTENDO AS PALAVRAS ACERTADAS PELO(A) JOGADOR(A)
 };
 
-
-string Forca::dica_jogador(){
-    vector<char> consoantes;
-    vector<char> vogais;
-    int dica, qnt_dicas, count1=0;
-    for(int i=0; i < (int)get_palavra_atual().size(); i++){ // PERCORRE m_palavra_atual
-        // CASO O CARACTERE SEJA DIFERENTE (A, E, I, O E U) ARMAZENA ELE NO VETOR DAS CONSOANTES
-        // CASO O CARACTE SEJA IGUAL A (A, E, I, O OU U) ARMAZENA ELE NO VETOR DAS VOGAIS
-        if((get_palavra_atual()[i] != 'A') && (get_palavra_atual()[i] != 'E') && (get_palavra_atual()[i] != 'I') && (get_palavra_atual()[i] != 'O') && (get_palavra_atual()[i] != 'U')){
-            consoantes.push_back(get_palavra_atual()[i]);
-        } else if(get_palavra_atual()[i] == 'A' || get_palavra_atual()[i] == 'E' || get_palavra_atual()[i] == 'I' || get_palavra_atual()[i] == 'O' || get_palavra_atual()[i] == 'U'){
-            vogais.push_back(get_palavra_atual()[i]);
-        }
-    }
-    if (m_dificuldade == 0){   // CASO O NÍVEL SEJA FÁCIL, SORTEIA UMA CONSOANTE COMO DICA PARA O(A) JOGADOR(A)
-        qnt_dicas = (int)(m_palavra_atual.size()/5); // A CADA 5 LETRAS DA PALAVRA SORTEIA UMA CONSOANTE COMO DICA
-        while(count1 < qnt_dicas){                   
-            dica = rand()%(consoantes.size()-1);   
-            if(find(m_letras_palpitadas.begin(), m_letras_palpitadas.end(), consoantes[dica]) == m_letras_palpitadas.end()){
-                m_letras_palpitadas.push_back(consoantes[dica]);
-                for(int i=0; i < (int)m_palavra_jogada.size(); i++){
-                    if(get_palavra_atual()[i] == consoantes[dica]){
-                        m_palavra_jogada[i] = consoantes[dica];
-                    }
-                }
-                count1++;  
-            }
-        }
-    } else if(m_dificuldade == 1){  // CASO O NÍVEL SEJA MEDIO, SORTEIA UMA VOGAL COMO DICA PARA O(A) JOGADOR(A)
-        dica = rand()%(vogais.size()-1);
-        m_letras_palpitadas.push_back(vogais[dica]);
-        for(int i=0; i < (int)m_palavra_jogada.size(); i++){
-            if(get_palavra_atual()[i] == vogais[dica]){
-                m_palavra_jogada[i] = vogais[dica];
-            }
-        }
-    }
-    count1=0; 
-    return m_palavra_jogada;    // RETORNA m_palavra_jogada ATUALIZADA COM A DICA
-};
 
 void Forca::score_tabela(){
     string d = "Dificuldade";
