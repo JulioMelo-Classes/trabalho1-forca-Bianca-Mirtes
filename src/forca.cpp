@@ -254,7 +254,7 @@ string Forca::proxima_palavra(){
     random_shuffle(m_palavras_do_jogo.begin(), m_palavras_do_jogo.end());   // EMBARALHA A ORDEM DAS PALAVRAS
     sorteio2 = rand()%((int)m_palavras_do_jogo.size()-1);                   // SORTEIA UM NÚMERO no intervalo [0, m_palavras_do_jogo.size()[
     // GARANTE QUE A PALAVRA JOGADA NA RODADA SEGUINTE NÃO SERÁ IGUAL A DA RODADA ANTERIOR
-    for(int k=0; k < m_palavras_do_jogo.size(); k++){
+    for(int k=0; k < (int)m_palavras_do_jogo.size(); k++){
         if(m_palavras_do_jogo[k] == m_palavra_atual){
             sorteio2 = rand()%((int)m_palavras_do_jogo.size()-1);
             while(m_palavra_atual == m_palavras_do_jogo[sorteio2]){
@@ -457,15 +457,15 @@ void Forca::score_tabela(){
     string maior_palavra = "Palavras";
     string maior_nome = "Jogador";
     vector<string> str_separadas;
-    for(int j=0; j < dificuldade_jogador.size(); j++){      // PERCORRE dificuldade_jogador PARA ENCONTRAR O(A) JOGADOR(A) COM O MAIOR NOME
+    for(int j=0; j < (int)dificuldade_jogador.size(); j++){      // PERCORRE dificuldade_jogador PARA ENCONTRAR O(A) JOGADOR(A) COM O MAIOR NOME
         if(dificuldade_jogador[j].second.size() > maior_nome.size()){
             maior_nome = dificuldade_jogador[j].second;     // ARMAZENA O MAIOR NOME EM maior_nome
         }
     }
     for(int i=0; i < (int)dificuldade_jogador.size(); i++){ // PERCORRE dificuldade_jogador PARA PERCORRER TODAS AS LINHAS DO ARQUIVO DE SCORES
-        for(int a=0; a < palavras.size(); a++){             // PERCORRE palavras PARA ACESSAR AS PALAVRAS ACERTADAS POR CADA JOGADOR(A)
+        for(int a=0; a < (int)palavras.size(); a++){             // PERCORRE palavras PARA ACESSAR AS PALAVRAS ACERTADAS POR CADA JOGADOR(A)
             str_separadas = fatiamento(palavras[a]);        // CRIA UM VETOR COM AS PALAVRAS ACERTADAS SEPARADAS
-            for(int s=0; s < str_separadas.size(); s++){    // PERCORRE str_separadas PARA ENCONTRAR A MAIOR PALAVRA DENTRE AS PALAVRAS ACERTADAS POR CADA JOGADOR(A)
+            for(int s=0; s < (int)str_separadas.size(); s++){    // PERCORRE str_separadas PARA ENCONTRAR A MAIOR PALAVRA DENTRE AS PALAVRAS ACERTADAS POR CADA JOGADOR(A)
                 if(str_separadas[s].size() > maior_palavra.size()){
                     maior_palavra = str_separadas[s];       // ARMAZENA A MAIOR PALAVRA EM maior_palavra
                 }
@@ -488,7 +488,7 @@ void Forca::score_tabela(){
         */
         cout << dificuldade_jogador[i].first << setw((d.size() - dificuldade_jogador[i].first.size())+2) << "|" << dificuldade_jogador[i].second << setw((maior_nome.size() - dificuldade_jogador[i].second.size())+2) << "|";
         cout << str_separadas[0] << setw((maior_palavra.size() - str_separadas[0].size())+2) << "|" << " " << pont[i] << endl;
-        for(int k=1; k < str_separadas.size(); k++){
+        for(int k=1; k < (int)str_separadas.size(); k++){
             cout << setw(dificuldade_jogador[i].first.size() + (d.size() - dificuldade_jogador[i].first.size())+2) << "|" << setw(dificuldade_jogador[i].second.size() + (maior_nome.size() - dificuldade_jogador[i].second.size())+2) << "|"; 
             cout << str_separadas[k] << setw((maior_palavra.size() - str_separadas[k].size())+2) << "|" << setw((pon.size() - to_string(pont[i]).size())+2) << endl;
         }
