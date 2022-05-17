@@ -486,7 +486,9 @@ void Forca::score_tabela(){
             NO CASO DO CAMPO PONTUAÇÃO, COMO A PONTUAÇÃO DE UM JOGADOR(A) DIFICILMENTE ULTRAPASSARÁ 6 DIGITOS, TEMOS O PADRÃO:
                 - stew((tamanho_de_"Pontos" - pontuação_do_jogador(a))+2)
         */
-        cout << dificuldade_jogador[i].first << setw((d.size() - dificuldade_jogador[i].first.size())+2) << "|" << dificuldade_jogador[i].second << setw((maior_nome.size() - dificuldade_jogador[i].second.size())+2) << "|";
+        cout << dificuldade_jogador[i].first 
+             << setw((d.size() - dificuldade_jogador[i].first.size())+2) 
+             << "|" << dificuldade_jogador[i].second << setw((maior_nome.size() - dificuldade_jogador[i].second.size())+2) << "|";
         cout << str_separadas[0] << setw((maior_palavra.size() - str_separadas[0].size())+2) << "|" << " " << pont[i] << endl;
         for(int k=1; k < (int)str_separadas.size(); k++){
             cout << setw(dificuldade_jogador[i].first.size() + (d.size() - dificuldade_jogador[i].first.size())+2) << "|" << setw(dificuldade_jogador[i].second.size() + (maior_nome.size() - dificuldade_jogador[i].second.size())+2) << "|"; 
