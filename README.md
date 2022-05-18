@@ -1,5 +1,44 @@
 # Trabalho-1-Jogo-da-Forca-LP1-2022.1
 * Repositório contendo as especificações do Trabalho 1 da disciplina de LP1 do semestre 2022.1
+
+#Avaliação e Feedback
+
+## Geral
+
+- Implementção da Classe forca ou similar | 10 / 10 pontos
+	- ok
+
+- Implementação da Interface textual | 10 / 10 pontos
+	- Fair'n square =).
+
+- Execução completa do jogo | 14 / 15 pontos
+	- Sorteio correto de paralavras para o jogo: cp1
+	- Configuração correta da palavra jogada, dependendo da dificuldade:  5 / 5 
+	- Execução correta do jogo (não pode repetir palpites, e contabilização correta dos pontos): 3 / 3
+	- Salvamento correto do score: 1 / 2
+        - Aqui você deveria suportar nomes com espaço
+	- Exibição correta dos scores: 5 / 5
+
+- Validação dos arquivos de texto | 5 / 5 pontos
+	- ok
+
+- Arquivos de teste de validação dos casos de erro | 5 / 5 pontos
+	- ok
+
+## Código
+
+- Documentação do código e readme | 10 / 10 pontos
+	- ok
+
+- Organização e indentação do código | 10 / 10 pontos
+	- ok
+
+- Compilação automatizada | 5 / 5 pontos
+	- ok
+	
+## Comentários
+    - Eu criaria alguns arquivos a mais, especialmente para tirar a parte de interface do main/forca
+
 # Introdução ao Jogo da Forca
 * O Jogo da Forca consiste no sorteio de uma palavra que aparece para o jogador na forma "_ _ _ _ ... _" e o objetivo do jogo é o jogador ir palpitando letras até formar a palavra e vencer ou esgotar suas tentativas e perder.
 * Normalmente, há níveis de dificuldade que interferem no quão frequente a palavra sorteada vai ser. Por exemplo, as palavras do nível fácil são muito frequentes como: ÁRVORE, COMIDA, SAÚDE. Enquanto que no nível difícil, poderá surgir palavras como: GRANDILOQUENTE, ESTEREOTIPICO, FILOGEOGRAFICOS.
